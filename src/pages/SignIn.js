@@ -17,40 +17,45 @@ const SignIn = () => {
     const { email, password } = formData
 
     const handleChange = (e) => {
-
+        setFormData((prevState) => ({
+            ...prevState,
+            [e.target.id]: e.target.value
+        }))
     }
 
     const handleSubmit = (e) => {
         e.preventDefault()
     }
+
     return (
-        <div>
-            <form className='signInForm'>
-                <h2 className="signInTitle">Sign In</h2>
-                <div className="emailDiv">
-                    <input
-                        type="email"
-                        name="email"
-                        id="email"
-                        placeholder='Email'
-                        value={email}
-                        onChange={handleChange} />
-                </div>
-                <div className="passwordDiv">
-                    <input
-                        type="password"
-                        name="password"
-                        id="password"
-                        placeholder='Password'
-                        value={password}
-                        onChange={handleChange} />
-                    <img src={visibilityIcon} alt="show password" className='showPassword' onClick={() => setShowPassword(!showPassword)} />
-                </div>
-                <Link to='/forgot-password' className='forgotPassword'>Forgot Password?</Link>
-                <button type="submit" className='btn signInOutBtn'>Sign In</button>
-                <Link to='/sign-up' className='signInUpInstead'>Sign Up Instead</Link>
-            </form>
-        </div>
+        <form className='signInForm'>
+            <h2 className="signInTitle">Sign In</h2>
+            <div className="emailDiv">
+                <input
+                    type="email"
+                    required
+                    name="email"
+                    id="email"
+                    placeholder='Email'
+                    value={email}
+                    onChange={handleChange} />
+            </div>
+            <div className="passwordDiv">
+                <input
+                    type={showPassword ? 'text' : 'password'}
+                    required
+                    name="password"
+                    id="password"
+                    placeholder='Password'
+                    minLength='6'
+                    value={password}
+                    onChange={handleChange} />
+                <img src={visibilityIcon} alt="show password" className='showPassword' title='Show Password' onClick={() => setShowPassword(!showPassword)} />
+            </div>
+            <Link to='/forgot-password' className='forgotPassword'>Forgot Password?</Link>
+            <button type="submit" className='btn signInOutBtn'>Sign In</button>
+            <Link to='/sign-up' className='signInUpInstead'>Sign Up Instead</Link>
+        </form>
     );
 }
 

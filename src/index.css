@@ -28,7 +28,7 @@ body {
   background-color: var(--mint-white);
 }
 input {
-  padding: 10px;
+  padding: 15px;
   outline: none;
   border: 1px solid var(--green);
   padding-left: 45px;
@@ -73,11 +73,21 @@ input:focus {
 .signUpLink {
   margin: 0 5px;
 }
+.navbarDisplayName {
+  color: #ffffff;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: color 0.1s ease;
+}
+.navbarDisplayName:hover {
+  color: var(--red);
+}
 /* home */
 .homeContainer {
   display: flex;
   margin: auto;
   align-items: center;
+  background-color: #ffffff;
   border-radius: 20px;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   width: 80%;
@@ -95,7 +105,21 @@ input:focus {
   font-size: 2.8rem;
 }
 .homeParagraph {
-  margin: 50px 0;
+  margin-top: 50px;
+  margin-bottom: 10px;
+}
+.mobileIcons {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 50px;
+}
+.mobileIcon {
+  color: #666;
+  transition: color 0.1s ease;
+  cursor: pointer;
+}
+.mobileIcon:hover {
+  color: black;
 }
 .homeImageContainer {
   width: 50%;
@@ -111,6 +135,7 @@ input:focus {
   align-items: center;
   border-radius: 20px;
   width: 80%;
+  background-color: #ffffff;
   margin: auto;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   margin-top: 50px;
@@ -130,13 +155,23 @@ input:focus {
   margin: 10px 0;
   min-width: 350px;
 }
+#name {
+  background: url("./assets/svg/badgeIcon.svg") #ffffff 2.5% center no-repeat;
+  margin: 10px 0;
+  min-width: 350px;
+}
 .passwordDiv {
   position: relative;
+}
+.passwordDiv,
+.emailDiv,
+.nameDiv {
+  margin-top: 10px;
 }
 .showPassword {
   cursor: pointer;
   position: absolute;
-  top: 5%;
+  top: 12%;
   right: 1%;
   padding: 1rem;
 }
@@ -172,12 +207,12 @@ input:focus {
   align-items: center;
 }
 .loadingSpinner {
-  width: 64px;
-  height: 64px;
-  border: 8px solid;
-  border-color: #00cc66 transparent #00cc66 transparent;
+  width: 120px;
+  height: 120px;
+  border: 10px solid;
+  border-color: var(--green) transparent var(--green) transparent;
   border-radius: 50%;
-  animation: spin 1.2s linear infinite;
+  animation: spin 1s linear infinite;
 }
 @keyframes spin {
   0% {

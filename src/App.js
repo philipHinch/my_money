@@ -6,6 +6,8 @@ import Home from './pages/Home';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import ForgotPassword from './pages/ForgotPassword';
+import Profile from './pages/Profile';
+//firebase
 
 function App() {
   return (
@@ -15,6 +17,7 @@ function App() {
         <Route path='/' element={<Home />} />
         <Route path='/sign-in' element={<SignIn />} />
         <Route path='/sign-up' element={<SignUp />} />
+        <Route path='/profile' element={<Profile />} />
         <Route path='/forgot-password' element={<ForgotPassword />} />
       </Routes>
     </Router>
