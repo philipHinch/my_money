@@ -1,13 +1,189 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
+
+/* variables */
+:root {
+  --green: #2a9d8f;
+  --mint-white: #f5fffe;
+  --blue: #264653;
+  --yellow: #e9c46a;
+  --orange: #f4a261;
+  --red: #e76f51;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/* general styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  letter-spacing: 1px;
+}
+a {
+  text-decoration: none;
+}
+ul {
+  list-style: none;
+}
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: var(--mint-white);
+}
+input {
+  padding: 10px;
+  outline: none;
+  border: 1px solid var(--green);
+  padding-left: 45px;
+  font-size: 1.1rem;
+  transition: border-color 0.1s ease;
+}
+input:hover {
+  border-color: var(--blue);
+}
+input:focus {
+  border-color: var(--blue);
+}
+/* buttons */
+.btn {
+  background-color: var(--red);
+  color: white;
+  outline: none;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.1s ease;
+}
+.btn:hover {
+  background-color: var(--orange);
+}
+/* navbar */
+.navbarContainer {
+  display: flex;
+  align-items: center;
+  background-color: var(--green);
+  padding: 30px;
+}
+.mainLogo {
+  font-size: 2rem;
+  font-weight: bold;
+  text-decoration: underline;
+  margin-right: auto;
+  cursor: pointer;
+}
+.signInLink,
+.signUpLink {
+  margin: 0 5px;
+}
+/* home */
+.homeContainer {
+  display: flex;
+  margin: auto;
+  align-items: center;
+  border-radius: 20px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  width: 80%;
+  max-width: 1400px;
+  padding: 50px;
+  margin-top: 70px;
+}
+.homeTextContainer {
+  width: 50%;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+}
+.homeMainText {
+  font-size: 2.8rem;
+}
+.homeParagraph {
+  margin: 50px 0;
+}
+.homeImageContainer {
+  width: 50%;
+}
+.homeImage {
+  width: 100%;
+}
+/* sign-in & sign-out*/
+.signInForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 20px;
+  width: 80%;
+  margin: auto;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  margin-top: 50px;
+  padding: 50px;
+}
+.signInTitle {
+  font-size: 2rem;
+  margin-bottom: 30px;
+}
+#email {
+  background: url("./assets/svg/personIcon.svg") #ffffff 2.5% center no-repeat;
+  margin: 10px 0;
+  min-width: 350px;
+}
+#password {
+  background: url("./assets/svg/lockIcon.svg") #ffffff 2.5% center no-repeat;
+  margin: 10px 0;
+  min-width: 350px;
+}
+.passwordDiv {
+  position: relative;
+}
+.showPassword {
+  cursor: pointer;
+  position: absolute;
+  top: 5%;
+  right: 1%;
+  padding: 1rem;
+}
+.signInOutBtn {
+  margin-top: 200px;
+}
+.forgotPassword {
+  color: var(--green);
+  transition: color 0.1s ease;
+}
+.forgotPassword:hover {
+  color: var(--blue);
+}
+.signInUpInstead {
+  color: var(--green);
+  transition: color 0.1s ease;
+  margin-top: 20px;
+}
+.signInUpInstead:hover {
+  color: var(--blue);
+}
+/* spinner */
+.loadingSpinnerContainer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 5000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.loadingSpinner {
+  width: 64px;
+  height: 64px;
+  border: 8px solid;
+  border-color: #00cc66 transparent #00cc66 transparent;
+  border-radius: 50%;
+  animation: spin 1.2s linear infinite;
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
