@@ -38,7 +38,6 @@ input {
 }
 input:hover {
   border-color: var(--green);
-  background-color: white !important;
 }
 input:focus {
   border-color: var(--green);
@@ -60,6 +59,12 @@ input:focus {
 }
 .btn-secondary {
   background-color: var(--blue);
+}
+.btn-not-active {
+  background-color: var(--mint-white);
+  color: black;
+  border: 1px solid var(--blue);
+  opacity: 0.5;
 }
 .btn:hover {
   background-color: var(--orange);
@@ -93,8 +98,21 @@ input:focus {
   color: var(--orange);
 }
 .logoutBtn {
+  background-color: var(--blue);
+  color: var(--mint-white);
+  height: 30px;
+  width: 30px;
   margin-left: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.1s ease;
 }
+.logoutBtn:hover {
+  background-color: var(--orange);
+}
+
 /* home */
 .homeContainer {
   display: flex;
@@ -154,16 +172,37 @@ input:focus {
 .profileHeader {
   position: relative;
   display: flex;
+  flex-direction: column;
   margin: auto;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: center;
   background-color: #ffffff;
   border-radius: 20px;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   width: 80%;
   max-width: 1400px;
-  padding: 20px;
+  padding: 20px 30px;
   margin-top: 30px;
+}
+.profileName {
+  width: 100%;
+  border: none;
+  text-align: center;
+  font-size: 1.6rem;
+  font-weight: bolder;
+  color: black;
+  margin-bottom: 20px;
+  padding: 5px;
+}
+.profileEmail {
+  width: 100%;
+  border: none;
+  text-align: center;
+  color: black;
+  padding: 5px;
+}
+.inputActive {
+  background-color: #ccc;
 }
 .editProfileIcon {
   position: absolute;
@@ -191,12 +230,46 @@ input:focus {
   padding: 20px;
   margin-top: 30px;
 }
-.buttonContainer button {
-  margin: 10px;
+.buttonContainer {
+  display: flex;
+  width: 300px;
+  justify-content: space-between;
+}
+.buttonContainer div {
+  margin-bottom: 10px;
+  padding: 10px 30px;
 }
 .profileForm input {
   margin: 10px 0;
-  width: 300px;
+  min-width: 300px;
+  width: 50%;
+}
+.profileForm input {
+  margin: 10px 0;
+  min-width: 300px;
+  max-width: 600px;
+}
+.expenseTitleDiv {
+  width: 50%;
+  min-width: 300px;
+  max-width: 600px;
+}
+.expenseAmountDiv {
+  width: 50%;
+  min-width: 300px;
+  max-width: 600px;
+}
+#expenseTitle {
+  /* this is a font awesome icon https://fontawesome.com/license */
+  background: url("./assets/svg/pen.svg") #ffffff 2.5% center no-repeat;
+  background-size: 20px 20px;
+  width: 100%;
+}
+#expenseAmount {
+  /* this is a font awesome icon https://fontawesome.com/license */
+  background: url("./assets/svg/euro.svg") #ffffff 2.5% center no-repeat;
+  background-size: 20px 20px;
+  width: 100%;
 }
 #expenseDate {
   cursor: pointer;
@@ -204,6 +277,9 @@ input:focus {
 .addBtn {
   width: 300px;
   margin: 10px 0;
+  width: 50%;
+  min-width: 300px;
+  max-width: 600px;
 }
 .profileExpenses {
   display: flex;
@@ -267,24 +343,25 @@ input:focus {
   margin-top: 50px;
   padding: 50px;
 }
-.signInTitle {
+.signInUpTitle {
   font-size: 2rem;
-  margin-bottom: 30px;
+  margin: 30px 0;
+  text-align: center;
 }
 #email {
   background: url("./assets/svg/personIcon.svg") #ffffff 2.5% center no-repeat;
   margin: 10px 0;
-  min-width: 350px;
+  width: 350px;
 }
 #password {
   background: url("./assets/svg/lockIcon.svg") #ffffff 2.5% center no-repeat;
   margin: 10px 0;
-  min-width: 350px;
+  width: 350px;
 }
 #name {
   background: url("./assets/svg/badgeIcon.svg") #ffffff 2.5% center no-repeat;
   margin: 10px 0;
-  min-width: 350px;
+  width: 350px;
 }
 .passwordDiv {
   position: relative;
@@ -301,8 +378,9 @@ input:focus {
   right: 1%;
   padding: 1rem;
 }
-.signInOutBtn {
+.signInUpBtn {
   margin-top: 200px;
+  width: 350px;
 }
 .forgotPassword {
   color: var(--green);
@@ -318,6 +396,31 @@ input:focus {
 }
 .signInUpInstead:hover {
   color: var(--blue);
+}
+/* forgot password */
+.forgotPasswordContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.forgotPasswordTitle {
+  font-size: 2rem;
+  margin: 30px 0;
+  text-align: center;
+}
+.forgotPasswordForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 20px;
+  width: 80%;
+  background-color: #ffffff;
+  margin: auto;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  margin-top: 50px;
+  padding: 50px;
 }
 /* spinner */
 .loadingSpinnerContainer {

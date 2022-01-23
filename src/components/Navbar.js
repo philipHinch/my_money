@@ -5,6 +5,9 @@ import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 //hooks
 import { useEffect, useState } from "react";
 import { useAuthStatus } from "../hooks/useAuthStatus";
+//icons
+import { Icon } from '@iconify/react';
+
 
 
 const Navbar = () => {
@@ -42,12 +45,13 @@ const Navbar = () => {
             )}
             {!displayName && (
                 <>
-                    <li className="signInLink"><button onClick={() => navigate('/sign-in')} className="btn">Sign In</button></li>
+                    <li className="signInLink"><button onClick={() => navigate('/sign-in')} className="btn btn-secondary">Sign In</button></li>
                     <li className="signUpLink"><button onClick={() => navigate('/sign-up')} className="btn">Sign Up</button></li>
                 </>
             )}
             {loggedIn && (
-                <button className="btn btn-secondary logoutBtn" onClick={signOut}>Logout</button>
+                <div className="logoutBtn" title='Logout' onClick={signOut}><Icon icon="oi:account-logout" className="logoutIcon" />
+                </div>
             )}
         </ul>
     );

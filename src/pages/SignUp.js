@@ -20,6 +20,7 @@ const SignUp = () => {
     const navigate = useNavigate()
 
     const [showPassword, setShowPassword] = useState(false)
+    const [loading, setLoading] = useState(false)
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -37,6 +38,7 @@ const SignUp = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
+        setLoading(true)
 
         try {
             //create user auth
@@ -57,56 +59,63 @@ const SignUp = () => {
             formDataCopy.timestamp = serverTimestamp()
             //add user copy to database
             await setDoc(doc(db, 'users', user.uid), formDataCopy)
+            setLoading(false)
 
             navigate('/profile')
         } catch (error) {
+            setLoading(false)
             toast.error('Could not sign up')
         }
     }
 
+    if (loading) {
+        return <Spinner />
+    }
+
     return (
-        <form className='signInForm' onSubmit={handleSubmit}>
-            <h2 className="signInTitle">Sign Up</h2>
-            <div className="nameDiv">
-                <input
-                    type="text"
-                    name="name"
-                    required
-                    autoFocus
-                    id="name"
-                    placeholder='Name'
-                    minLength='3'
-                    maxLength='20'
-                    value={name}
-                    onChange={handleChange} />
-            </div>
-            <div className="emailDiv">
-                <input
-                    type="email"
-                    required
-                    name="email"
-                    id="email"
-                    placeholder='Email'
-                    value={email}
-                    onChange={handleChange} />
-            </div>
-            {/* add photo? */}
-            <div className="passwordDiv">
-                <input
-                    type={showPassword ? 'text' : 'password'}
-                    required
-                    name="password"
-                    id="password"
-                    placeholder='Password'
-                    minLength='6'
-                    value={password}
-                    onChange={handleChange} />
-                <img src={visibilityIcon} alt="show password" className='showPassword' title='Show Password' onClick={() => setShowPassword(!showPassword)} />
-            </div>
-            <Link to='/forgot-password' className='forgotPassword'>Forgot Password?</Link>
-            <button type="submit" className='btn signInOutBtn'>Sign Up</button>
-            <Link to='/sign-in' className='signInUpInstead'>Sign In Instead</Link>
-        </form>
+        <>
+            <h2 className="signInUpTitle">Sign Up</h2>
+            <form className='signInForm' onSubmit={handleSubmit}>
+                <div className="nameDiv">
+                    <input
+                        type="text"
+                        name="name"
+                        required
+                        autoFocus
+                        id="name"
+                        placeholder='Name'
+                        minLength='3'
+                        maxLength='20'
+                        value={name}
+                        onChange={handleChange} />
+                </div>
+                <div className="emailDiv">
+                    <input
+                        type="email"
+                        required
+                        name="email"
+                        id="email"
+                        placeholder='Email'
+                        value={email}
+                        onChange={handleChange} />
+                </div>
+                {/* add photo? */}
+                <div className="passwordDiv">
+                    <input
+                        type={showPassword ? 'text' : 'password'}
+                        required
+                        name="password"
+                        id="password"
+                        placeholder='Password'
+                        minLength='6'
+                        value={password}
+                        onChange={handleChange} />
+                    <img src={visibilityIcon} alt="show password" className='showPassword' title='Show Password' onClick={() => setShowPassword(!showPassword)} />
+                </div>
+                <button type="submit" className='btn signInUpBtn'>Sign Up</button>
+                <Link to='/sign-in' className='signInUpInstead'>Sign In Instead</Link>
+            </form>
+        </>
     );
 }
 

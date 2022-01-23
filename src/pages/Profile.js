@@ -13,12 +13,64 @@ const Profile = () => {
 
     const { loggedIn, checkingStatus } = useAuthStatus()
     const auth = getAuth()
+
+    const [expense, setExpense] = useState(true)
+    const [income, setIncome] = useState(false)
+    const [expenseFormData, setExpenseFormData] = useState({
+        expenseTitle: '',
+        expenseAmount: '',
+        expenseDate: ''
+        //servertimestamp will replace expenseDate
+    })
+
     const [formData, setFormData] = useState({
         name: auth.currentUser.displayName,
         email: auth.currentUser.email
     })
 
     const { name, email } = formData
+    const { expenseTitle, expenseAmount, expenseDate } = expenseFormData
+
+    const handleExpenseButtonClick = () => {
+        //add focus on input
+        setExpense(true)
+        setIncome(false)
+    }
+    const handleIncomeButtonClick = () => {
+        //add focus on input 
+        setIncome(true)
+        setExpense(false)
+    }
+
+    const handleProfileEdit = (e) => {
+
+    }
+
+    const handleChange = (e) => {
+        setExpenseFormData((prevState) => ({
+            ...prevState,
+            [e.target.id]: e.target.value
+        }))
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        //convert amount to a number
+        let num = +expenseAmount
+        //add - if amount is an expense
+        if (expense) {
+            num = -Math.abs(num)
+        }
+        if (income) {
+            num = Math.abs(num)
+        }
+        console.log(expenseTitle, num.toFixed(2), expenseDate);
+        setExpenseFormData({
+            expenseTitle: '',
+            expenseAmount: '',
+            expenseDate: ''
+        })
+    }
 
 
     if (checkingStatus) {
@@ -30,21 +82,50 @@ const Profile = () => {
             <h2 className="profileTitle">My Profile</h2>
             <div className="profileHeader">
                 <Icon icon="mdi:cog" className='editProfileIcon' />
-                <h2 className="profileName">
+                {/* <h2 className="profileName">
                     {name}
                 </h2>
                 <p className="profileEmail">
                     {email}
-                </p>
+                </p> */}
+                <input type="text" className='profileName ' value={name} disabled />
+                <input type="text" className='profileEmail ' value={email} disabled />
             </div>
-            <form className="profileForm">
+            <form className="profileForm" onSubmit={handleSubmit}>
                 <div className="buttonContainer">
-                    <button className="btn btn-secondary">Expense</button>
-                    <button className="btn btn-secondary">Income</button>
+                    <div className={`btn ${ expense ? 'btn-secondary' : 'btn-not-active' }`} onClick={handleExpenseButtonClick}>Expense</div>
+                    <div className={`btn ${ income ? 'btn-secondary' : 'btn-not-active' }`} onClick={handleIncomeButtonClick}>Income</div>
                 </div>
-                <input type="text" id="expenseTitle" placeholder='Expense' required />
-                <input type="number" id="expenseAmount" placeholder='Amount' required />
-                <input type="date" id="expenseDate" />
+                <div className="expenseTitleDiv">
+                    <input
+                        type="text"
+                        id="expenseTitle"
+                        placeholder={expense ? 'Expense Title' : 'Income Title'} required
+                        autoFocus
+                        minLength='3'
+                        maxLength='15'
+                        value={expenseTitle}
+                        onChange={(e) => handleChange(e)}
+                    />
+                </div>
+                <div className="expenseAmountDiv">
+                    <input
+                        type="number"
+                        id="expenseAmount"
+                        placeholder='Amount'
+                        required
+                        min='0'
+                        max='999999999'
+                        value={expenseAmount}
+                        onChange={(e) => handleChange(e)}
+                    />
+                </div>
+                <input
+                    type="date"
+                    id="expenseDate"
+                    value={expenseDate}
+                    onChange={(e) => handleChange(e)}
+                />
                 <button type='submit' className="btn addBtn">Add</button>
             </form>
             <div className="profileExpenses">
