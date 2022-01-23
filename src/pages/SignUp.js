@@ -5,11 +5,14 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 //firebase
 import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { doc, setDoc, serverTimestamp } from "firebase/firestore";
 import { db } from '../firebase.config';
 //icons
 import visibilityIcon from '../assets/svg/visibilityIcon.svg';
 //components
 import Spinner from '../components/Spinner';
+//toast
+import { toast } from 'react-toastify';
 
 
 const SignUp = () => {
@@ -36,16 +39,28 @@ const SignUp = () => {
         e.preventDefault()
 
         try {
+            //create user auth
             const auth = getAuth();
             const userCredential = await createUserWithEmailAndPassword(auth, email, password)
             const user = userCredential.user
+            //add displayname to user
             updateProfile(auth.currentUser, {
                 displayName: name
             })
             console.log(auth.currentUser);
+
+            //copy user auth details
+            const formDataCopy = { ...formData }
+            //delete password from copy
+            delete formDataCopy.password
+            //add timestamp
+            formDataCopy.timestamp = serverTimestamp()
+            //add user copy to database
+            await setDoc(doc(db, 'users', user.uid), formDataCopy)
+
             navigate('/profile')
         } catch (error) {
-            console.log(error.message);
+            toast.error('Could not sign up')
         }
     }
 
@@ -57,6 +72,7 @@ const SignUp = () => {
                     type="text"
                     name="name"
                     required
+                    autoFocus
                     id="name"
                     placeholder='Name'
                     minLength='3'

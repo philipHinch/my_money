@@ -1,13 +1,19 @@
 //hooks
 import { useState } from 'react';
 //router
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 //icons
 import { ReactComponent as ArrowRightIcon } from '../assets/svg/keyboardArrowRightIcon.svg';
 import visibilityIcon from '../assets/svg/visibilityIcon.svg';
+//firebase
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+//toast
+import { toast } from 'react-toastify';
 
 
 const SignIn = () => {
+
+    const navigate = useNavigate()
 
     const [showPassword, setShowPassword] = useState(false)
     const [formData, setFormData] = useState({
@@ -23,17 +29,28 @@ const SignIn = () => {
         }))
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
+
+        try {
+            const auth = getAuth();
+            const userCredential = await signInWithEmailAndPassword(auth, email, password)
+            if (userCredential.user) {
+                navigate('/profile')
+            }
+        } catch (error) {
+            toast.error('Could not sign in')
+        }
     }
 
     return (
-        <form className='signInForm'>
+        <form className='signInForm' onSubmit={handleSubmit}>
             <h2 className="signInTitle">Sign In</h2>
             <div className="emailDiv">
                 <input
                     type="email"
                     required
+                    autoFocus
                     name="email"
                     id="email"
                     placeholder='Email'

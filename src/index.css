@@ -30,16 +30,22 @@ body {
 input {
   padding: 15px;
   outline: none;
-  border: 1px solid var(--green);
+  border: 1px solid var(--blue);
+  background-color: white;
   padding-left: 45px;
   font-size: 1.1rem;
   transition: border-color 0.1s ease;
 }
 input:hover {
-  border-color: var(--blue);
+  border-color: var(--green);
+  background-color: white !important;
 }
 input:focus {
-  border-color: var(--blue);
+  border-color: var(--green);
+  background-color: white !important;
+}
+::placeholder {
+  font-family: "Poppins", sans-serif;
 }
 /* buttons */
 .btn {
@@ -52,6 +58,9 @@ input:focus {
   cursor: pointer;
   transition: background-color 0.1s ease;
 }
+.btn-secondary {
+  background-color: var(--blue);
+}
 .btn:hover {
   background-color: var(--orange);
 }
@@ -61,6 +70,7 @@ input:focus {
   align-items: center;
   background-color: var(--green);
   padding: 30px;
+  border-bottom: 6px solid var(--red);
 }
 .mainLogo {
   font-size: 2rem;
@@ -80,7 +90,10 @@ input:focus {
   transition: color 0.1s ease;
 }
 .navbarDisplayName:hover {
-  color: var(--red);
+  color: var(--orange);
+}
+.logoutBtn {
+  margin-left: 10px;
 }
 /* home */
 .homeContainer {
@@ -126,6 +139,119 @@ input:focus {
 }
 .homeImage {
   width: 100%;
+}
+/* profile */
+.profileContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.profileTitle {
+  font-size: 2rem;
+  margin: 30px 0;
+}
+.profileHeader {
+  position: relative;
+  display: flex;
+  margin: auto;
+  align-items: center;
+  justify-content: space-evenly;
+  background-color: #ffffff;
+  border-radius: 20px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  width: 80%;
+  max-width: 1400px;
+  padding: 20px;
+  margin-top: 30px;
+}
+.editProfileIcon {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  font-size: 1.4rem;
+  color: #666;
+  cursor: pointer;
+  transition: color 0.1s ease;
+}
+.editProfileIcon:hover {
+  color: black;
+}
+.profileForm {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  align-items: center;
+  justify-content: space-evenly;
+  background-color: #ffffff;
+  border-radius: 20px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  width: 80%;
+  max-width: 1400px;
+  padding: 20px;
+  margin-top: 30px;
+}
+.buttonContainer button {
+  margin: 10px;
+}
+.profileForm input {
+  margin: 10px 0;
+  width: 300px;
+}
+#expenseDate {
+  cursor: pointer;
+}
+.addBtn {
+  width: 300px;
+  margin: 10px 0;
+}
+.profileExpenses {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  align-items: center;
+  justify-content: space-evenly;
+  background-color: #ffffff;
+  border-radius: 20px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  width: 80%;
+  max-width: 1400px;
+  padding: 20px;
+  margin-top: 30px;
+}
+.balanceContainer {
+  margin: 10px 0;
+}
+.expensesList {
+  width: 100%;
+}
+.expenseItem {
+  display: flex;
+  justify-content: space-evenly;
+  border: 1px solid var(--blue);
+  /* border-radius: 10px; */
+  padding: 10px;
+  width: 100%;
+  margin: 15px 0;
+  background-color: var(--mint-white);
+  cursor: pointer;
+  transition: background-color 0.1s ease;
+}
+.expenseItem:hover {
+  background-color: white;
+  border-color: var(--green);
+}
+.expenseItemTitle {
+  margin: auto;
+}
+.deleteIcon {
+  font-size: 1.4rem;
+  color: var(--red);
+  margin-left: 6px;
+  transition: color 0.1s ease;
+}
+.deleteIcon:hover {
+  color: var(--orange);
 }
 /* sign-in & sign-out*/
 .signInForm {
