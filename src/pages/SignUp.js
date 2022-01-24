@@ -73,7 +73,7 @@ const SignUp = () => {
     }
 
     return (
-        <>
+        <div className='signUpContainer'>
             <h2 className="signInUpTitle">Sign Up</h2>
             <form className='signInForm' onSubmit={handleSubmit}>
                 <div className="nameDiv">
@@ -85,7 +85,7 @@ const SignUp = () => {
                         id="name"
                         placeholder='Name'
                         minLength='3'
-                        maxLength='20'
+                        maxLength='15'
                         value={name}
                         onChange={handleChange} />
                 </div>
@@ -115,7 +115,7 @@ const SignUp = () => {
                 <button type="submit" className='btn signInUpBtn'>Sign Up</button>
                 <Link to='/sign-in' className='signInUpInstead'>Sign In Instead</Link>
             </form>
-        </>
+        </div>
     );
 }
 

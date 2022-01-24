@@ -39,9 +39,15 @@ const Navbar = () => {
 
     return (
         <ul className="navbarContainer">
-            <li className="mainLogo" onClick={() => navigate('/')}>myMoney</li>
+            <li className="mainLogo" onClick={() => navigate('/')}>my<Icon icon="mdi:alpha-m-circle" fontSize={'60px'} />
+                <span>oney</span> </li>
             {displayName && (
-                <li>Hello, <span onClick={() => navigate('/profile')} className="navbarDisplayName">{displayName}</span></li>
+                <li className="userNameAndPictureLi">
+                    <div onClick={() => navigate('/profile')} className="navbarDisplayName">
+                        <span className="profilePictureContainerNavbar"></span>
+                        <span>{displayName}</span>
+                    </div>
+                </li>
             )}
             {!displayName && (
                 <>

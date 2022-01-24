@@ -82,6 +82,9 @@ const Profile = () => {
             <h2 className="profileTitle">My Profile</h2>
             <div className="profileHeader">
                 <Icon icon="mdi:cog" className='editProfileIcon' />
+                <div className="profilePictureContainer">
+
+                </div>
                 {/* <h2 className="profileName">
                     {name}
                 </h2>

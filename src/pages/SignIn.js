@@ -55,7 +55,7 @@ const SignIn = () => {
     }
 
     return (
-        <>
+        <div className='signInContainer'>
             <h2 className="signInUpTitle">Sign In</h2>
             <form className='signInForm' onSubmit={handleSubmit}>
                 <div className="emailDiv">
@@ -85,7 +85,7 @@ const SignIn = () => {
                 <button type="submit" className='btn signInUpBtn'>Sign In</button>
                 <Link to='/sign-up' className='signInUpInstead'>Sign Up Instead</Link>
             </form>
-        </>
+        </div>
     );
 }
 

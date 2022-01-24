@@ -83,6 +83,8 @@ input:focus {
   text-decoration: underline;
   margin-right: auto;
   cursor: pointer;
+  display: flex;
+  align-items: center;
 }
 .signInLink,
 .signUpLink {
@@ -93,9 +95,31 @@ input:focus {
   font-size: 1.2rem;
   cursor: pointer;
   transition: color 0.1s ease;
+  display: flex;
+  align-items: center;
 }
 .navbarDisplayName:hover {
   color: var(--orange);
+}
+.navbarDisplayName:hover .profilePictureContainerNavbar {
+  border-color: var(--orange);
+}
+.userNameAndPictureLi {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.profilePictureContainerNavbar {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: url("./assets/png/blank_profile.png") center no-repeat;
+  background-size: cover;
+  border: 1px solid var(--blue);
+  border-radius: 50%;
+  margin-right: 8px;
 }
 .logoutBtn {
   background-color: var(--blue);
@@ -114,6 +138,9 @@ input:focus {
 }
 
 /* home */
+.home {
+  border-top: 6px solid var(--yellow);
+}
 .homeContainer {
   display: flex;
   margin: auto;
@@ -160,6 +187,7 @@ input:focus {
 }
 /* profile */
 .profileContainer {
+  border-top: 6px solid var(--yellow);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -183,6 +211,14 @@ input:focus {
   max-width: 1400px;
   padding: 20px 30px;
   margin-top: 30px;
+}
+.profilePictureContainer {
+  width: 80px;
+  height: 80px;
+  background: url("./assets/png/blank_profile.png") center no-repeat;
+  background-size: cover;
+  margin-bottom: 20px;
+  border: 1px solid var(--blue);
 }
 .profileName {
   width: 100%;
@@ -294,6 +330,7 @@ input:focus {
   max-width: 1400px;
   padding: 20px;
   margin-top: 30px;
+  margin-bottom: 50px;
 }
 .balanceContainer {
   margin: 10px 0;
@@ -330,6 +367,12 @@ input:focus {
   color: var(--orange);
 }
 /* sign-in & sign-out*/
+.signUpContainer {
+  border-top: 6px solid var(--yellow);
+}
+.signInContainer {
+  border-top: 6px solid var(--yellow);
+}
 .signInForm {
   display: flex;
   flex-direction: column;
@@ -399,6 +442,7 @@ input:focus {
 }
 /* forgot password */
 .forgotPasswordContainer {
+  border-top: 6px solid var(--yellow);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -421,6 +465,10 @@ input:focus {
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   margin-top: 50px;
   padding: 50px;
+}
+.forgotPasswordBtn {
+  margin-top: 200px;
+  width: 350px;
 }
 /* spinner */
 .loadingSpinnerContainer {
