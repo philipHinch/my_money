@@ -30,7 +30,7 @@ const Navbar = () => {
             }
         });
 
-    }, [displayName])
+    }, [auth.currentUser])
 
     const signOut = async () => {
         auth.signOut()
