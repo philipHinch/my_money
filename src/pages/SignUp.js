@@ -1,5 +1,5 @@
 //hooks
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 //router
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
@@ -13,19 +13,22 @@ import visibilityIcon from '../assets/svg/visibilityIcon.svg';
 import Spinner from '../components/Spinner';
 //toast
 import { toast } from 'react-toastify';
+//context
+import { UserContext } from '../context/UserContext';
 
 
 const SignUp = () => {
 
     const navigate = useNavigate()
+    const { getUser, user } = useContext(UserContext)
 
     const [showPassword, setShowPassword] = useState(false)
     const [loading, setLoading] = useState(false)
     const [formData, setFormData] = useState({
         name: '',
         email: '',
-        password: ''
-        // photo?
+        password: '',
+        profileImg: ''
     })
     const { email, password, name } = formData
 
@@ -46,10 +49,11 @@ const SignUp = () => {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password)
             const user = userCredential.user
             //add displayname to user
-            updateProfile(auth.currentUser, {
+            await updateProfile(auth.currentUser, {
                 displayName: name
             })
-            console.log(auth.currentUser);
+            getUser()
+            console.log(user);
 
             //copy user auth details
             const formDataCopy = { ...formData }

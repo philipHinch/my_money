@@ -12,12 +12,14 @@ import PrivateRoute from './pages/PrivateRoute';
 //toast
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+//context
+import { UserProvider } from './context/UserContext';
 
 
 function App() {
 
   return (
-    <>
+    <UserProvider>
       <Router>
         <Navbar />
         <Routes>
@@ -32,7 +34,7 @@ function App() {
         </Routes>
       </Router>
       <ToastContainer position="top-center" />
-    </>
+    </UserProvider>
   );
 }
 

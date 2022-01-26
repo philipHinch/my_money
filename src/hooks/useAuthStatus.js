@@ -1,7 +1,8 @@
 // //hooks
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useContext } from 'react';
 //firebase
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
+
 
 export const useAuthStatus = () => {
 
@@ -11,6 +12,7 @@ export const useAuthStatus = () => {
 
     //added cleanup function with useRef
     useEffect(() => {
+
         if (isMounted) {
             const auth = getAuth()
             onAuthStateChanged(auth, (user) => {
@@ -23,6 +25,7 @@ export const useAuthStatus = () => {
         return () => {
             isMounted.current = false
         }
+
     }, [isMounted])
 
     return { loggedIn, checkingStatus }

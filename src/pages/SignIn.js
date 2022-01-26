@@ -1,10 +1,8 @@
 //hooks
-import { useState } from 'react';
-import { useAuthStatus } from '../hooks/useAuthStatus';
+import { useContext, useState } from 'react';
 //router
 import { Link, useNavigate } from 'react-router-dom';
 //icons
-import { ReactComponent as ArrowRightIcon } from '../assets/svg/keyboardArrowRightIcon.svg';
 import visibilityIcon from '../assets/svg/visibilityIcon.svg';
 //firebase
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
@@ -12,11 +10,14 @@ import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { toast } from 'react-toastify';
 //components
 import Spinner from '../components/Spinner';
+//context
+import { UserContext } from '../context/UserContext';
 
 
 const SignIn = () => {
 
     const navigate = useNavigate()
+    const { getUser } = useContext(UserContext)
 
     const [showPassword, setShowPassword] = useState(false)
     const [loading, setLoading] = useState(false)
@@ -42,6 +43,7 @@ const SignIn = () => {
             const userCredential = await signInWithEmailAndPassword(auth, email, password)
             if (userCredential.user) {
                 setLoading(false)
+                getUser()
                 navigate('/profile')
             }
         } catch (error) {

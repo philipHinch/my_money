@@ -104,7 +104,6 @@ const Profile = () => {
                         type="text"
                         id="expenseTitle"
                         placeholder={expense ? 'Expense Title' : 'Income Title'} required
-                        autoFocus
                         minLength='3'
                         maxLength='15'
                         value={expenseTitle}
