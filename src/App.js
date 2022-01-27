@@ -14,20 +14,24 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 //context
 import { UserProvider } from './context/UserContext';
+//hooks
+import { useState } from 'react';
 
 
 function App() {
 
+  const [displayName, setDisplayName] = useState(null)
+
   return (
     <UserProvider>
       <Router>
-        <Navbar />
+        <Navbar displayName={displayName} setDisplayName={setDisplayName} />
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/sign-in' element={<SignIn />} />
           <Route path='/sign-up' element={<SignUp />} />
           <Route path='/profile' element={<PrivateRoute />} >
-            <Route path='/profile' element={<Profile />} />
+            <Route path='/profile' element={<Profile displayName={displayName} setDisplayName={setDisplayName} />} />
           </Route>
           <Route path='/forgot-password' element={<ForgotPassword />} />
           <Route path='/*' element={<NotFound />} />

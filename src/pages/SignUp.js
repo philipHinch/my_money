@@ -28,9 +28,9 @@ const SignUp = () => {
         name: '',
         email: '',
         password: '',
-        profileImg: ''
+        photoURL: null
     })
-    const { email, password, name, profileImg } = formData
+    const { email, password, name } = formData
 
     const handleChange = (e) => {
         setFormData((prevState) => ({

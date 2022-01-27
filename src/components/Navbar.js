@@ -13,12 +13,9 @@ import { UserContext } from '../context/UserContext'
 //components
 import Spinner from "./Spinner";
 
-
-
-const Navbar = () => {
+const Navbar = ({ displayName, setDisplayName }) => {
 
     const { checkingStatus, loggedIn } = useAuthStatus()
-    const [displayName, setDisplayName] = useState(null)
 
     const auth = getAuth();
     const navigate = useNavigate()
@@ -33,7 +30,6 @@ const Navbar = () => {
         } else {
             setDisplayName(null)
         }
-
 
     }, [user, checkingStatus])
 
@@ -66,7 +62,8 @@ const Navbar = () => {
                 </>
             )}
             {displayName && (
-                <div className="logoutBtn" title='Logout' onClick={signOut}><Icon icon="oi:account-logout" className="logoutIcon" />
+                <div className="logoutBtn" title='Logout' onClick={signOut}>
+                    <Icon icon="mdi:logout-variant" className="logoutIcon" />
                 </div>
             )}
         </ul>

@@ -1,20 +1,32 @@
 //hooks
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState, useRef } from 'react';
 import { useIcon } from '../hooks/useIcon';
 //hooks
 import { useAuthStatus } from '../hooks/useAuthStatus';
 //components
 import Spinner from '../components/Spinner';
 //firebase
-import { getAuth } from 'firebase/auth';
+import { getAuth, updateProfile, updateEmail } from 'firebase/auth';
+import { updateDoc, doc } from 'firebase/firestore';
+import { db } from '../firebase.config';
+import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+
 //icons
 import { Icon } from '@iconify/react';
+//toastify
+import { toast } from 'react-toastify';
+//context
+import { UserContext } from '../context/UserContext';
+//uuid - unique id generator package
+import { v4 as uuidv4 } from 'uuid';
 
-const Profile = () => {
+const Profile = ({ setDisplayName }) => {
 
+    const { user } = useContext(UserContext)
     const { loggedIn, checkingStatus } = useAuthStatus()
     const auth = getAuth()
 
+    const [loading, setLoading] = useState(false)
     const [isEdit, setIsEdit] = useState(false)
     const [expense, setExpense] = useState(true)
     const [income, setIncome] = useState(false)
@@ -27,13 +39,18 @@ const Profile = () => {
 
     const [formData, setFormData] = useState({
         name: auth.currentUser.displayName,
-        email: auth.currentUser.email
+        email: auth.currentUser.email,
+        photoURL: auth.currentUser.photoURL
     })
 
-    const { name, email } = formData
+    const { name, email, photoURL } = formData
     const { expenseTitle, expenseAmount, expenseDate } = expenseFormData
 
+    useEffect(() => {
 
+    }, [])
+
+    //toggle between expense or income
     const handleExpenseButtonClick = () => {
         //add focus on input
         setExpense(true)
@@ -45,15 +62,55 @@ const Profile = () => {
         setExpense(false)
     }
 
+    //remove disable on profile inputs
     const handleCogClick = () => {
-        setIsEdit(!isEdit)
-        console.log(isEdit);
+        setIsEdit(true)
     }
 
+    //save edited info to firebase & firestore
+    const handleTickClick = async () => {
+        //update details in firebase
+        try {
+            if (auth.currentUser.displayName !== name || auth.currentUser.photoURL !== photoURL) {
+                setLoading(true)
+                await updateProfile(auth.currentUser, {
+                    displayName: name,
+                    photoURL
+                })
+                // await updateEmail(auth.currentUser, {
+                //     email: email
+                // })
+                //update details in firestore
+                const userRef = doc(db, 'users', auth.currentUser.uid)
+                await updateDoc(userRef, {
+                    name,
+                    photoURL
+                    // email
+                })
+                //upload image to storage
+                console.log(photoURL);
+                setDisplayName(name)
+                setLoading(false)
+                toast.success('Profile updated')
+                console.log(photoURL);
+            }
+        } catch (error) {
+            setLoading(false)
+            toast.error('Could not update profile details')
+            console.log(error);
+        }
+        setIsEdit(false)
+    }
+
+    //save edited info in state
     const handleEditChange = (e) => {
-        console.log(e.target.value);
+        setFormData((prevState) => ({
+            ...prevState,
+            [e.target.id]: e.target.value.trim()
+        }))
     }
 
+    //save expense/income in state
     const handleChange = (e) => {
         setExpenseFormData((prevState) => ({
             ...prevState,
@@ -61,6 +118,18 @@ const Profile = () => {
         }))
     }
 
+    const handlePhotoChange = (e) => {
+        console.log(e.target.files);
+        //check image size, max 2mb
+        if (e.target.files[0].size > 2000000) {
+            toast.error('Sorry, image size must be 2MB or lower')
+            e.target.value = ''
+            console.log(e.target.files);
+        }
+        storeImage(e.target.files[0])
+    }
+
+    //submit expense/income
     const handleSubmit = (e) => {
         e.preventDefault()
         //convert amount to a number
@@ -80,21 +149,104 @@ const Profile = () => {
         })
     }
 
-    if (checkingStatus) {
+    //store image in firebase & get the download URL ---> https://firebase.google.com/docs/storage/web/upload-files
+    const storeImage = async (image) => {
+        setLoading(true)
+        return new Promise((resolve, reject) => {
+            const storage = getStorage()
+            const fileName = `${ auth.currentUser.uid }-${ image.name }-${ uuidv4() }`
+            const storageRef = ref(storage, 'images/' + fileName)
+            const uploadTask = uploadBytesResumable(storageRef, image);
+
+            uploadTask.on('state_changed',
+                (snapshot) => {
+                    // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+                    const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    console.log('Upload is ' + progress + '% done');
+                    switch (snapshot.state) {
+                        case 'paused':
+                            console.log('Upload is paused');
+                            break;
+                        case 'running':
+                            console.log('Upload is running');
+                            break;
+                    }
+                },
+                (error) => {
+                    reject(error)
+                },
+                () => {
+
+                    // setFormData((prevState) => ({
+                    //     ...prevState,
+                    //     photoURL: url
+                    // }))
+                    getDownloadURL(ref(storage, 'images/' + fileName))
+                        .then((url) => setFormData((prevState) => ({
+                            ...prevState,
+                            photoURL: url
+                        })))
+                }
+            );
+            setLoading(false)
+        })
+    }
+
+    //call storeImage for all images
+    // const imgUrls = Promise.all(
+    //     storeImage(photoURL)
+    // ).catch(() => {
+    //     setLoading(false)
+    //     toast.error('Images not uploaded')
+    //     return
+    // })
+
+    if (checkingStatus || loading) {
         return <Spinner />
     }
 
     return (
         <div className='profileContainer'>
             <h2 className="profileTitle">My Profile</h2>
-            <div className="profileHeader">
-                <Icon icon="mdi:cog" className='editProfileIcon' onClick={handleCogClick} />
+            <div className="profileHeader" >
+                {!isEdit && <Icon icon="mdi:cog" className='editProfileIcon' onClick={handleCogClick} />}
+                {isEdit && <Icon icon="mdi:check-circle" className='editProfileIcon editProfileIconTick' onClick={handleTickClick} />
+                }
 
-                {!isEdit ? <div className="profilePictureContainer" >
-                </div> : <div className="profilePictureContainer" style={{ border: '1px solid #2a9d8f' }}>
-                </div>}
+                {/* {!isEdit
+                    ?
+                    <div className="profilePictureContainer" >
+                        <img src={photoURL ? photoURL : require('../assets/png/blank_profile.png')} alt="profile picture" />
+                    </div>
+                    :
+                    <div className="profilePictureContainer" style={{ borderColor: '#2a9d8f' }}>
+                        <img src={photoURL ? photoURL : require('../assets/png/blank_profile.png')} alt="profile picture" />
+                    </div>} */}
 
                 {!isEdit ?
+                    <div className="profilePictureContainer">
+                        <label htmlFor="photoURL">
+                            <img src={photoURL ? photoURL : require('../assets/png/blank_profile.png')} alt="profile picture" />
+                        </label>
+                    </div>
+                    :
+                    <div className="profilePictureContainer" style={{ borderColor: '#2a9d8f' }}>
+                        <label htmlFor="photoURL">
+                            <img src={photoURL ? photoURL : require('../assets/png/blank_profile.png')} alt="profile picture" style={{ cursor: 'pointer' }} />
+                        </label>
+
+                        <input
+                            id="photoURL"
+                            type="file"
+                            max='1'
+                            accept='.jpg,.png,.jpeg'
+                            onChange={handlePhotoChange}
+                        />
+                    </div>
+                }
+
+                {!isEdit
+                    ?
                     <input
                         type="text"
                         className='profileName'
@@ -109,7 +261,15 @@ const Profile = () => {
                         value={name}
                         onChange={handleEditChange}
                         style={{ border: '1px solid #2a9d8f' }} />}
-                {!isEdit ?
+
+                <input
+                    type="text"
+                    className='profileEmail'
+                    id='email'
+                    value={email}
+                    disabled />
+
+                {/* {!isEdit ?
                     <input
                         type="text"
                         className='profileEmail'
@@ -122,7 +282,7 @@ const Profile = () => {
                         id='email'
                         value={email}
                         onChange={handleEditChange}
-                        style={{ border: '1px solid #2a9d8f' }} />}
+                        style={{ border: '1px solid #2a9d8f' }} />} */}
             </div>
             <form className="profileForm" onSubmit={handleSubmit}>
                 <div className="buttonContainer">

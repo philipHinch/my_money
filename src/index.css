@@ -108,6 +108,8 @@ input:focus {
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: background-color 0.1s ease;
+  padding: 5px;
 }
 .profilePictureContainerNavbar {
   width: 40px;
@@ -122,19 +124,22 @@ input:focus {
   margin-right: 8px;
 }
 .logoutBtn {
-  background-color: var(--blue);
-  color: var(--mint-white);
-  height: 30px;
-  width: 30px;
-  margin-left: 10px;
+  /* background-color: var(--blue); */
+  color: var(--orange);
+  height: 35px;
+  width: 35px;
+  margin-left: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
   transition: background-color 0.1s ease;
 }
+.logoutIcon {
+  font-size: 1.7rem;
+}
 .logoutBtn:hover {
-  background-color: var(--orange);
+  color: var(--mint-white);
 }
 
 /* home */
@@ -212,7 +217,7 @@ input:focus {
   padding: 20px 30px;
   margin-top: 30px;
 }
-.profilePictureContainer {
+/* .profilePictureContainer {
   width: 100px;
   height: 100px;
   background: url("./assets/png/blank_profile.png") center no-repeat;
@@ -220,6 +225,27 @@ input:focus {
   margin-bottom: 20px;
   border: 1px solid black;
   border-radius: 50%;
+} */
+.profilePictureContainer {
+  width: 100px;
+  height: 100px;
+  margin-bottom: 20px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid black;
+  position: relative;
+}
+.profilePictureContainer img {
+  position: absolute;
+  margin: auto;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+}
+.profilePictureContainer > input {
+  display: none;
 }
 .profileName {
   width: 100%;
@@ -253,13 +279,19 @@ input:focus {
   position: absolute;
   top: 6px;
   right: 8px;
-  font-size: 1.4rem;
-  color: #666;
+  font-size: 1.5rem;
+  color: var(--red);
   cursor: pointer;
   transition: color 0.1s ease;
 }
+.editProfileIconTick {
+  color: green;
+}
+.editProfileIconTick:hover {
+  color: lime !important;
+}
 .editProfileIcon:hover {
-  color: black;
+  color: var(--orange);
 }
 .profileForm {
   display: flex;
