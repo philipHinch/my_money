@@ -1,5 +1,6 @@
 //hooks
 import { useEffect, useState } from 'react';
+import { useIcon } from '../hooks/useIcon';
 //hooks
 import { useAuthStatus } from '../hooks/useAuthStatus';
 //components
@@ -14,6 +15,7 @@ const Profile = () => {
     const { loggedIn, checkingStatus } = useAuthStatus()
     const auth = getAuth()
 
+    const [isEdit, setIsEdit] = useState(false)
     const [expense, setExpense] = useState(true)
     const [income, setIncome] = useState(false)
     const [expenseFormData, setExpenseFormData] = useState({
@@ -31,6 +33,7 @@ const Profile = () => {
     const { name, email } = formData
     const { expenseTitle, expenseAmount, expenseDate } = expenseFormData
 
+
     const handleExpenseButtonClick = () => {
         //add focus on input
         setExpense(true)
@@ -42,8 +45,13 @@ const Profile = () => {
         setExpense(false)
     }
 
-    const handleProfileEdit = (e) => {
+    const handleCogClick = () => {
+        setIsEdit(!isEdit)
+        console.log(isEdit);
+    }
 
+    const handleEditChange = (e) => {
+        console.log(e.target.value);
     }
 
     const handleChange = (e) => {
@@ -72,7 +80,6 @@ const Profile = () => {
         })
     }
 
-
     if (checkingStatus) {
         return <Spinner />
     }
@@ -81,18 +88,41 @@ const Profile = () => {
         <div className='profileContainer'>
             <h2 className="profileTitle">My Profile</h2>
             <div className="profileHeader">
-                <Icon icon="mdi:cog" className='editProfileIcon' />
-                <div className="profilePictureContainer">
+                <Icon icon="mdi:cog" className='editProfileIcon' onClick={handleCogClick} />
 
-                </div>
-                {/* <h2 className="profileName">
-                    {name}
-                </h2>
-                <p className="profileEmail">
-                    {email}
-                </p> */}
-                <input type="text" className='profileName ' value={name} disabled />
-                <input type="text" className='profileEmail ' value={email} disabled />
+                {!isEdit ? <div className="profilePictureContainer" >
+                </div> : <div className="profilePictureContainer" style={{ border: '1px solid #2a9d8f' }}>
+                </div>}
+
+                {!isEdit ?
+                    <input
+                        type="text"
+                        className='profileName'
+                        id='name'
+                        value={name}
+                        disabled />
+                    :
+                    <input
+                        type="text"
+                        className='profileName'
+                        id='name'
+                        value={name}
+                        onChange={handleEditChange}
+                        style={{ border: '1px solid #2a9d8f' }} />}
+                {!isEdit ?
+                    <input
+                        type="text"
+                        className='profileEmail'
+                        id='email'
+                        value={email}
+                        disabled />
+                    : <input
+                        type="text"
+                        className='profileEmail'
+                        id='email'
+                        value={email}
+                        onChange={handleEditChange}
+                        style={{ border: '1px solid #2a9d8f' }} />}
             </div>
             <form className="profileForm" onSubmit={handleSubmit}>
                 <div className="buttonContainer">

@@ -30,7 +30,7 @@ const SignUp = () => {
         password: '',
         profileImg: ''
     })
-    const { email, password, name } = formData
+    const { email, password, name, profileImg } = formData
 
     const handleChange = (e) => {
         setFormData((prevState) => ({
@@ -87,6 +87,7 @@ const SignUp = () => {
                         required
                         autoFocus
                         id="name"
+                        className="signInOutName"
                         placeholder='Name'
                         minLength='3'
                         maxLength='15'
@@ -99,6 +100,7 @@ const SignUp = () => {
                         required
                         name="email"
                         id="email"
+                        className="signInOutEmail"
                         placeholder='Email'
                         value={email}
                         onChange={handleChange} />
@@ -110,6 +112,7 @@ const SignUp = () => {
                         required
                         name="password"
                         id="password"
+                        className="signInOutPassword"
                         placeholder='Password'
                         minLength='6'
                         value={password}

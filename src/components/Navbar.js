@@ -38,7 +38,7 @@ const Navbar = () => {
     }, [user, checkingStatus])
 
     const signOut = async () => {
-        auth.signOut()
+        await auth.signOut()
         setDisplayName(null)
         navigate('/')
     }

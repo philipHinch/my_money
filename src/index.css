@@ -36,9 +36,9 @@ input {
   font-size: 1.1rem;
   transition: border-color 0.1s ease;
 }
-input:hover {
+/* input:hover {
   border-color: var(--green);
-}
+} */
 input:focus {
   border-color: var(--green);
   background-color: white !important;
@@ -213,12 +213,13 @@ input:focus {
   margin-top: 30px;
 }
 .profilePictureContainer {
-  width: 80px;
-  height: 80px;
+  width: 100px;
+  height: 100px;
   background: url("./assets/png/blank_profile.png") center no-repeat;
   background-size: cover;
   margin-bottom: 20px;
-  border: 1px solid var(--blue);
+  border: 1px solid black;
+  border-radius: 50%;
 }
 .profileName {
   width: 100%;
@@ -229,6 +230,7 @@ input:focus {
   color: black;
   margin-bottom: 20px;
   padding: 5px;
+  border: 1px solid transparent;
 }
 .profileEmail {
   width: 100%;
@@ -236,6 +238,13 @@ input:focus {
   text-align: center;
   color: black;
   padding: 5px;
+  border: 1px solid transparent;
+}
+.profileName:focus {
+  border: 1px solid var(--green);
+}
+.profileEmail:focus {
+  border: 1px solid var(--green);
 }
 .inputActive {
   background-color: #ccc;
@@ -391,17 +400,17 @@ input:focus {
   margin: 30px 0;
   text-align: center;
 }
-#email {
+.signInOutEmail {
   background: url("./assets/svg/personIcon.svg") #ffffff 2.5% center no-repeat;
   margin: 10px 0;
   width: 350px;
 }
-#password {
+.signInOutPassword {
   background: url("./assets/svg/lockIcon.svg") #ffffff 2.5% center no-repeat;
   margin: 10px 0;
   width: 350px;
 }
-#name {
+.signInOutName {
   background: url("./assets/svg/badgeIcon.svg") #ffffff 2.5% center no-repeat;
   margin: 10px 0;
   width: 350px;

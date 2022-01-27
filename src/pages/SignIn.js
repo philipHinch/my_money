@@ -67,6 +67,7 @@ const SignIn = () => {
                         autoFocus
                         name="email"
                         id="email"
+                        className="signInOutEmail"
                         placeholder='Email'
                         value={email}
                         onChange={handleChange} />
@@ -77,6 +78,7 @@ const SignIn = () => {
                         required
                         name="password"
                         id="password"
+                        className="signInOutPassword"
                         placeholder='Password'
                         minLength='6'
                         value={password}
