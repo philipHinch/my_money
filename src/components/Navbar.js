@@ -34,9 +34,9 @@ const Navbar = ({ displayName, setDisplayName, photo }) => {
 
     }, [checkingStatus, user, auth.currentUser])
 
-    const signOut = async () => {
+    const signOut = () => {
         const auth = getAuth();
-        await auth.signOut()
+        auth.signOut()
         setDisplayName(null)
         navigate('/')
     }
