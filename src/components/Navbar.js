@@ -1,7 +1,7 @@
 //router
 import { useNavigate } from "react-router-dom";
 //firebase
-import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 //hooks
 import { useEffect, useState } from "react";
 import { useAuthStatus } from "../hooks/useAuthStatus";
@@ -13,35 +13,26 @@ import { UserContext } from '../context/UserContext'
 //components
 import Spinner from "./Spinner";
 
-const Navbar = ({ displayName, setDisplayName }) => {
+const Navbar = ({ displayName, setDisplayName, photo }) => {
 
     const { checkingStatus, loggedIn } = useAuthStatus()
-
+    const auth = getAuth()
     const navigate = useNavigate()
     const { user, getUser } = useContext(UserContext)
 
-    const [photoURL, setPhotoURL] = useState('')
-
-    //fix displayName on page load, displayname does not show after signup (context?)
+    //takes care of setting displayname on initial page load and after editing
     useEffect(() => {
-
         const setUserDetails = async () => {
             await getUser()
-            const auth = getAuth();
             if (user) {
                 setDisplayName(user.displayName)
-                setPhotoURL(user.photoURL)
             } else {
                 setDisplayName(null)
             }
         }
         setUserDetails()
 
-        // if (auth.currentUser.photoURL) {
-        //     setPhotoURL(auth.currentUser.photoURL)
-        // }
-
-    }, [user, checkingStatus, photoURL])
+    }, [checkingStatus, user, auth.currentUser])
 
     const signOut = async () => {
         const auth = getAuth();
@@ -63,7 +54,7 @@ const Navbar = ({ displayName, setDisplayName }) => {
                 <li className="userNameAndPictureLi">
                     <div onClick={() => navigate('/profile')} className="navbarDisplayName">
                         <span className="profilePictureContainerNavbar">
-                            <img src={photoURL ? photoURL : require('../assets/png/blank_profile.png')} alt="profile picture" />                        </span>
+                            <img src={photo ? photo : require('../assets/png/blank_profile.png')} alt="profile picture" />                        </span>
                         <span>{displayName}</span>
                     </div>
                 </li>

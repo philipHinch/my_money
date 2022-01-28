@@ -16,22 +16,41 @@ import 'react-toastify/dist/ReactToastify.css';
 import { UserProvider } from './context/UserContext';
 //hooks
 import { useState } from 'react';
+import { useEffect } from 'react/cjs/react.development';
+//firebase
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+
 
 
 function App() {
 
+  const auth = getAuth()
+
   const [displayName, setDisplayName] = useState(null)
+  const [photo, setPhoto] = useState(null)
+
+  //takes care of photo update on initial load and after editing picture
+  useEffect(() => {
+    const getUserDetails = () => {
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          setPhoto(user.photoURL)
+        }
+      })
+    }
+    getUserDetails()
+  }, [])
 
   return (
     <UserProvider>
       <Router>
-        <Navbar displayName={displayName} setDisplayName={setDisplayName} />
+        <Navbar displayName={displayName} setDisplayName={setDisplayName} photo={photo} />
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/sign-in' element={<SignIn />} />
           <Route path='/sign-up' element={<SignUp />} />
           <Route path='/profile' element={<PrivateRoute />} >
-            <Route path='/profile' element={<Profile displayName={displayName} setDisplayName={setDisplayName} />} />
+            <Route path='/profile' element={<Profile displayName={displayName} setDisplayName={setDisplayName} photo={photo} setPhoto={setPhoto} />} />
           </Route>
           <Route path='/forgot-password' element={<ForgotPassword />} />
           <Route path='/*' element={<NotFound />} />

@@ -1,6 +1,5 @@
 //hooks
-import { useContext, useEffect, useState, useRef } from 'react';
-import { useIcon } from '../hooks/useIcon';
+import { useEffect, useState } from 'react';
 //hooks
 import { useAuthStatus } from '../hooks/useAuthStatus';
 //components
@@ -10,20 +9,14 @@ import { getAuth, updateProfile, updateEmail } from 'firebase/auth';
 import { updateDoc, doc } from 'firebase/firestore';
 import { db } from '../firebase.config';
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-
 //icons
 import { Icon } from '@iconify/react';
 //toastify
 import { toast } from 'react-toastify';
-//context
-import { UserContext } from '../context/UserContext';
-//uuid - unique id generator package
-import { v4 as uuidv4 } from 'uuid';
 
-const Profile = ({ setDisplayName }) => {
+const Profile = ({ setDisplayName, setPhoto }) => {
 
-    const { user } = useContext(UserContext)
-    const { loggedIn, checkingStatus } = useAuthStatus()
+    const { checkingStatus } = useAuthStatus()
     const auth = getAuth()
 
     const [loading, setLoading] = useState(false)
@@ -80,9 +73,11 @@ const Profile = ({ setDisplayName }) => {
                     displayName: name,
                     photoURL
                 })
+
                 // await updateEmail(auth.currentUser, {
                 //     email: email
                 // })
+
                 //update details in firestore
                 const userRef = doc(db, 'users', auth.currentUser.uid)
                 await updateDoc(userRef, {
@@ -90,12 +85,11 @@ const Profile = ({ setDisplayName }) => {
                     photoURL
                     // email
                 })
-                //upload image to storage
-                console.log(photoURL);
+                //add the storage photo url and display to state
+                setPhoto(photoURL)
                 setDisplayName(name)
                 setLoading(false)
                 toast.success('Profile updated')
-                console.log(photoURL);
             }
         } catch (error) {
             setLoading(false)
