@@ -80,11 +80,17 @@ input:focus {
 .mainLogo {
   font-size: 2rem;
   font-weight: bold;
-  text-decoration: underline;
   margin-right: auto;
   cursor: pointer;
   display: flex;
   align-items: center;
+}
+.mainLogoIcon {
+  font-size: 60px;
+  color: var(--orange);
+}
+.mainLogo span {
+  text-decoration: underline;
 }
 .signInLink,
 .signUpLink {
@@ -111,7 +117,7 @@ input:focus {
   transition: background-color 0.1s ease;
   padding: 5px;
 }
-.profilePictureContainerNavbar {
+/* .profilePictureContainerNavbar {
   width: 40px;
   height: 40px;
   display: flex;
@@ -122,6 +128,28 @@ input:focus {
   border: 1px solid var(--blue);
   border-radius: 50%;
   margin-right: 8px;
+} */
+.profilePictureContainerNavbar {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid black;
+  background-color: black;
+  margin-right: 8px;
+  position: relative;
+}
+.profilePictureContainerNavbar img {
+  position: absolute;
+  margin: auto;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
 }
 .logoutBtn {
   /* background-color: var(--blue); */
@@ -233,6 +261,7 @@ input:focus {
   border-radius: 50%;
   overflow: hidden;
   border: 3px solid black;
+  background-color: black;
   position: relative;
 }
 .profilePictureContainer img {

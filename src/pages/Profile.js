@@ -43,11 +43,14 @@ const Profile = ({ setDisplayName }) => {
         photoURL: auth.currentUser.photoURL
     })
 
-    const { name, email, photoURL } = formData
+    let { name, email, photoURL } = formData
     const { expenseTitle, expenseAmount, expenseDate } = expenseFormData
 
     useEffect(() => {
-
+        //check if user has photoURL in firestore
+        if (auth.currentUser.photoURL) {
+            photoURL = auth.currentUser.photoURL
+        }
     }, [])
 
     //toggle between expense or income
@@ -154,7 +157,7 @@ const Profile = ({ setDisplayName }) => {
         setLoading(true)
         return new Promise((resolve, reject) => {
             const storage = getStorage()
-            const fileName = `${ auth.currentUser.uid }-${ image.name }-${ uuidv4() }`
+            const fileName = `${ auth.currentUser.uid }-profile-picture`
             const storageRef = ref(storage, 'images/' + fileName)
             const uploadTask = uploadBytesResumable(storageRef, image);
 
