@@ -29,6 +29,10 @@ function App() {
   const [displayName, setDisplayName] = useState(null)
   const [photo, setPhoto] = useState(null)
 
+  //this is a trick to trigger navbar re-render on signup
+  const [test, setTest] = useState(false)
+
+
   //takes care of photo update on initial load and after editing picture
   useEffect(() => {
     const getUserDetails = () => {
@@ -44,11 +48,11 @@ function App() {
   return (
     <UserProvider>
       <Router>
-        <Navbar displayName={displayName} setDisplayName={setDisplayName} photo={photo} setPhoto={setPhoto} />
+        <Navbar displayName={displayName} setDisplayName={setDisplayName} photo={photo} setPhoto={setPhoto} test={test} />
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/sign-in' element={<SignIn />} />
-          <Route path='/sign-up' element={<SignUp setPhoto={setPhoto} />} />
+          <Route path='/sign-up' element={<SignUp setPhoto={setPhoto} setTest={setTest} />} />
           <Route path='/profile' element={<PrivateRoute />} >
             <Route path='/profile' element={<Profile displayName={displayName} setDisplayName={setDisplayName} photo={photo} setPhoto={setPhoto} />} />
           </Route>

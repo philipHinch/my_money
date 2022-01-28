@@ -17,7 +17,7 @@ import { toast } from 'react-toastify';
 import { UserContext } from '../context/UserContext';
 
 
-const SignUp = ({ setPhoto }) => {
+const SignUp = ({ setPhoto, setTest }) => {
 
     const navigate = useNavigate()
     const { getUser, user } = useContext(UserContext)
@@ -52,8 +52,9 @@ const SignUp = ({ setPhoto }) => {
             await updateProfile(auth.currentUser, {
                 displayName: name
             })
-            getUser()
-            setPhoto(null)
+            await getUser()
+            //this is a trick to trigger navbar re-render on signup
+            setTest(true)
             console.log(user);
 
             //copy user auth details
