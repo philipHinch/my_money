@@ -44,11 +44,11 @@ function App() {
   return (
     <UserProvider>
       <Router>
-        <Navbar displayName={displayName} setDisplayName={setDisplayName} photo={photo} />
+        <Navbar displayName={displayName} setDisplayName={setDisplayName} photo={photo} setPhoto={setPhoto} />
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/sign-in' element={<SignIn />} />
-          <Route path='/sign-up' element={<SignUp />} />
+          <Route path='/sign-up' element={<SignUp setPhoto={setPhoto} />} />
           <Route path='/profile' element={<PrivateRoute />} >
             <Route path='/profile' element={<Profile displayName={displayName} setDisplayName={setDisplayName} photo={photo} setPhoto={setPhoto} />} />
           </Route>

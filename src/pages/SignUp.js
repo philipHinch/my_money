@@ -17,7 +17,7 @@ import { toast } from 'react-toastify';
 import { UserContext } from '../context/UserContext';
 
 
-const SignUp = () => {
+const SignUp = ({ setPhoto }) => {
 
     const navigate = useNavigate()
     const { getUser, user } = useContext(UserContext)
@@ -53,6 +53,7 @@ const SignUp = () => {
                 displayName: name
             })
             getUser()
+            setPhoto(null)
             console.log(user);
 
             //copy user auth details

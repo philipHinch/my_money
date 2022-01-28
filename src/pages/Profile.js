@@ -1,5 +1,5 @@
 //hooks
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 //hooks
 import { useAuthStatus } from '../hooks/useAuthStatus';
 //components
@@ -13,9 +13,12 @@ import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/
 import { Icon } from '@iconify/react';
 //toastify
 import { toast } from 'react-toastify';
+//context
+import { UserContext } from '../context/UserContext';
 
 const Profile = ({ setDisplayName, setPhoto }) => {
 
+    const { user } = useContext(UserContext)
     const { checkingStatus } = useAuthStatus()
     const auth = getAuth()
 
@@ -31,9 +34,9 @@ const Profile = ({ setDisplayName, setPhoto }) => {
     })
 
     const [formData, setFormData] = useState({
-        name: auth.currentUser.displayName,
-        email: auth.currentUser.email,
-        photoURL: auth.currentUser.photoURL
+        name: user.displayName,
+        email: user.email,
+        photoURL: user.photoURL
     })
 
     let { name, email, photoURL } = formData

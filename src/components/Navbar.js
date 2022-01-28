@@ -13,19 +13,22 @@ import { UserContext } from '../context/UserContext'
 //components
 import Spinner from "./Spinner";
 
-const Navbar = ({ displayName, setDisplayName, photo }) => {
+const Navbar = ({ displayName, setDisplayName, photo, setPhoto }) => {
 
     const { checkingStatus, loggedIn } = useAuthStatus()
     const auth = getAuth()
     const navigate = useNavigate()
     const { user, getUser } = useContext(UserContext)
 
-    //takes care of setting displayname on initial page load and after editing
+    //takes care of setting displayname & photo on initial page load and after editing
     useEffect(() => {
         const setUserDetails = async () => {
             await getUser()
             if (user) {
-                setDisplayName(user.displayName)
+                // setDisplayName(user.displayName)
+                // setPhoto(user.photoURL)
+                setDisplayName(auth.currentUser.displayName)
+                setPhoto(auth.currentUser.photoURL)
             } else {
                 setDisplayName(null)
             }
@@ -34,10 +37,11 @@ const Navbar = ({ displayName, setDisplayName, photo }) => {
 
     }, [checkingStatus, user, auth.currentUser])
 
-    const signOut = () => {
+    const signOut = async () => {
         const auth = getAuth();
-        auth.signOut()
-        setDisplayName(null)
+        await auth.signOut()
+        await setDisplayName(null)
+        await setPhoto(null)
         navigate('/')
     }
 
