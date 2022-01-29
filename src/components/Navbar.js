@@ -52,9 +52,14 @@ const Navbar = ({ displayName, setDisplayName, photo, setPhoto, test }) => {
 
     return (
         <ul className="navbarContainer">
-            <li className="mainLogo" onClick={() => navigate('/')}> <span>my</span> <Icon icon="mdi:alpha-m-circle" className="mainLogoIcon"
-            />
-                <span>oney</span> </li>
+            <li className="mainLogoContainer" onClick={() => navigate('/')}>
+                {/* <span>my</span> <Icon icon="mdi:alpha-m-box" className="mainLogoIcon" />
+                <span>oney</span> */}
+                {/* <div className="mainLogo">
+                    <img src={require('../assets/png/main-logo-image-dark.png')} alt="profile picture" />
+                </div> */}
+                <img src={require('../assets/png/main-logo-image-dark.png')} alt="profile picture" className="logoImg" />
+            </li>
             {displayName && (
                 <li className="userNameAndPictureLi">
                     <div onClick={() => navigate('/profile')} className="navbarDisplayName">

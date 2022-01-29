@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@400;700&display=swap");
 
 /* variables */
 :root {
@@ -24,7 +24,7 @@ ul {
   list-style: none;
 }
 body {
-  font-family: "Poppins", sans-serif;
+  font-family: "Montserrat", sans-serif;
   background-color: var(--mint-white);
 }
 input {
@@ -77,7 +77,7 @@ input:focus {
   padding: 30px;
   border-bottom: 6px solid var(--red);
 }
-.mainLogo {
+.mainLogoContainer {
   font-size: 2rem;
   font-weight: bold;
   margin-right: auto;
@@ -85,9 +85,18 @@ input:focus {
   display: flex;
   align-items: center;
 }
+.mainLogo {
+  width: 250px;
+}
+.mainLogo img {
+  width: 100%;
+}
+.logoImg {
+  width: 260px;
+}
 .mainLogoIcon {
   font-size: 60px;
-  color: var(--orange);
+  color: var(--mint-white);
 }
 .mainLogo span {
   text-decoration: underline;
@@ -174,6 +183,8 @@ input:focus {
 /* home */
 .home {
   border-top: 6px solid var(--yellow);
+  border-bottom: 6px solid var(--yellow);
+  height: 100vh;
 }
 .homeContainer {
   display: flex;
@@ -186,6 +197,7 @@ input:focus {
   max-width: 1400px;
   padding: 50px;
   margin-top: 70px;
+  margin-bottom: 50px;
 }
 .homeTextContainer {
   width: 50%;
@@ -222,10 +234,12 @@ input:focus {
 /* profile */
 .profileContainer {
   border-top: 6px solid var(--yellow);
+  border-bottom: 6px solid var(--yellow);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  height: 100vh;
 }
 .profileTitle {
   font-size: 2rem;
@@ -449,9 +463,13 @@ input:focus {
 /* sign-in & sign-out*/
 .signUpContainer {
   border-top: 6px solid var(--yellow);
+  border-bottom: 6px solid var(--yellow);
+  height: 100vh;
 }
 .signInContainer {
   border-top: 6px solid var(--yellow);
+  border-bottom: 6px solid var(--yellow);
+  height: 100vh;
 }
 .signInForm {
   display: flex;
@@ -465,6 +483,7 @@ input:focus {
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   margin-top: 50px;
   padding: 50px;
+  margin-bottom: 50px;
 }
 .signInUpTitle {
   font-size: 2rem;
@@ -508,6 +527,7 @@ input:focus {
 .forgotPassword {
   color: var(--green);
   transition: color 0.1s ease;
+  margin-top: 10px;
 }
 .forgotPassword:hover {
   color: var(--blue);
@@ -523,6 +543,8 @@ input:focus {
 /* forgot password */
 .forgotPasswordContainer {
   border-top: 6px solid var(--yellow);
+  border-bottom: 6px solid var(--yellow);
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -549,6 +571,17 @@ input:focus {
 .forgotPasswordBtn {
   margin-top: 200px;
   width: 350px;
+}
+/* footer */
+.footerContainer {
+  display: flex;
+  align-items: center;
+  background-color: var(--blue);
+  padding: 30px;
+  border-top: 6px solid var(--red);
+}
+.footerLogoContainer {
+  cursor: pointer;
 }
 /* spinner */
 .loadingSpinnerContainer {

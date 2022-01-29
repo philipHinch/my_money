@@ -1,5 +1,7 @@
 //router
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+//components
+import Footer from './components/Footer';
 import Navbar from './components/Navbar';
 //pages
 import Home from './pages/Home';
@@ -59,6 +61,7 @@ function App() {
           <Route path='/forgot-password' element={<ForgotPassword />} />
           <Route path='/*' element={<NotFound />} />
         </Routes>
+        <Footer />
       </Router>
       <ToastContainer position="top-center" />
     </UserProvider>
