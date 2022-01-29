@@ -215,7 +215,7 @@ const Profile = ({ setDisplayName, setPhoto }) => {
     return (
         <div className='profileContainer'>
             <h2 className="profileTitle">My Profile</h2>
-            <div className="profileHeader" >
+            <div className={`profileHeader ${ isEdit && 'editModeActive' }`}>
                 0
                 {/* {progressWidth && <p className='progress' style={{ width: `${}` }}></p>} */}
                 {progressWidth && <ProgressBar progress={progressWidth} />}
