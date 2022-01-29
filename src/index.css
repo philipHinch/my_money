@@ -138,7 +138,8 @@ input:focus {
   border-radius: 50%;
   overflow: hidden;
   border: 1px solid black;
-  background-color: black;
+  background: url("./assets/png/blank_profile.png") center no-repeat;
+  background-size: cover;
   margin-right: 8px;
   position: relative;
 }
@@ -244,6 +245,13 @@ input:focus {
   max-width: 1400px;
   padding: 20px 30px;
   margin-top: 30px;
+  color: transparent;
+}
+.progress {
+  height: 5px;
+  background-color: var(--orange);
+  /* color: transparent; */
+  margin: 10px 0;
 }
 /* .profilePictureContainer {
   width: 100px;
@@ -261,7 +269,9 @@ input:focus {
   border-radius: 50%;
   overflow: hidden;
   border: 3px solid black;
-  background-color: black;
+  background: url("./assets/png/blank_profile.png") center no-repeat;
+  background-size: cover;
+  /* background-color: black; */
   position: relative;
 }
 .profilePictureContainer img {

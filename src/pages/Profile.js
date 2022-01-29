@@ -4,6 +4,7 @@ import { useEffect, useState, useContext } from 'react';
 import { useAuthStatus } from '../hooks/useAuthStatus';
 //components
 import Spinner from '../components/Spinner';
+import ProgressBar from '../components/ProgressBar';
 //firebase
 import { getAuth, updateProfile, updateEmail } from 'firebase/auth';
 import { updateDoc, doc } from 'firebase/firestore';
@@ -26,6 +27,7 @@ const Profile = ({ setDisplayName, setPhoto }) => {
     const [isEdit, setIsEdit] = useState(false)
     const [expense, setExpense] = useState(true)
     const [income, setIncome] = useState(false)
+    const [progressWidth, setProgressWidth] = useState(null)
     const [expenseFormData, setExpenseFormData] = useState({
         expenseTitle: '',
         expenseAmount: '',
@@ -162,7 +164,12 @@ const Profile = ({ setDisplayName, setPhoto }) => {
                 (snapshot) => {
                     // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
                     const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                    console.log('Upload is ' + progress + '% done');
+                    console.log(progress);
+                    setProgressWidth(progress)
+                    setTimeout(() => {
+                        setProgressWidth(null)
+                    }, 2000)
+                    // console.log('Upload is ' + progress + '% done');
                     switch (snapshot.state) {
                         case 'paused':
                             console.log('Upload is paused');
@@ -209,6 +216,9 @@ const Profile = ({ setDisplayName, setPhoto }) => {
         <div className='profileContainer'>
             <h2 className="profileTitle">My Profile</h2>
             <div className="profileHeader" >
+                0
+                {/* {progressWidth && <p className='progress' style={{ width: `${}` }}></p>} */}
+                {progressWidth && <ProgressBar progress={progressWidth} />}
                 {!isEdit && <Icon icon="mdi:cog" className='editProfileIcon' onClick={handleCogClick} />}
                 {isEdit && <Icon icon="mdi:check-circle" className='editProfileIcon editProfileIconTick' onClick={handleTickClick} />
                 }
