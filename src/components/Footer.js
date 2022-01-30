@@ -1,12 +1,33 @@
 //hooks
 import { useNavigate } from 'react-router-dom';
+import { useAuthStatus } from '../hooks/useAuthStatus';
 //icons
 import { Icon } from '@iconify/react';
+//firebase
+import { getAuth } from 'firebase/auth';
 
 
 const Footer = () => {
 
     const navigate = useNavigate()
+    const { loggedIn } = useAuthStatus()
+    const auth = getAuth()
+
+    const handleSignInClick = () => {
+        if (!auth.currentUser) {
+            navigate('/sign-in')
+        } else {
+            navigate(`/profile/${ auth.currentUser.uid }`)
+        }
+    }
+
+    const handleSignUpClick = () => {
+        if (!auth.currentUser) {
+            navigate('/sign-up')
+        } else {
+            navigate(`/profile/${ auth.currentUser.uid }`)
+        }
+    }
 
     return (
         <footer className='footerContainer'>
@@ -24,8 +45,8 @@ const Footer = () => {
                 <ul className="footerPages">
                     <li className="footerPageHeader">Pages</li>
                     <li className="footerPage" onClick={() => navigate('/')}>Home</li>
-                    <li className="footerPage" onClick={() => navigate('/sign-in')}>Sign In</li>
-                    <li className="footerPage" onClick={() => navigate('/sign-up')}>Sign Up</li>
+                    <li className="footerPage" onClick={handleSignInClick}>Sign In</li>
+                    <li className="footerPage" onClick={handleSignUpClick}>Sign Up</li>
                     <li className="footerPage"></li>
                 </ul>
                 <ul className="footerOtherPages">

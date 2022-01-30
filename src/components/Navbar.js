@@ -28,6 +28,10 @@ const Navbar = ({ displayName, setDisplayName, photo, setPhoto, test }) => {
             if (user) {
                 // setDisplayName(user.displayName)
                 // setPhoto(user.photoURL)
+
+                //FIXED???: Uncaught (in promise) TypeError: Cannot read properties of null (reading 'displayName') at setUserDetails (Navbar.js:35:1)
+                //this happens after logging out
+
                 await setDisplayName(auth.currentUser.displayName)
                 await setPhoto(auth.currentUser.photoURL)
             } else {
@@ -36,7 +40,9 @@ const Navbar = ({ displayName, setDisplayName, photo, setPhoto, test }) => {
         }
         setUserDetails()
 
-    }, [checkingStatus, user, auth.currentUser, test])
+    }, [checkingStatus, user, test])
+
+    //auth.currentUser was a useEffect dependancy, it has been removed and the Uncaught (in promise) TypeError: Cannot read properties of null (reading 'displayName') at setUserDetails (Navbar.js:35:1) has been resolved
 
     const signOut = async () => {
         const auth = getAuth();
@@ -62,7 +68,7 @@ const Navbar = ({ displayName, setDisplayName, photo, setPhoto, test }) => {
             </li>
             {displayName && (
                 <li className="userNameAndPictureLi">
-                    <div onClick={() => navigate('/profile')} className="navbarDisplayName">
+                    <div onClick={() => navigate(`/profile/${ auth.currentUser.uid }`)} className="navbarDisplayName">
                         <span className="profilePictureContainerNavbar">
                             <img src={photo ? photo : require('../assets/png/blank_profile.png')} alt="profile picture" />                        </span>
                         <span>{displayName}</span>
@@ -71,7 +77,7 @@ const Navbar = ({ displayName, setDisplayName, photo, setPhoto, test }) => {
             )}
             {!displayName && (
                 <>
-                    <li className="signInLink"><button onClick={() => navigate('/sign-in')} className="btn btn-secondary">Sign In</button></li>
+                    <li className="signInLink"><button onClick={() => navigate('/sign-in')} className="btn btn-green">Sign In</button></li>
                     <li className="signUpLink"><button onClick={() => navigate('/sign-up')} className="btn">Sign Up</button></li>
                 </>
             )}

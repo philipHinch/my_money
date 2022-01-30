@@ -30,6 +30,7 @@ function App() {
 
   const [displayName, setDisplayName] = useState(null)
   const [photo, setPhoto] = useState(null)
+  const [loading, setLoading] = useState(false)
 
   //this is a trick to trigger navbar re-render on signup
   const [test, setTest] = useState(false)
@@ -53,15 +54,15 @@ function App() {
         <Navbar displayName={displayName} setDisplayName={setDisplayName} photo={photo} setPhoto={setPhoto} test={test} />
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='/sign-in' element={<SignIn />} />
-          <Route path='/sign-up' element={<SignUp setPhoto={setPhoto} setTest={setTest} />} />
-          <Route path='/profile' element={<PrivateRoute />} >
-            <Route path='/profile' element={<Profile displayName={displayName} setDisplayName={setDisplayName} photo={photo} setPhoto={setPhoto} />} />
+          <Route path='/sign-in' element={<SignIn loading={loading} setLoading={setLoading} />} />
+          <Route path='/sign-up' element={<SignUp setPhoto={setPhoto} setTest={setTest} loading={loading} setLoading={setLoading} />} />
+          <Route path='/profile/:userId' element={<PrivateRoute />} >
+            <Route path='/profile/:userId' element={<Profile displayName={displayName} setDisplayName={setDisplayName} photo={photo} setPhoto={setPhoto} loading={loading} setLoading={setLoading} />} />
           </Route>
           <Route path='/forgot-password' element={<ForgotPassword />} />
           <Route path='/*' element={<NotFound />} />
         </Routes>
-        <Footer />
+        {!loading && <Footer />}
       </Router>
       <ToastContainer position="top-center" />
     </UserProvider>

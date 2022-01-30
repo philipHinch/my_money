@@ -1,5 +1,5 @@
 //hooks
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { useAuthStatus } from '../hooks/useAuthStatus';
 //router
 import { Link } from 'react-router-dom';
@@ -19,14 +19,14 @@ import { UserContext } from '../context/UserContext';
 
 
 
-const SignUp = ({ setPhoto, setTest }) => {
+const SignUp = ({ setPhoto, setTest, loading, setLoading }) => {
 
     const navigate = useNavigate()
     const { getUser, user } = useContext(UserContext)
     const { loggedIn } = useAuthStatus()
+    const auth = getAuth()
 
     const [showPassword, setShowPassword] = useState(false)
-    const [loading, setLoading] = useState(false)
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -66,23 +66,27 @@ const SignUp = ({ setPhoto, setTest }) => {
             delete formDataCopy.password
             //add timestamp
             formDataCopy.timestamp = serverTimestamp()
+            //add expenses and icomes empty array
+            formDataCopy.expensesIncomes = []
             //add user copy to database
             await setDoc(doc(db, 'users', user.uid), formDataCopy)
             setLoading(false)
 
-            navigate('/profile')
+            navigate(`/profile/${ auth.currentUser.uid }`)
         } catch (error) {
             setLoading(false)
             toast.error('Could not sign up')
         }
     }
 
+    useEffect(() => {
+        if (auth.currentUser) {
+            navigate(`/profile/${ auth.currentUser.uid }`)
+        }
+    }, [])
+
     if (loading) {
         return <Spinner />
-    }
-
-    if (loggedIn) {
-        navigate('/profile')
     }
 
     return (

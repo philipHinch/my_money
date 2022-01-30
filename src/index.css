@@ -61,6 +61,9 @@ input:focus {
 .btn-secondary {
   background-color: var(--blue);
 }
+.btn-green {
+  background-color: var(--green);
+}
 .btn-not-active {
   background-color: var(--mint-white);
   color: black;
@@ -405,18 +408,18 @@ input:focus {
   min-width: 300px;
   max-width: 600px;
 }
-.expenseAmountDiv {
+.expenseIncomeAmountDiv {
   width: 50%;
   min-width: 300px;
   max-width: 600px;
 }
-#expenseTitle {
+#expenseIncomeTitle {
   /* this is a font awesome icon https://fontawesome.com/license */
   background: url("./assets/svg/pen.svg") #ffffff 2.5% center no-repeat;
   background-size: 20px 20px;
   width: 100%;
 }
-#expenseAmount {
+#expenseIncomeAmount {
   /* this is a font awesome icon https://fontawesome.com/license */
   background: url("./assets/svg/euro.svg") #ffffff 2.5% center no-repeat;
   background-size: 20px 20px;

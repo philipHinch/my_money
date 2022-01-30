@@ -1,12 +1,12 @@
 //hooks
 import { useEffect, useState, useContext } from 'react';
-//hooks
 import { useAuthStatus } from '../hooks/useAuthStatus';
+import { useDate } from '../hooks/useDate';
 //components
 import Spinner from '../components/Spinner';
 import ProgressBar from '../components/ProgressBar';
 //firebase
-import { getAuth, updateProfile, updateEmail } from 'firebase/auth';
+import { getAuth, updateProfile } from 'firebase/auth';
 import { updateDoc, doc } from 'firebase/firestore';
 import { db } from '../firebase.config';
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
@@ -16,34 +16,49 @@ import { Icon } from '@iconify/react';
 import { toast } from 'react-toastify';
 //context
 import { UserContext } from '../context/UserContext';
+//router
+import { useParams } from 'react-router-dom';
 
-const Profile = ({ setDisplayName, setPhoto }) => {
+const Profile = ({ setDisplayName, setPhoto, loading, setLoading }) => {
 
+    //other
+    const params = useParams()
     const { user } = useContext(UserContext)
     const { checkingStatus } = useAuthStatus()
     const auth = getAuth()
 
-    const [loading, setLoading] = useState(false)
+    //states
     const [isEdit, setIsEdit] = useState(false)
     const [expense, setExpense] = useState(true)
     const [income, setIncome] = useState(false)
     const [progressWidth, setProgressWidth] = useState(null)
-    const [expenseFormData, setExpenseFormData] = useState({
-        expenseTitle: '',
-        expenseAmount: '',
-        expenseDate: ''
-        //servertimestamp will replace expenseDate
-    })
+    const [preventMultiSubmit, setPreventMultiSubmit] = useState(false)
+
+    //hooks
+    const date = useDate()
 
     const [formData, setFormData] = useState({
+        expenseIncomeTitle: '',
+        expenseIncomeAmount: '',
+        expenseIncomeDate: ''
+        //servertimestamp will replace expenseDate
+    })
+    const [userData, setUserData] = useState({
         name: user.displayName,
         email: user.email,
-        photoURL: user.photoURL
+        photoURL: user.photoURL,
+        expensesIncomes: user.expensesIncomes
     })
 
-    let { name, email, photoURL } = formData
-    const { expenseTitle, expenseAmount, expenseDate } = expenseFormData
+    //extract single data values from user and form
+    let { name, email, photoURL } = userData
+    const { expenseIncomeTitle, expenseIncomeAmount, expenseIncomeDate } = formData
 
+
+    //------------  MAIN LOGIC  ---------------
+
+
+    //on page load:
     useEffect(() => {
         //check if user has photoURL in firestore
         if (auth.currentUser.photoURL) {
@@ -79,10 +94,6 @@ const Profile = ({ setDisplayName, setPhoto }) => {
                     photoURL
                 })
 
-                // await updateEmail(auth.currentUser, {
-                //     email: email
-                // })
-
                 //update details in firestore
                 const userRef = doc(db, 'users', auth.currentUser.uid)
                 await updateDoc(userRef, {
@@ -106,48 +117,57 @@ const Profile = ({ setDisplayName, setPhoto }) => {
 
     //save edited info in state
     const handleEditChange = (e) => {
-        setFormData((prevState) => ({
+        setUserData((prevState) => ({
             ...prevState,
             [e.target.id]: e.target.value.trim()
         }))
     }
 
-    //save expense/income in state
+    //handle photo change
+    const handlePhotoChange = (e) => {
+        //check image size, max 2mb
+        if (e.target.files[0].size > 2000000) {
+            toast.error('Sorry, image size must be 2MB or lower')
+            e.target.value = ''
+        }
+        storeImage(e.target.files[0])
+    }
+
+    //save expense/income form data in state
     const handleChange = (e) => {
-        setExpenseFormData((prevState) => ({
+        setFormData((prevState) => ({
             ...prevState,
             [e.target.id]: e.target.value
         }))
     }
 
-    const handlePhotoChange = (e) => {
-        console.log(e.target.files);
-        //check image size, max 2mb
-        if (e.target.files[0].size > 2000000) {
-            toast.error('Sorry, image size must be 2MB or lower')
-            e.target.value = ''
-            console.log(e.target.files);
-        }
-        storeImage(e.target.files[0])
-    }
-
-    //submit expense/income
-    const handleSubmit = (e) => {
+    //submit expense/income form data
+    const handleSubmit = async (e) => {
         e.preventDefault()
-        //convert amount to a number
-        let num = +expenseAmount
-        //add - if amount is an expense
-        if (expense) {
-            num = -Math.abs(num)
-        }
-        if (income) {
-            num = Math.abs(num)
-        }
-        console.log(expenseTitle, num.toFixed(2), expenseDate);
-        setExpenseFormData({
-            expenseTitle: '',
-            expenseAmount: '',
-            expenseDate: ''
+        let num = expenseIncomeAmount
+        //set number either to negative or positive
+        expense ? (num = Math.abs(num) * -1) : num = Math.abs(num)
+        let d = !expenseIncomeDate ? date : expenseIncomeDate
+        //send data to firebase
+        console.log(expenseIncomeTitle, num, d);
+
+        //maybe: getDoc and the add new doc to existing doc
+        //or find a way to add doc to existing array in firebase
+        //const oldArray: (whatever is in firebase)
+        //maybe: const newArr = [{'value': 'all', 'label': 'all'}, ...oldArray]
+        const userRef = doc(db, 'users', params.userId)
+        await updateDoc(userRef, {
+            expensesIncomes: {
+                expenseIncomeTitle,
+                expenseIncomeAmount: num,
+                expenseIncomeDate: d
+            }
+        })
+        //reset form
+        setFormData({
+            expenseIncomeTitle: '',
+            expenseIncomeAmount: '',
+            expenseIncomeDate: ''
         })
     }
 
@@ -184,12 +204,12 @@ const Profile = ({ setDisplayName, setPhoto }) => {
                 },
                 () => {
 
-                    // setFormData((prevState) => ({
+                    // setUserData((prevState) => ({
                     //     ...prevState,
                     //     photoURL: url
                     // }))
                     getDownloadURL(ref(storage, 'images/' + fileName))
-                        .then((url) => setFormData((prevState) => ({
+                        .then((url) => setUserData((prevState) => ({
                             ...prevState,
                             photoURL: url
                         })))
@@ -198,15 +218,6 @@ const Profile = ({ setDisplayName, setPhoto }) => {
             setLoading(false)
         })
     }
-
-    //call storeImage for all images
-    // const imgUrls = Promise.all(
-    //     storeImage(photoURL)
-    // ).catch(() => {
-    //     setLoading(false)
-    //     toast.error('Images not uploaded')
-    //     return
-    // })
 
     if (checkingStatus || loading) {
         return <Spinner />
@@ -217,21 +228,11 @@ const Profile = ({ setDisplayName, setPhoto }) => {
             <h2 className="profileTitle">My Profile</h2>
             <div className={`profileHeader ${ isEdit && 'editModeActive' }`}>
                 0
-                {/* {progressWidth && <p className='progress' style={{ width: `${}` }}></p>} */}
                 {progressWidth && <ProgressBar progress={progressWidth} />}
                 {!isEdit && <Icon icon="mdi:cog" className='editProfileIcon' onClick={handleCogClick} />}
                 {isEdit && <Icon icon="mdi:check-circle" className='editProfileIcon editProfileIconTick' onClick={handleTickClick} />
                 }
 
-                {/* {!isEdit
-                    ?
-                    <div className="profilePictureContainer" >
-                        <img src={photoURL ? photoURL : require('../assets/png/blank_profile.png')} alt="profile picture" />
-                    </div>
-                    :
-                    <div className="profilePictureContainer" style={{ borderColor: '#2a9d8f' }}>
-                        <img src={photoURL ? photoURL : require('../assets/png/blank_profile.png')} alt="profile picture" />
-                    </div>} */}
 
                 {!isEdit ?
                     <div className="profilePictureContainer">
@@ -302,34 +303,39 @@ const Profile = ({ setDisplayName, setPhoto }) => {
                 <div className="expenseTitleDiv">
                     <input
                         type="text"
-                        id="expenseTitle"
+                        id="expenseIncomeTitle"
                         placeholder={expense ? 'Expense Title' : 'Income Title'} required
                         minLength='3'
                         maxLength='15'
-                        value={expenseTitle}
+                        value={expenseIncomeTitle}
                         onChange={(e) => handleChange(e)}
                     />
                 </div>
-                <div className="expenseAmountDiv">
+                <div className="expenseIncomeAmountDiv">
                     <input
                         type="number"
-                        id="expenseAmount"
+                        id="expenseIncomeAmount"
                         placeholder='Amount'
+                        step=".01"
                         required
                         min='0'
                         max='999999999'
-                        value={expenseAmount}
+                        value={expenseIncomeAmount}
                         onChange={(e) => handleChange(e)}
                     />
                 </div>
                 <input
                     type="date"
-                    id="expenseDate"
-                    value={expenseDate}
+                    id="expenseIncomeDate"
+                    value={!expenseIncomeDate ? date : expenseIncomeDate}
                     onChange={(e) => handleChange(e)}
+                    required
                 />
                 <button type='submit' className="btn addBtn">Add</button>
             </form>
+
+            {/* from here, all the expenses and incomes are named as expenses */}
+
             <div className="profileExpenses">
                 <div className="totalsContainer">
                     {/* dynamic values*/}
@@ -338,12 +344,14 @@ const Profile = ({ setDisplayName, setPhoto }) => {
                     <h4>Expenses: <span className="expensesAmount negativeColor">-960,00€</span></h4>
                 </div>
                 <ul className="expensesList">
+
                     <li className="expenseItem">
                         <p className="expenseItemDate">02/10/2022</p>
                         <p className="expenseItemTitle">Pizza</p>
                         <p className="expenseItemAmount negativeColor">-10,00€</p>
                         <Icon icon="mdi:close-thick" className='deleteIcon' />
                     </li>
+
                     <li className="expenseItem">
                         <p className="expenseItemDate">25/09/2022</p>
                         <p className="expenseItemTitle">Rent</p>
@@ -351,16 +359,14 @@ const Profile = ({ setDisplayName, setPhoto }) => {
                         <Icon icon="mdi:close-thick" className='deleteIcon' />
 
                     </li>
+
                     <li className="expenseItem" style={{ borderLeft: '6px solid #2a9d8f' }}>
                         <p className="expenseItemDate">01/09/2022</p>
                         <p className="expenseItemTitle">Salary</p>
                         <p className="expenseItemAmount incomeColor" >+2200,00€</p>
                         <Icon icon="mdi:close-thick" className='deleteIcon' />
-
                     </li>
-                    {/* <li className="expenseItem">Rent -950,00€</li>
-                    <li className="expenseItem">Salary +2300,00€</li>
-                    <li className="expenseItem">Coffee -2,50€</li> */}
+
                 </ul>
             </div>
         </div>

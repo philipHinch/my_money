@@ -1,5 +1,5 @@
 //hooks
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useAuthStatus } from '../hooks/useAuthStatus';
 //router
 import { Link, useNavigate } from 'react-router-dom';
@@ -15,14 +15,14 @@ import Spinner from '../components/Spinner';
 import { UserContext } from '../context/UserContext';
 
 
-const SignIn = () => {
+const SignIn = ({ loading, setLoading }) => {
 
     const navigate = useNavigate()
     const { getUser } = useContext(UserContext)
     const { loggedIn } = useAuthStatus()
+    const auth = getAuth()
 
     const [showPassword, setShowPassword] = useState(false)
-    const [loading, setLoading] = useState(false)
     const [formData, setFormData] = useState({
         email: '',
         password: ''
@@ -46,7 +46,7 @@ const SignIn = () => {
             if (userCredential.user) {
                 setLoading(false)
                 getUser()
-                navigate('/profile')
+                navigate(`/profile/${ auth.currentUser.uid }`)
             }
         } catch (error) {
             setLoading(false)
@@ -54,12 +54,14 @@ const SignIn = () => {
         }
     }
 
+    useEffect(() => {
+        if (auth.currentUser) {
+            navigate(`/profile/${ auth.currentUser.uid }`)
+        }
+    }, [])
+
     if (loading) {
         return <Spinner />
-    }
-
-    if (loggedIn) {
-        navigate('/profile')
     }
 
     return (
