@@ -331,27 +331,30 @@ const Profile = ({ setDisplayName, setPhoto }) => {
                 <button type='submit' className="btn addBtn">Add</button>
             </form>
             <div className="profileExpenses">
-                <div className="balanceContainer">
-                    <h3>Balance: 1200,00€</h3>
+                <div className="totalsContainer">
+                    {/* dynamic values*/}
+                    <h4>Incomes: <span className="incomesAmount positiveColor">+2200,00€</span></h4>
+                    <h3>Balance: <span className="balanceAmount positiveColor">+1240,00€</span></h3>
+                    <h4>Expenses: <span className="expensesAmount negativeColor">-960,00€</span></h4>
                 </div>
                 <ul className="expensesList">
                     <li className="expenseItem">
                         <p className="expenseItemDate">02/10/2022</p>
                         <p className="expenseItemTitle">Pizza</p>
-                        <p className="expenseItemAmount">-10,00€</p>
+                        <p className="expenseItemAmount negativeColor">-10,00€</p>
                         <Icon icon="mdi:close-thick" className='deleteIcon' />
                     </li>
                     <li className="expenseItem">
                         <p className="expenseItemDate">25/09/2022</p>
                         <p className="expenseItemTitle">Rent</p>
-                        <p className="expenseItemAmount">-950,00€</p>
+                        <p className="expenseItemAmount negativeColor">-950,00€</p>
                         <Icon icon="mdi:close-thick" className='deleteIcon' />
 
                     </li>
-                    <li className="expenseItem">
+                    <li className="expenseItem" style={{ borderLeft: '6px solid #2a9d8f' }}>
                         <p className="expenseItemDate">01/09/2022</p>
                         <p className="expenseItemTitle">Salary</p>
-                        <p className="expenseItemAmount">+2200,00€</p>
+                        <p className="expenseItemAmount incomeColor" >+2200,00€</p>
                         <Icon icon="mdi:close-thick" className='deleteIcon' />
 
                     </li>

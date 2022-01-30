@@ -1,5 +1,6 @@
 //hooks
 import { useContext, useState } from 'react';
+import { useAuthStatus } from '../hooks/useAuthStatus';
 //router
 import { Link, useNavigate } from 'react-router-dom';
 //icons
@@ -18,6 +19,7 @@ const SignIn = () => {
 
     const navigate = useNavigate()
     const { getUser } = useContext(UserContext)
+    const { loggedIn } = useAuthStatus()
 
     const [showPassword, setShowPassword] = useState(false)
     const [loading, setLoading] = useState(false)
@@ -54,6 +56,10 @@ const SignIn = () => {
 
     if (loading) {
         return <Spinner />
+    }
+
+    if (loggedIn) {
+        navigate('/profile')
     }
 
     return (

@@ -25,7 +25,7 @@ ul {
 }
 body {
   font-family: "Montserrat", sans-serif;
-  font-size: 1.1rem;
+  font-size: 1rem;
   background-color: var(--mint-white);
 }
 input {
@@ -77,6 +77,21 @@ input:focus {
   background-color: var(--green);
   padding: 30px;
   border-bottom: 6px solid var(--red);
+  background-image: linear-gradient(
+    to right,
+    #264653,
+    #264653,
+    #264653,
+    #264653,
+    #264653,
+    #24424e,
+    #213d4a,
+    #1f3945,
+    #1a303a,
+    #142730,
+    #0f1e26,
+    #08161c
+  );
 }
 .mainLogoContainer {
   font-size: 2rem;
@@ -432,8 +447,16 @@ input:focus {
   margin-top: 30px;
   margin-bottom: 200px;
 }
-.balanceContainer {
-  margin: 10px 0;
+.totalsContainer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 50px 0;
+}
+.balanceAmount {
+  margin-left: 20px;
+  font-size: 2rem;
 }
 .expensesList {
   width: 100%;
@@ -443,28 +466,46 @@ input:focus {
   justify-content: space-evenly;
   border: 1px solid var(--blue);
   /* border-radius: 10px; */
+  color: var(--blue);
   padding: 10px;
   width: 100%;
   margin: 15px 0;
+  font-weight: bold;
   background-color: var(--mint-white);
   cursor: pointer;
   transition: background-color 0.1s ease;
+  /* -----> remove this later <------ */
+  border-left: 6px solid var(--red);
 }
 .expenseItem:hover {
-  background-color: white;
-  border-color: var(--green);
+  /* background-color: white; */
+  /* border-color: var(--green); */
 }
 .expenseItemTitle {
   margin: auto;
 }
+.expenseItemAmount {
+}
+.negativeColor {
+  color: var(--red);
+}
+.incomeColor {
+  color: var(--green);
+}
+.positiveColor {
+  color: var(--green);
+}
 .deleteIcon {
   font-size: 1.4rem;
-  color: var(--red);
-  margin-left: 6px;
+  color: var(--blue);
+  opacity: 0.6;
+  margin-left: 25px;
   transition: color 0.1s ease;
+  transition: opacity 0.1s ease;
 }
 .deleteIcon:hover {
   color: var(--orange);
+  opacity: 1;
 }
 /* sign-in & sign-out*/
 .signUpContainer {
@@ -589,7 +630,7 @@ input:focus {
   border-top: 6px solid var(--red);
   position: relative;
   background-image: linear-gradient(
-    to bottom,
+    to right,
     #264653,
     #264653,
     #264653,

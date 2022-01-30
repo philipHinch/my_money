@@ -58,7 +58,7 @@ const Navbar = ({ displayName, setDisplayName, photo, setPhoto, test }) => {
                 {/* <div className="mainLogo">
                     <img src={require('../assets/png/main-logo-image-dark.png')} alt="profile picture" />
                 </div> */}
-                <img src={require('../assets/png/main-logo-image-dark.png')} alt="profile picture" className="logoImg" />
+                <img src={require('../assets/png/main-logo-image-footer.png')} alt="profile picture" className="logoImg" />
             </li>
             {displayName && (
                 <li className="userNameAndPictureLi">

@@ -1,5 +1,6 @@
 //hooks
 import { useState, useContext } from 'react';
+import { useAuthStatus } from '../hooks/useAuthStatus';
 //router
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
@@ -17,10 +18,12 @@ import { toast } from 'react-toastify';
 import { UserContext } from '../context/UserContext';
 
 
+
 const SignUp = ({ setPhoto, setTest }) => {
 
     const navigate = useNavigate()
     const { getUser, user } = useContext(UserContext)
+    const { loggedIn } = useAuthStatus()
 
     const [showPassword, setShowPassword] = useState(false)
     const [loading, setLoading] = useState(false)
@@ -76,6 +79,10 @@ const SignUp = ({ setPhoto, setTest }) => {
 
     if (loading) {
         return <Spinner />
+    }
+
+    if (loggedIn) {
+        navigate('/profile')
     }
 
     return (
