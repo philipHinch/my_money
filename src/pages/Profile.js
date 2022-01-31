@@ -19,7 +19,7 @@ import { UserContext } from '../context/UserContext';
 //router
 import { useParams } from 'react-router-dom';
 //uuid
-import { v4 as uuidv4 } from 'uuid'
+import { v4 as uuidv4 } from 'uuid';
 
 
 const Profile = ({ setDisplayName, setPhoto, loading, setLoading }) => {
@@ -53,6 +53,8 @@ const Profile = ({ setDisplayName, setPhoto, loading, setLoading }) => {
         expensesIncomes: user.expensesIncomes
     })
 
+    const [firebaseExpensesIncomes, setFirebaseExpensesIncomes] = useState(null)
+
     //extract single data values from user and form
     let { name, email, photoURL } = userData
     const { expenseIncomeTitle, expenseIncomeAmount, expenseIncomeDate } = formData
@@ -67,7 +69,21 @@ const Profile = ({ setDisplayName, setPhoto, loading, setLoading }) => {
         if (auth.currentUser.photoURL) {
             photoURL = auth.currentUser.photoURL
         }
-    }, [])
+
+        const getFirebaseExpensesIncomes = async () => {
+            const docRef = doc(db, 'users', params.userId)
+            const docSnap = await getDoc(docRef);
+            if (docSnap.exists()) {
+                // console.log("Document data:", docSnap.data().expensesIncomes);
+                let firebaseArr = docSnap.data().expensesIncomes
+                setFirebaseExpensesIncomes(firebaseArr)
+            } else {
+                console.log("No expenses or incomes in firebase");
+            }
+        }
+        getFirebaseExpensesIncomes()
+
+    }, [formData])
 
     //toggle between expense or income
     const handleExpenseButtonClick = () => {
@@ -134,6 +150,43 @@ const Profile = ({ setDisplayName, setPhoto, loading, setLoading }) => {
             e.target.value = ''
         }
         storeImage(e.target.files[0])
+    }
+
+    //handle expense/income delete
+    const handleDelete = (e) => {
+        //get item id
+        let id = e.target.id ? e.target.id : e.target.parentElement.id
+
+        //delete item in firebase using id
+        const deleteItemInFirebase = async () => {
+            const docRef = doc(db, 'users', params.userId)
+            const docSnap = await getDoc(docRef);
+            if (docSnap.exists()) {
+                // console.log("Document data:", docSnap.data().expensesIncomes);
+                let oldArr = docSnap.data().expensesIncomes
+                let newArr = oldArr.filter((item) => {
+                    return item.expenseIncomeId !== id
+                })
+                console.log(newArr);
+                await updateDoc(docRef, {
+                    expensesIncomes: newArr
+                })
+            } else {
+                console.log("No such document!");
+            }
+        }
+        deleteItemInFirebase()
+
+        //remove list item from UI
+        if (e.target.id === 'expenseItem') {
+            e.target.remove()
+        } else if (e.target.parentElement.id === 'expenseItem') {
+            e.target.parentElement.remove()
+        } else if (e.target.parentElement.parentElement.id === 'expenseItem') {
+            e.target.parentElement.parentElement.remove()
+        } else if (e.target.parentElement.parentElement.parentElement.id === 'expenseItem') {
+            e.target.parentElement.parentElement.parentElement.remove()
+        }
     }
 
     //save expense/income form data in state
@@ -359,7 +412,20 @@ const Profile = ({ setDisplayName, setPhoto, loading, setLoading }) => {
                 </div>
                 <ul className="expensesList">
 
-                    <li className="expenseItem">
+                    {firebaseExpensesIncomes && firebaseExpensesIncomes.map(item => (
+                        <li key={item.expenseIncomeId} id='expenseItem' className='expenseItem' style={{ borderLeft: `6px solid ${ item.expenseIncomeAmount < 0 ? '#e76f51' : '#2a9d8f' }` }}>
+                            <p className="expenseItemDate">{item.expenseIncomeDate}</p>
+                            <p className="expenseItemTitle">{item.expenseIncomeTitle}</p>
+                            <p className={`expenseItemAmount ${ item.expenseIncomeAmount < 0 ? 'negativeColor' : 'positiveColor' }`}>{item.expenseIncomeAmount.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                                + '€'}</p>
+                            <div className="deleteIconContainer">
+                                <Icon icon="mdi:close-thick" className='deleteIcon' id={item.expenseIncomeId} onClick={handleDelete} />
+                            </div>
+
+                        </li>
+                    ))}
+
+                    {/* <li className="expenseItem">
                         <p className="expenseItemDate">02/10/2022</p>
                         <p className="expenseItemTitle">Pizza</p>
                         <p className="expenseItemAmount negativeColor">-10,00€</p>
@@ -379,7 +445,7 @@ const Profile = ({ setDisplayName, setPhoto, loading, setLoading }) => {
                         <p className="expenseItemTitle">Salary</p>
                         <p className="expenseItemAmount incomeColor" >+2200,00€</p>
                         <Icon icon="mdi:close-thick" className='deleteIcon' />
-                    </li>
+                    </li> */}
 
                 </ul>
             </div>
