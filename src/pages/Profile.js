@@ -7,7 +7,7 @@ import Spinner from '../components/Spinner';
 import ProgressBar from '../components/ProgressBar';
 //firebase
 import { getAuth, updateProfile } from 'firebase/auth';
-import { updateDoc, doc } from 'firebase/firestore';
+import { updateDoc, doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase.config';
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 //icons
@@ -18,6 +18,9 @@ import { toast } from 'react-toastify';
 import { UserContext } from '../context/UserContext';
 //router
 import { useParams } from 'react-router-dom';
+//uuid
+import { v4 as uuidv4 } from 'uuid'
+
 
 const Profile = ({ setDisplayName, setPhoto, loading, setLoading }) => {
 
@@ -149,20 +152,31 @@ const Profile = ({ setDisplayName, setPhoto, loading, setLoading }) => {
         expense ? (num = Math.abs(num) * -1) : num = Math.abs(num)
         let d = !expenseIncomeDate ? date : expenseIncomeDate
         //send data to firebase
-        console.log(expenseIncomeTitle, num, d);
+        //console.log(expenseIncomeTitle, num, d);
 
         //maybe: getDoc and the add new doc to existing doc
         //or find a way to add doc to existing array in firebase
         //const oldArray: (whatever is in firebase)
         //maybe: const newArr = [{'value': 'all', 'label': 'all'}, ...oldArray]
-        const userRef = doc(db, 'users', params.userId)
-        await updateDoc(userRef, {
-            expensesIncomes: {
+        const docRef = doc(db, 'users', params.userId)
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+            // console.log("Document data:", docSnap.data().expensesIncomes);
+            let oldArr = docSnap.data().expensesIncomes
+            let newArr = [{
                 expenseIncomeTitle,
                 expenseIncomeAmount: num,
-                expenseIncomeDate: d
-            }
-        })
+                expenseIncomeDate: d,
+                expenseIncomeId: uuidv4()
+            }, ...oldArr]
+            console.log(newArr);
+
+            await updateDoc(docRef, {
+                expensesIncomes: newArr
+            })
+        } else {
+            console.log("No such document!");
+        }
         //reset form
         setFormData({
             expenseIncomeTitle: '',

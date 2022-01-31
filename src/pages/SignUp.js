@@ -58,7 +58,6 @@ const SignUp = ({ setPhoto, setTest, loading, setLoading }) => {
             await getUser()
             //this is a trick to trigger navbar re-render on signup
             setTest(true)
-            console.log(user);
 
             //copy user auth details
             const formDataCopy = { ...formData }
