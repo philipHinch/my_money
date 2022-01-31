@@ -7,7 +7,7 @@ import Spinner from '../components/Spinner';
 import ProgressBar from '../components/ProgressBar';
 //firebase
 import { getAuth, updateProfile } from 'firebase/auth';
-import { updateDoc, doc, getDoc } from 'firebase/firestore';
+import { updateDoc, doc, getDoc, onSnapshot } from 'firebase/firestore';
 import { db } from '../firebase.config';
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 //icons
@@ -35,7 +35,10 @@ const Profile = ({ setDisplayName, setPhoto, loading, setLoading }) => {
     const [expense, setExpense] = useState(true)
     const [income, setIncome] = useState(false)
     const [progressWidth, setProgressWidth] = useState(null)
-    const [preventMultiSubmit, setPreventMultiSubmit] = useState(false)
+    const [deleted, setDeleted] = useState(false)
+    const [balance, setBalance] = useState(0)
+    const [incomes, setIncomes] = useState(0)
+    const [expenses, setExpenses] = useState(0)
 
     //hooks
     const date = useDate()
@@ -62,28 +65,76 @@ const Profile = ({ setDisplayName, setPhoto, loading, setLoading }) => {
 
     //------------  MAIN LOGIC  ---------------
 
-
-    //on page load:
+    //on page load: *****
     useEffect(() => {
         //check if user has photoURL in firestore
         if (auth.currentUser.photoURL) {
             photoURL = auth.currentUser.photoURL
         }
-
+        //get expenses and incomes from firebase on page load
         const getFirebaseExpensesIncomes = async () => {
             const docRef = doc(db, 'users', params.userId)
             const docSnap = await getDoc(docRef);
             if (docSnap.exists()) {
-                // console.log("Document data:", docSnap.data().expensesIncomes);
                 let firebaseArr = docSnap.data().expensesIncomes
                 setFirebaseExpensesIncomes(firebaseArr)
+
             } else {
                 console.log("No expenses or incomes in firebase");
             }
         }
         getFirebaseExpensesIncomes()
 
-    }, [formData])
+        //set balance state
+        let balanceTOT = 0
+        if (firebaseExpensesIncomes) {
+            for (let i = 0; i < firebaseExpensesIncomes.length; i++) {
+                balanceTOT += firebaseExpensesIncomes[i].expenseIncomeAmount
+            }
+        }
+        setBalance(balanceTOT)
+
+        //set income state
+        let incomeTOT = 0
+        if (firebaseExpensesIncomes) {
+            for (let i = 0; i < firebaseExpensesIncomes.length; i++) {
+                if (firebaseExpensesIncomes[i].expenseIncomeAmount > 0) {
+                    incomeTOT += firebaseExpensesIncomes[i].expenseIncomeAmount
+                }
+            }
+        }
+        setIncomes(incomeTOT)
+
+        //set expense state
+        let expenseTOT = 0
+        if (firebaseExpensesIncomes) {
+            for (let i = 0; i < firebaseExpensesIncomes.length; i++) {
+                if (firebaseExpensesIncomes[i].expenseIncomeAmount < 0) {
+                    expenseTOT += firebaseExpensesIncomes[i].expenseIncomeAmount
+                }
+            }
+        }
+        setExpenses(expenseTOT)
+
+    }, [formData, firebaseExpensesIncomes])
+
+    // *****
+    // useEffect(() => {
+    //     //get the balance amount
+    //     let balanceTOT = 0
+
+    //     if (firebaseExpensesIncomes) {
+    //         for (let i = 0; i < firebaseExpensesIncomes.length; i++) {
+    //             balanceTOT += firebaseExpensesIncomes[i].expenseIncomeAmount
+    //         }
+    //     }
+    //     console.log(balanceTOT);
+    //     setBalance(balanceTOT)
+    //     setDeleted(false)
+    //     console.log('balance re-render');
+    //     //get incomes total
+    //     //get expenses total
+    // }, [firebaseExpensesIncomes, deleted, balance])
 
     //toggle between expense or income
     const handleExpenseButtonClick = () => {
@@ -92,7 +143,7 @@ const Profile = ({ setDisplayName, setPhoto, loading, setLoading }) => {
         setIncome(false)
     }
     const handleIncomeButtonClick = () => {
-        //add focus on input 
+        //add focus on input
         setIncome(true)
         setExpense(false)
     }
@@ -112,7 +163,6 @@ const Profile = ({ setDisplayName, setPhoto, loading, setLoading }) => {
                     displayName: name,
                     photoURL
                 })
-
                 //update details in firestore
                 const userRef = doc(db, 'users', auth.currentUser.uid)
                 await updateDoc(userRef, {
@@ -156,13 +206,11 @@ const Profile = ({ setDisplayName, setPhoto, loading, setLoading }) => {
     const handleDelete = (e) => {
         //get item id
         let id = e.target.id ? e.target.id : e.target.parentElement.id
-
         //delete item in firebase using id
         const deleteItemInFirebase = async () => {
             const docRef = doc(db, 'users', params.userId)
             const docSnap = await getDoc(docRef);
             if (docSnap.exists()) {
-                // console.log("Document data:", docSnap.data().expensesIncomes);
                 let oldArr = docSnap.data().expensesIncomes
                 let newArr = oldArr.filter((item) => {
                     return item.expenseIncomeId !== id
@@ -177,16 +225,8 @@ const Profile = ({ setDisplayName, setPhoto, loading, setLoading }) => {
         }
         deleteItemInFirebase()
 
-        //remove list item from UI
-        if (e.target.id === 'expenseItem') {
-            e.target.remove()
-        } else if (e.target.parentElement.id === 'expenseItem') {
-            e.target.parentElement.remove()
-        } else if (e.target.parentElement.parentElement.id === 'expenseItem') {
-            e.target.parentElement.parentElement.remove()
-        } else if (e.target.parentElement.parentElement.parentElement.id === 'expenseItem') {
-            e.target.parentElement.parentElement.parentElement.remove()
-        }
+        setDeleted(true)
+
     }
 
     //save expense/income form data in state
@@ -205,12 +245,6 @@ const Profile = ({ setDisplayName, setPhoto, loading, setLoading }) => {
         expense ? (num = Math.abs(num) * -1) : num = Math.abs(num)
         let d = !expenseIncomeDate ? date : expenseIncomeDate
         //send data to firebase
-        //console.log(expenseIncomeTitle, num, d);
-
-        //maybe: getDoc and the add new doc to existing doc
-        //or find a way to add doc to existing array in firebase
-        //const oldArray: (whatever is in firebase)
-        //maybe: const newArr = [{'value': 'all', 'label': 'all'}, ...oldArray]
         const docRef = doc(db, 'users', params.userId)
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
@@ -256,7 +290,6 @@ const Profile = ({ setDisplayName, setPhoto, loading, setLoading }) => {
                     setTimeout(() => {
                         setProgressWidth(null)
                     }, 2000)
-                    // console.log('Upload is ' + progress + '% done');
                     switch (snapshot.state) {
                         case 'paused':
                             console.log('Upload is paused');
@@ -271,10 +304,6 @@ const Profile = ({ setDisplayName, setPhoto, loading, setLoading }) => {
                 },
                 () => {
 
-                    // setUserData((prevState) => ({
-                    //     ...prevState,
-                    //     photoURL: url
-                    // }))
                     getDownloadURL(ref(storage, 'images/' + fileName))
                         .then((url) => setUserData((prevState) => ({
                             ...prevState,
@@ -406,9 +435,10 @@ const Profile = ({ setDisplayName, setPhoto, loading, setLoading }) => {
             <div className="profileExpenses">
                 <div className="totalsContainer">
                     {/* dynamic values*/}
-                    <h4>Incomes: <span className="incomesAmount positiveColor">+2200,00€</span></h4>
-                    <h3>Balance: <span className="balanceAmount positiveColor">+1240,00€</span></h3>
-                    <h4>Expenses: <span className="expensesAmount negativeColor">-960,00€</span></h4>
+                    <h4>Incomes: <span className="incomesAmount positiveColor">{incomes.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '€'}</span></h4>
+                    {/* <h3>Balance: <span className="balanceAmount positiveColor">+1240,00€</span></h3> */}
+                    <h3>Balance: <span className={`balanceAmount ${ balance > 0 ? 'positiveColor' : 'negativeColor' }`}>{balance.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '€'}</span></h3>
+                    <h4>Expenses: <span className="expensesAmount negativeColor">{expenses.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '€'}</span></h4>
                 </div>
                 <ul className="expensesList">
 

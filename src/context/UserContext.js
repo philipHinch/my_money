@@ -2,6 +2,10 @@ import { createContext, useReducer, useState } from "react";
 import UserReducer from "./UserReducer";
 //firebase
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { doc, getDoc } from 'firebase/firestore';
+
+
+
 
 export const UserContext = createContext()
 
