@@ -10,6 +10,7 @@ Asyncronus programming. State management with usereducer, use context and usesta
 
 Technologies used:
 
+- REACT.JS
 - REACT FUNCTIONAL COMPONENTS
 - REACT HOOKS
 - USEREDUCER, USECONTEXT, USESTATE
