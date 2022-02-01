@@ -202,6 +202,24 @@ const Profile = ({ setDisplayName, setPhoto, loading, setLoading }) => {
         storeImage(e.target.files[0])
     }
 
+    const handleClearAll = () => {
+        if (window.confirm('Are you sure you want to delete all items?') === true) {
+            const clearAllItemsInFirebase = async () => {
+                const docRef = doc(db, 'users', params.userId)
+                const docSnap = await getDoc(docRef);
+                if (docSnap.exists()) {
+                    await updateDoc(docRef, {
+                        expensesIncomes: []
+                    })
+                } else {
+                    console.log("No such document!");
+                }
+            }
+            clearAllItemsInFirebase()
+            setDeleted(true)
+        }
+    }
+
     //handle expense/income delete
     const handleDelete = (e) => {
         //get item id
@@ -320,7 +338,7 @@ const Profile = ({ setDisplayName, setPhoto, loading, setLoading }) => {
     }
 
     return (
-        <div className='profileContainer'>
+        <div className='profileContainer' >
             <h2 className="profileTitle">My Profile</h2>
             <div className={`profileHeader ${ isEdit && 'editModeActive' }`}>
                 0
@@ -433,6 +451,7 @@ const Profile = ({ setDisplayName, setPhoto, loading, setLoading }) => {
             {/* from here, all the expenses and incomes are named as expenses */}
 
             <div className="profileExpenses">
+                <Icon icon="mdi:delete-forever" className='clearAllIcon' onClick={handleClearAll} />
                 <div className="totalsContainer">
                     {/* dynamic values*/}
                     <h4>Incomes: <span className="incomesAmount positiveColor">{incomes.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '€'}</span></h4>

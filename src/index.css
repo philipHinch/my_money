@@ -449,6 +449,21 @@ input:focus {
   padding: 20px;
   margin-top: 30px;
   margin-bottom: 200px;
+  position: relative;
+}
+.clearAllIcon {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  font-size: 1.5rem;
+  color: var(--blue);
+  opacity: 0.6;
+  cursor: pointer;
+  transition: color 0.1s ease;
+}
+.clearAllIcon:hover {
+  color: var(--orange);
+  opacity: 1;
 }
 .totalsContainer {
   width: 100%;
@@ -706,6 +721,9 @@ input:focus {
   color: var(--yellow);
 }
 /* not found */
+.opactity05 {
+  opacity: 0.5;
+}
 .notFoundContainer {
   border-top: 6px solid var(--yellow);
   border-bottom: 6px solid var(--yellow);
