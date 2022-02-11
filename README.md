@@ -10,13 +10,13 @@ I have decided midway to modify the profile page and split it into components. A
 
 I have put a lot of learning effort and did a lot of reaserch and studying during the development of this project and I have understood certain concepts now. I learnt more about firebase authentication, database, storage. Also how important are async functions and to sync the states.
 
-Currently I am pushing commits to the backup repository.
-
 Had some confusion with git branches, commits are messy
 
 ---
 
 Technologies used:
+
+**Front-End**
 
 - REACT.JS
 - REACT FUNCTIONAL COMPONENTS
@@ -25,9 +25,11 @@ Technologies used:
 - CONTROLLED INPUTS
 - ASYNC/AWAIT
 - HIGH ORDER FUNCTIONS
-- FIREBASE AUTHENTICATION
-- FIREBASE FIRESTORE DATABASE
+
+**Back-End**
+
+- FIREBASE AUTHENTICATION 
+- FIREBASE DATABASE
 - FIREBASE STORAGE
-- FRAMER MOTION
 
 
