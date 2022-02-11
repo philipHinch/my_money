@@ -1,13 +1,20 @@
 //hooks
 import { useState } from "react";
 import { useDate } from "../../hooks/useDate";
-
+//firebase
+import { updateDoc, doc, getDoc, onSnapshot } from 'firebase/firestore';
+import { db } from '../../firebase.config';
+//router
+import { useParams } from "react-router-dom";
+//uuid
+import { v4 as uuidv4 } from 'uuid';
 
 const ProfileForm = () => {
 
     // ******** STATES AND OTHERS ********//
 
     const date = useDate()
+    const params = useParams()
     const [expense, setExpense] = useState(true)
     const [income, setIncome] = useState(false)
     const [formData, setFormData] = useState({
@@ -21,8 +28,38 @@ const ProfileForm = () => {
     // ********* MAIN LOGIC *********//
 
     //submit expense/income form data
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
+        let num = expenseIncomeAmount
+        //set number either to negative or positive
+        expense ? (num = Math.abs(num) * -1) : num = Math.abs(num)
+        let d = !expenseIncomeDate ? date : expenseIncomeDate
+        //send data to firebase
+        const docRef = doc(db, 'users', params.userId)
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+            // console.log("Document data:", docSnap.data().expensesIncomes);
+            let oldArr = docSnap.data().expensesIncomes
+            let newArr = [{
+                expenseIncomeTitle,
+                expenseIncomeAmount: num,
+                expenseIncomeDate: d,
+                expenseIncomeId: uuidv4()
+            }, ...oldArr]
+            console.log(newArr);
+
+            await updateDoc(docRef, {
+                expensesIncomes: newArr
+            })
+        } else {
+            console.log("No such document!");
+        }
+        //reset form
+        setFormData({
+            expenseIncomeTitle: '',
+            expenseIncomeAmount: '',
+            expenseIncomeDate: ''
+        })
     }
 
     //save expense/income form data in state
