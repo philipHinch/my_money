@@ -16,7 +16,7 @@ Had some confusion with git branches, commits are messy
 
 Technologies used:
 
-**Front-End**
+Front-End:
 
 - REACT.JS
 - REACT FUNCTIONAL COMPONENTS
@@ -26,7 +26,7 @@ Technologies used:
 - ASYNC/AWAIT
 - HIGH ORDER FUNCTIONS
 
-**Back-End**
+Back-End:
 
 - FIREBASE AUTHENTICATION 
 - FIREBASE DATABASE
