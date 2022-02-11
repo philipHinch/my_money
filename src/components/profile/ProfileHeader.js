@@ -20,6 +20,7 @@ const ProfileHeader = () => {
     // ******** STATES AND OTHERS ********//
 
     const { user } = useContext(UserContext)
+    const auth = getAuth()
     const navigate = useNavigate()
     const [isEdit, setIsEdit] = useState(false)
     const [loading, setLoading] = useState(false)

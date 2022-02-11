@@ -1,7 +1,7 @@
 //firebase
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 //context
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import UserContext from "../context/UserContext";
 //hooks
 import { useState } from "react";
@@ -42,6 +42,11 @@ export const useLogin = () => {
             }
         }
     }
+
+    //cleanup
+    useEffect(() => {
+        return () => setIsCancelled(true)
+    }, [])
 
     return { loading, error, login }
 }

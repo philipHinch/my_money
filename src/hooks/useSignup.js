@@ -1,10 +1,8 @@
 //firebase
 import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { doc, setDoc, serverTimestamp } from "firebase/firestore";
-import { db } from '../firebase.config';
 
 //context
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import UserContext from "../context/UserContext";
 //hooks
 import { useState } from "react";
@@ -60,6 +58,11 @@ export const useSignup = () => {
             }
         }
     }
+
+    //cleanup
+    useEffect(() => {
+        return () => setIsCancelled(true)
+    }, [])
 
     return { loading, error, signUp }
 }

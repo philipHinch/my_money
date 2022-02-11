@@ -28,7 +28,7 @@ const Profile = ({ loading }) => {
 
     //other
     const params = useParams()
-    const { user } = useContext(UserContext)
+    const { user, authIsReady } = useContext(UserContext)
     const { checkingStatus } = useAuthStatus()
     const navigate = useNavigate()
     const auth = getAuth()
@@ -53,10 +53,10 @@ const Profile = ({ loading }) => {
         //servertimestamp will replace expenseDate
     })
     const [userData, setUserData] = useState({
-        name: user.displayName,
-        email: user.email,
-        photoURL: user.photoURL,
-        expensesIncomes: user.expensesIncomes
+        name: '',
+        email: '',
+        photoURL: null,
+        expensesIncomes: []
     })
 
     const [firebaseExpensesIncomes, setFirebaseExpensesIncomes] = useState(null)
@@ -68,8 +68,20 @@ const Profile = ({ loading }) => {
 
     //------------  MAIN LOGIC  ---------------
 
+    // WAIT FOR USER DETAILS BEFORE SHOWING PAGE..
+
+
+
     //on page load: *****
     useEffect(() => {
+        if (authIsReady) {
+            setUserData({
+                name: user.displayName,
+                email: user.email,
+                photoURL: user.photoURL,
+                expensesIncomes: user.expensesIncomes
+            })
+        }
         //check if user has photoURL in firestore
         if (auth.currentUser.photoURL) {
             photoURL = auth.currentUser.photoURL
@@ -87,8 +99,7 @@ const Profile = ({ loading }) => {
             }
         }
         getFirebaseExpensesIncomes()
-    }
-    )
+    }, [authIsReady])
 
     // *****
     // useEffect(() => {

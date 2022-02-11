@@ -16,9 +16,9 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 //context
 import { UserProvider } from './context/UserContext';
+import UserContext from './context/UserContext';
 //hooks
-import { useState } from 'react';
-import { useEffect } from 'react/cjs/react.development';
+import { useState, useEffect, useContext } from 'react';
 //firebase
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
