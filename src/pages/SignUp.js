@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 //firebase
 import { getAuth } from "firebase/auth";
 import { doc, setDoc, serverTimestamp } from "firebase/firestore";
+import { db } from '../firebase.config';
 //icons
 import visibilityIcon from '../assets/svg/visibilityIcon.svg';
 //components
@@ -43,6 +44,24 @@ const SignUp = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         await signUp(email, password, name)
+
+        const auth = getAuth()
+
+        console.log(auth.currentUser);
+
+        //copy user auth details
+        const userCopy = {
+            displayName: auth.currentUser.displayName,
+            email: auth.currentUser.email,
+            expensesIncomes: [],
+            timestamp: serverTimestamp(),
+            uid: auth.currentUser.uid,
+            photoURL: null
+        }
+
+        //add user copy to database
+        await setDoc(doc(db, 'users', auth.currentUser.uid), userCopy)
+
         if (auth.currentUser) {
             navigate(`/profile/${ auth.currentUser.uid }`)
         } else {

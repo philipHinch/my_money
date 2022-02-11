@@ -1,5 +1,8 @@
 //firebase
 import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { doc, setDoc, serverTimestamp } from "firebase/firestore";
+import { db } from '../firebase.config';
+
 //context
 import { useContext } from "react";
 import UserContext from "../context/UserContext";
@@ -9,9 +12,10 @@ import { useState } from "react";
 export const useSignup = () => {
 
     const [isCancelled, setIsCancelled] = useState(false)
-    const { dispatch } = useContext(UserContext)
+    const { dispatch, user } = useContext(UserContext)
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(null)
+
 
     const signUp = async (email, passoword, name) => {
 
@@ -27,6 +31,15 @@ export const useSignup = () => {
             await updateProfile(auth.currentUser, {
                 displayName: name
             })
+
+            // // //copy user auth details
+            // // const formDataCopy = { ...formData }
+            // // //delete password from copy
+            // // delete formDataCopy.password
+            // // //add timestamp
+            // // formDataCopy.timestamp = serverTimestamp()
+            // // //add user copy to database
+            // // await setDoc(doc(db, 'users', user.uid), formDataCopy)
 
             //dispatch signup
             dispatch({
