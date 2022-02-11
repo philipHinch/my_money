@@ -2,11 +2,17 @@
 import { Icon } from '@iconify/react';
 //hooks
 import { useEffect, useState, useContext } from 'react';
+//router
+import { useNavigate } from 'react-router-dom';
 //context
 import { UserContext } from '../../context/UserContext';
 //firebase
 import { getAuth, updateProfile, deleteUser, reauthenticateWithCredential, EmailAuthProvider } from 'firebase/auth';
+import { updateDoc, doc, getDoc, onSnapshot } from 'firebase/firestore';
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { db } from '../../firebase.config';
+//toastify
+import { toast } from 'react-toastify';
 
 
 const ProfileHeader = () => {
@@ -14,8 +20,11 @@ const ProfileHeader = () => {
     // ******** STATES AND OTHERS ********//
 
     const { user } = useContext(UserContext)
+    const navigate = useNavigate()
     const [isEdit, setIsEdit] = useState(false)
     const [loading, setLoading] = useState(false)
+    const [photo, setPhoto] = useState(null)
+    const [displayName, setDisplayName] = useState(null)
     const [progressWidth, setProgressWidth] = useState(null)
     const [userData, setUserData] = useState({
         name: user.displayName,
@@ -28,24 +37,59 @@ const ProfileHeader = () => {
 
     // ********* MAIN LOGIC *********//
 
-    //deactivate edit mode: save edited info to firebase 
-    const handleTickClick = () => {
-
-    }
-
     //activate edit mode: remove disable on profile header inputs
     const handleCogClick = () => {
+        setIsEdit(true)
+    }
 
+    //deactivate edit mode: save edited info to firebase 
+    const handleTickClick = async () => {
+        const auth = getAuth()
+        //update details in firebase
+        try {
+            if (auth.currentUser.displayName !== name || auth.currentUser.photoURL !== photoURL) {
+                setLoading(true)
+                await updateProfile(auth.currentUser, {
+                    displayName: name,
+                    photoURL
+                })
+                //update details in firestore
+                const userRef = doc(db, 'users', auth.currentUser.uid)
+                await updateDoc(userRef, {
+                    name,
+                    photoURL
+                    // email
+                })
+                //add the storage photo url and display to state
+                setPhoto(photoURL)
+                setDisplayName(name)
+                setLoading(false)
+                toast.success('Profile updated')
+            }
+        } catch (error) {
+            setLoading(false)
+            toast.error('Could not update profile details')
+            console.log(error);
+        }
+        setIsEdit(false)
     }
 
     //handle photo change
-    const handlePhotoChange = () => {
-
+    const handlePhotoChange = (e) => {
+        //check image size, max 2mb
+        if (e.target.files[0].size > 2000000) {
+            toast.error('Sorry, image size must be 2MB or lower')
+            e.target.value = ''
+        }
+        storeImage(e.target.files[0])
     }
 
     //save edited info in state
-    const handleEditChange = () => {
-
+    const handleEditChange = (e) => {
+        setUserData((prevState) => ({
+            ...prevState,
+            [e.target.id]: e.target.value.trim()
+        }))
     }
 
     //store image in firebase & get the download URL
@@ -91,6 +135,31 @@ const ProfileHeader = () => {
             );
             setLoading(false)
         })
+    }
+
+    //delete profile [FIX NAVBAR PHOTO RERENDER]
+    const handleProfileDelete = async () => {
+        let email = window.prompt('Enter Email')
+        let password = window.prompt('Enter Password')
+        if (window.confirm('Are you sure you want to delete your profile?') === true) {
+
+            const auth = getAuth();
+            const user = auth.currentUser;
+            const credential = EmailAuthProvider.credential(email, password);
+
+            await reauthenticateWithCredential(user, credential).then(() => {
+                // User re-authenticated.
+                deleteUser(user).then(() => {
+                    console.log('User deleted');
+                }).catch((error) => {
+                    toast.error('Could not delete user profile')
+                    console.log(error);
+                });
+            }).catch((error) => {
+                toast.error('Could not delete user profile')
+            });
+            navigate('/')
+        }
     }
 
     return (
