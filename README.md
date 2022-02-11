@@ -12,6 +12,8 @@ I have put a lot of learning effort and did a lot of reaserch and studying durin
 
 Currently I am pushing commits to the backup repository.
 
+Had some confusion with git branches, commits are messy
+
 ---
 
 Technologies used:
