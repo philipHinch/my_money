@@ -6,7 +6,7 @@ import { useDate } from '../hooks/useDate';
 import Spinner from '../components/Spinner';
 import ProgressBar from '../components/ProgressBar';
 //firebase
-import { getAuth, updateProfile } from 'firebase/auth';
+import { getAuth, updateProfile, deleteUser, reauthenticateWithCredential, EmailAuthProvider } from 'firebase/auth';
 import { updateDoc, doc, getDoc, onSnapshot } from 'firebase/firestore';
 import { db } from '../firebase.config';
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
@@ -17,7 +17,7 @@ import { toast } from 'react-toastify';
 //context
 import { UserContext } from '../context/UserContext';
 //router
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 //uuid
 import { v4 as uuidv4 } from 'uuid';
 
@@ -28,6 +28,7 @@ const Profile = ({ setDisplayName, setPhoto, loading, setLoading }) => {
     const params = useParams()
     const { user } = useContext(UserContext)
     const { checkingStatus } = useAuthStatus()
+    const navigate = useNavigate()
     const auth = getAuth()
 
     //states
@@ -115,8 +116,7 @@ const Profile = ({ setDisplayName, setPhoto, loading, setLoading }) => {
             }
         }
         setExpenses(expenseTOT)
-
-    }, [formData, firebaseExpensesIncomes])
+    }, [formData])
 
     // *****
     // useEffect(() => {
@@ -202,6 +202,32 @@ const Profile = ({ setDisplayName, setPhoto, loading, setLoading }) => {
         storeImage(e.target.files[0])
     }
 
+    //delete profile [FIX NAVBAR PHOTO RERENDER]
+    const handleProfileDelete = async () => {
+        let email = window.prompt('Enter Email')
+        let password = window.prompt('Enter Password')
+        if (window.confirm('Are you sure you want to delete your profile?') === true) {
+
+            const auth = getAuth();
+            const user = auth.currentUser;
+            const credential = EmailAuthProvider.credential(email, password);
+
+            await reauthenticateWithCredential(user, credential).then(() => {
+                // User re-authenticated.
+                deleteUser(user).then(() => {
+                    console.log('User deleted');
+                }).catch((error) => {
+                    toast.error('Could not delete user profile')
+                    console.log(error);
+                });
+            }).catch((error) => {
+                toast.error('Could not delete user profile')
+            });
+            navigate('/')
+        }
+    }
+
+    //clear all items
     const handleClearAll = () => {
         if (window.confirm('Are you sure you want to delete all items?') === true) {
             const clearAllItemsInFirebase = async () => {
@@ -393,6 +419,8 @@ const Profile = ({ setDisplayName, setPhoto, loading, setLoading }) => {
                     id='email'
                     value={email}
                     disabled />
+
+                <p className="deleteProfile" onClick={handleProfileDelete}>Delete Profile</p>
 
                 {/* {!isEdit ?
                     <input

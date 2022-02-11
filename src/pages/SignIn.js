@@ -1,6 +1,7 @@
 //hooks
 import { useContext, useEffect, useState } from 'react';
 import { useAuthStatus } from '../hooks/useAuthStatus';
+import { useLogin } from '../hooks/useLogin';
 //router
 import { Link, useNavigate } from 'react-router-dom';
 //icons
@@ -11,16 +12,12 @@ import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { toast } from 'react-toastify';
 //components
 import Spinner from '../components/Spinner';
-//context
-import { UserContext } from '../context/UserContext';
 
-
-const SignIn = ({ loading, setLoading }) => {
+const SignIn = () => {
 
     const navigate = useNavigate()
-    const { getUser } = useContext(UserContext)
-    const { loggedIn } = useAuthStatus()
     const auth = getAuth()
+    const { login, error, loading } = useLogin()
 
     const [showPassword, setShowPassword] = useState(false)
     const [formData, setFormData] = useState({
@@ -38,19 +35,11 @@ const SignIn = ({ loading, setLoading }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        setLoading(true)
-
-        try {
-            const auth = getAuth();
-            const userCredential = await signInWithEmailAndPassword(auth, email, password)
-            if (userCredential.user) {
-                setLoading(false)
-                getUser()
-                navigate(`/profile/${ auth.currentUser.uid }`)
-            }
-        } catch (error) {
-            setLoading(false)
-            toast.error('Could not sign in')
+        await login(email, password)
+        if (auth.currentUser) {
+            navigate(`/profile/${ auth.currentUser.uid }`)
+        } else {
+            toast.error('Could not sign up')
         }
     }
 

@@ -55,7 +55,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/sign-in' element={<SignIn loading={loading} setLoading={setLoading} />} />
-          <Route path='/sign-up' element={<SignUp setPhoto={setPhoto} setTest={setTest} loading={loading} setLoading={setLoading} />} />
+          <Route path='/sign-up' element={<SignUp />} />
           <Route path='/profile/:userId' element={<PrivateRoute />} >
             <Route path='/profile/:userId' element={<Profile displayName={displayName} setDisplayName={setDisplayName} photo={photo} setPhoto={setPhoto} loading={loading} setLoading={setLoading} />} />
           </Route>

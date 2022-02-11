@@ -1,13 +1,12 @@
 //hooks
-import { useState, useContext, useEffect } from 'react';
-import { useAuthStatus } from '../hooks/useAuthStatus';
+import { useState, useContext } from 'react';
+import { useSignup } from '../hooks/useSignup';
 //router
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 //firebase
-import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 import { doc, setDoc, serverTimestamp } from "firebase/firestore";
-import { db } from '../firebase.config';
 //icons
 import visibilityIcon from '../assets/svg/visibilityIcon.svg';
 //components
@@ -17,14 +16,13 @@ import { toast } from 'react-toastify';
 //context
 import { UserContext } from '../context/UserContext';
 
+const SignUp = () => {
 
-
-const SignUp = ({ setPhoto, setTest, loading, setLoading }) => {
+    const { signUp, loading, error } = useSignup()
+    const { user } = useContext(UserContext)
+    const auth = getAuth()
 
     const navigate = useNavigate()
-    const { getUser, user } = useContext(UserContext)
-    const { loggedIn } = useAuthStatus()
-    const auth = getAuth()
 
     const [showPassword, setShowPassword] = useState(false)
     const [formData, setFormData] = useState({
@@ -44,45 +42,13 @@ const SignUp = ({ setPhoto, setTest, loading, setLoading }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        setLoading(true)
-
-        try {
-            //create user auth
-            const auth = getAuth();
-            const userCredential = await createUserWithEmailAndPassword(auth, email, password)
-            const user = userCredential.user
-            //add displayname to user
-            await updateProfile(auth.currentUser, {
-                displayName: name
-            })
-            await getUser()
-            //this is a trick to trigger navbar re-render on signup
-            setTest(true)
-
-            //copy user auth details
-            const formDataCopy = { ...formData }
-            //delete password from copy
-            delete formDataCopy.password
-            //add timestamp
-            formDataCopy.timestamp = serverTimestamp()
-            //add expenses and icomes empty array
-            formDataCopy.expensesIncomes = []
-            //add user copy to database
-            await setDoc(doc(db, 'users', user.uid), formDataCopy)
-            setLoading(false)
-
+        await signUp(email, password, name)
+        if (auth.currentUser) {
             navigate(`/profile/${ auth.currentUser.uid }`)
-        } catch (error) {
-            setLoading(false)
+        } else {
             toast.error('Could not sign up')
         }
     }
-
-    useEffect(() => {
-        if (auth.currentUser) {
-            navigate(`/profile/${ auth.currentUser.uid }`)
-        }
-    }, [])
 
     if (loading) {
         return <Spinner />

@@ -5,6 +5,7 @@ import { getAuth } from "firebase/auth";
 //hooks
 import { useEffect, useState } from "react";
 import { useAuthStatus } from "../hooks/useAuthStatus";
+import { useLogout } from "../hooks/useLogout";
 //icons
 import { Icon } from '@iconify/react';
 //context
@@ -18,13 +19,14 @@ const Navbar = ({ displayName, setDisplayName, photo, setPhoto, test }) => {
     const { checkingStatus, loggedIn } = useAuthStatus()
     const auth = getAuth()
     const navigate = useNavigate()
-    const { user, getUser } = useContext(UserContext)
+    const { user } = useContext(UserContext)
+    const { logout, error, loading } = useLogout()
 
 
     //takes care of setting displayname & photo on initial page load and after editing
     useEffect(() => {
         const setUserDetails = async () => {
-            await getUser()
+
             if (user) {
                 // setDisplayName(user.displayName)
                 // setPhoto(user.photoURL)
@@ -45,8 +47,7 @@ const Navbar = ({ displayName, setDisplayName, photo, setPhoto, test }) => {
     //auth.currentUser was a useEffect dependancy, it has been removed and the Uncaught (in promise) TypeError: Cannot read properties of null (reading 'displayName') at setUserDetails (Navbar.js:35:1) has been resolved
 
     const signOut = async () => {
-        const auth = getAuth();
-        await auth.signOut()
+        logout()
         await setDisplayName(null)
         await setPhoto(null)
         navigate('/')

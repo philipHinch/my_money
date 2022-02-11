@@ -337,11 +337,24 @@ input:focus {
 .profileEmail {
   width: 100%;
   border: none;
+  letter-spacing: 2px;
   text-align: center;
   color: black;
   padding: 5px;
   border: 1px solid transparent;
   background-color: transparent;
+}
+.deleteProfile {
+  color: var(--red);
+  font-size: 0.8rem;
+  font-weight: bold;
+  margin-top: 20px;
+  opacity: 0.7;
+  cursor: pointer;
+  transition: opacity 0.1s ease;
+}
+.deleteProfile:hover {
+  opacity: 1;
 }
 .profileName:focus {
   border: 1px solid var(--green);
@@ -482,6 +495,7 @@ input:focus {
 .expenseItem {
   display: flex;
   justify-content: space-evenly;
+  align-items: center;
   border: 1px solid var(--blue);
   /* border-radius: 10px; */
   color: var(--blue);
@@ -514,7 +528,7 @@ input:focus {
   color: var(--green);
 }
 .deleteIcon {
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   color: var(--blue);
   opacity: 0.6;
   margin-left: 25px;
