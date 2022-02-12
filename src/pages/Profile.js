@@ -1,27 +1,19 @@
 //hooks
 import { useEffect, useState, useContext } from 'react';
-import { useAuthStatus } from '../hooks/useAuthStatus';
 import { useDate } from '../hooks/useDate';
 //components
 import Spinner from '../components/Spinner';
-import ProgressBar from '../components/ProgressBar';
 import ProfileHeader from '../components/profile/ProfileHeader';
 import ProfileForm from '../components/profile/ProfileForm';
+import ProfileList from '../components/profile/ProfileList';
 //firebase
-import { getAuth, updateProfile, deleteUser, reauthenticateWithCredential, EmailAuthProvider } from 'firebase/auth';
+import { getAuth } from 'firebase/auth';
 import { updateDoc, doc, getDoc, onSnapshot } from 'firebase/firestore';
 import { db } from '../firebase.config';
-import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-//icons
-import { Icon } from '@iconify/react';
-//toastify
-import { toast } from 'react-toastify';
 //context
 import { UserContext } from '../context/UserContext';
 //router
 import { useNavigate, useParams } from 'react-router-dom';
-//uuid
-import { v4 as uuidv4 } from 'uuid';
 
 
 const Profile = ({ loading, setPhoto, setDisplayName }) => {
@@ -178,54 +170,8 @@ const Profile = ({ loading, setPhoto, setDisplayName }) => {
 
             {/* from here, all the expenses and incomes are named as expenses */}
 
-            <div className="profileExpenses">
-                <Icon icon="mdi:delete-forever" className='clearAllIcon' onClick={handleClearAll} />
-                <div className="totalsContainer">
-                    {/* dynamic values*/}
-                    <h4>Incomes: <span className="incomesAmount positiveColor">{incomes.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '€'}</span></h4>
-                    {/* <h3>Balance: <span className="balanceAmount positiveColor">+1240,00€</span></h3> */}
-                    <h3>Balance: <span className={`balanceAmount ${ balance > 0 ? 'positiveColor' : 'negativeColor' }`}>{balance.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '€'}</span></h3>
-                    <h4>Expenses: <span className="expensesAmount negativeColor">{expenses.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '€'}</span></h4>
-                </div>
-                <ul className="expensesList">
+            <ProfileList />
 
-                    {firebaseExpensesIncomes && firebaseExpensesIncomes.map(item => (
-                        <li key={item.expenseIncomeId} id='expenseItem' className='expenseItem' style={{ borderLeft: `6px solid ${ item.expenseIncomeAmount < 0 ? '#e76f51' : '#2a9d8f' }` }}>
-                            <p className="expenseItemDate">{item.expenseIncomeDate}</p>
-                            <p className="expenseItemTitle">{item.expenseIncomeTitle}</p>
-                            <p className={`expenseItemAmount ${ item.expenseIncomeAmount < 0 ? 'negativeColor' : 'positiveColor' }`}>{item.expenseIncomeAmount.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-                                + '€'}</p>
-                            <div className="deleteIconContainer">
-                                <Icon icon="mdi:close-thick" className='deleteIcon' id={item.expenseIncomeId} onClick={handleDelete} />
-                            </div>
-
-                        </li>
-                    ))}
-
-                    {/* <li className="expenseItem">
-                        <p className="expenseItemDate">02/10/2022</p>
-                        <p className="expenseItemTitle">Pizza</p>
-                        <p className="expenseItemAmount negativeColor">-10,00€</p>
-                        <Icon icon="mdi:close-thick" className='deleteIcon' />
-                    </li>
-
-                    <li className="expenseItem">
-                        <p className="expenseItemDate">25/09/2022</p>
-                        <p className="expenseItemTitle">Rent</p>
-                        <p className="expenseItemAmount negativeColor">-950,00€</p>
-                        <Icon icon="mdi:close-thick" className='deleteIcon' />
-
-                    </li>
-
-                    <li className="expenseItem" style={{ borderLeft: '6px solid #2a9d8f' }}>
-                        <p className="expenseItemDate">01/09/2022</p>
-                        <p className="expenseItemTitle">Salary</p>
-                        <p className="expenseItemAmount incomeColor" >+2200,00€</p>
-                        <Icon icon="mdi:close-thick" className='deleteIcon' />
-                    </li> */}
-
-                </ul>
-            </div>
         </div>
     );
 }

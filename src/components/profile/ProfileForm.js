@@ -8,6 +8,7 @@ import { db } from '../../firebase.config';
 import { useParams } from "react-router-dom";
 //uuid
 import { v4 as uuidv4 } from 'uuid';
+import { toast } from "react-toastify";
 
 const ProfileForm = () => {
 
@@ -51,6 +52,8 @@ const ProfileForm = () => {
             await updateDoc(docRef, {
                 expensesIncomes: newArr
             })
+
+            toast.success('Item Added')
         } else {
             console.log("No such document!");
         }

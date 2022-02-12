@@ -1,18 +1,49 @@
 //hooks
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
+//router
+import { useParams } from "react-router-dom";
+//context
+import UserContext from "../../context/UserContext";
 //icons
 import { Icon } from '@iconify/react';
+//firebase
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from "../../firebase.config";
+//toastify
+import { toast } from "react-toastify";
 
 const ProfileList = () => {
 
     // ******** STATES AND OTHERS ********//
 
+    const params = useParams()
+    const { user, authIsReady } = useContext(UserContext)
     const [balance, setBalance] = useState(0)
     const [incomes, setIncomes] = useState(0)
     const [expenses, setExpenses] = useState(0)
     const [firebaseExpensesIncomes, setFirebaseExpensesIncomes] = useState(null)
 
     // ********* MAIN LOGIC *********//
+
+    //on page load get expenses and incomes: *****
+    useEffect(() => {
+        if (authIsReady) {
+
+        }
+        //get expenses and incomes from firebase on page load
+        const getFirebaseExpensesIncomes = async () => {
+            const docRef = doc(db, 'users', params.userId)
+            const docSnap = await getDoc(docRef);
+            if (docSnap.exists()) {
+                let firebaseArr = docSnap.data().expensesIncomes
+                setFirebaseExpensesIncomes(firebaseArr)
+
+            } else {
+                console.log("No expenses or incomes in firebase");
+            }
+        }
+        getFirebaseExpensesIncomes()
+    }, [authIsReady])
 
     //clear all expenses and incomes
     const handleClearAll = () => {
