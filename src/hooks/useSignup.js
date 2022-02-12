@@ -6,6 +6,8 @@ import { useContext, useEffect } from "react";
 import UserContext from "../context/UserContext";
 //hooks
 import { useState } from "react";
+//toastify
+import { toast } from 'react-toastify';
 
 export const useSignup = () => {
 
@@ -54,7 +56,8 @@ export const useSignup = () => {
             if (!isCancelled) {
                 setError(error.message)
                 setLoading(false)
-                console.log('Oooops,', error);
+                toast.error(error.message)
+                //console.log('Oooops,', error);
             }
         }
     }

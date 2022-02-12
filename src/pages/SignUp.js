@@ -47,8 +47,6 @@ const SignUp = () => {
 
         const auth = getAuth()
 
-        console.log(auth.currentUser);
-
         //copy user auth details
         const userCopy = {
             displayName: auth.currentUser.displayName,

@@ -39,7 +39,7 @@ const SignIn = () => {
         if (auth.currentUser) {
             navigate(`/profile/${ auth.currentUser.uid }`)
         } else {
-            toast.error('Could not sign up')
+            //toast.error('Could not sign up')
         }
     }
 
