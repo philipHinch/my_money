@@ -29,7 +29,7 @@ const Profile = ({ loading, setPhoto, setDisplayName }) => {
     //other
     const params = useParams()
     const { user, authIsReady } = useContext(UserContext)
-    const { checkingStatus } = useAuthStatus()
+    //const { checkingStatus } = useAuthStatus()
     const navigate = useNavigate()
     const auth = getAuth()
 
@@ -165,7 +165,7 @@ const Profile = ({ loading, setPhoto, setDisplayName }) => {
 
     }
 
-    if (checkingStatus || loading) {
+    if (loading) {
         return <Spinner />
     }
 

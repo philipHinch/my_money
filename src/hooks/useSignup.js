@@ -57,7 +57,7 @@ export const useSignup = () => {
                 setError(error.message)
                 setLoading(false)
                 toast.error(error.message)
-                //console.log('Oooops,', error);
+                console.log('Oooops,', error);
             }
         }
     }

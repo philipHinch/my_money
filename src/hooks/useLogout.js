@@ -8,6 +8,8 @@ import { getAuth, signOut } from "firebase/auth";
 
 export const useLogout = () => {
 
+    // FIX THE MEMORY LEAK ERROR ON LOGGING OUT
+
     const [isCancelled, setIsCancelled] = useState(false)
     const { dispatch } = useContext(UserContext)
     const [loading, setLoading] = useState(false)

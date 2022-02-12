@@ -13,13 +13,14 @@ import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/
 import { db } from '../../firebase.config';
 //toastify
 import { toast } from 'react-toastify';
+import Spinner from '../Spinner';
 
 
 const ProfileHeader = ({ setDisplayName, setPhoto }) => {
 
     // ******** STATES AND OTHERS ********//
 
-    const { user } = useContext(UserContext)
+    const { user, authIsReady } = useContext(UserContext)
     const auth = getAuth()
     const navigate = useNavigate()
     const [isEdit, setIsEdit] = useState(false)
@@ -28,15 +29,26 @@ const ProfileHeader = ({ setDisplayName, setPhoto }) => {
     // const [displayName, setDisplayName] = useState(null)
     const [progressWidth, setProgressWidth] = useState(null)
     const [userData, setUserData] = useState({
-        displayName: user.displayName,
-        email: user.email,
-        photoURL: user.photoURL,
-        expensesIncomes: user.expensesIncomes
+        displayName: '',
+        email: '',
+        photoURL: null,
+        expensesIncomes: []
     })
 
     let { displayName, email, photoURL } = userData
 
     // ********* MAIN LOGIC *********//
+
+    useEffect(() => {
+        if (authIsReady) {
+            setUserData({
+                displayName: user.displayName,
+                email: user.email,
+                photoURL: user.photoURL,
+                expensesIncomes: user.expensesIncomes
+            })
+        }
+    }, [authIsReady])
 
     //activate edit mode: remove disable on profile header inputs
     const handleCogClick = () => {
@@ -64,7 +76,7 @@ const ProfileHeader = ({ setDisplayName, setPhoto }) => {
                 //add the storage photo url and display to state
                 setPhoto(photoURL)
                 setDisplayName(displayName)
-                setLoading(false)
+                //setLoading(false)
                 toast.success('Profile updated')
             }
         } catch (error) {
@@ -163,6 +175,7 @@ const ProfileHeader = ({ setDisplayName, setPhoto }) => {
             navigate('/')
         }
     }
+
 
     return (
         <div className={`profileHeader ${ isEdit && 'editModeActive' }`}>
