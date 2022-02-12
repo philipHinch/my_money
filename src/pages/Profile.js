@@ -24,7 +24,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 
 
-const Profile = ({ loading }) => {
+const Profile = ({ loading, setPhoto, setDisplayName }) => {
 
     //other
     const params = useParams()
@@ -173,7 +173,7 @@ const Profile = ({ loading }) => {
         <div className='profileContainer' >
             <h2 className="profileTitle">My Profile</h2>
 
-            <ProfileHeader />
+            <ProfileHeader setPhoto={setPhoto} setDisplayName={setDisplayName} />
             <ProfileForm />
 
             {/* from here, all the expenses and incomes are named as expenses */}

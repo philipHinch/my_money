@@ -34,13 +34,21 @@ const Navbar = ({ displayName, setDisplayName, photo, setPhoto, test }) => {
                 //FIXED???: Uncaught (in promise) TypeError: Cannot read properties of null (reading 'displayName') at setUserDetails (Navbar.js:35:1)
                 //this happens after logging out
 
-                await setDisplayName(auth.currentUser.displayName)
-                await setPhoto(auth.currentUser.photoURL)
+                await setDisplayName(user.displayName)
+                await setPhoto(user.photoURL)
             } else {
                 await setDisplayName(null)
             }
         }
         setUserDetails()
+
+        // if (user) {
+        //     setDisplayName(user.displayName)
+        //     setPhoto(user.photoURL)
+        //     console.log('photo changed');
+        // } else {
+        //     setDisplayName(null)
+        // }
 
     }, [checkingStatus, user, test])
 

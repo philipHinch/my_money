@@ -15,7 +15,7 @@ import { db } from '../../firebase.config';
 import { toast } from 'react-toastify';
 
 
-const ProfileHeader = () => {
+const ProfileHeader = ({ setDisplayName, setPhoto }) => {
 
     // ******** STATES AND OTHERS ********//
 
@@ -24,17 +24,17 @@ const ProfileHeader = () => {
     const navigate = useNavigate()
     const [isEdit, setIsEdit] = useState(false)
     const [loading, setLoading] = useState(false)
-    const [photo, setPhoto] = useState(null)
-    const [displayName, setDisplayName] = useState(null)
+    // const [photo, setPhoto] = useState(null)
+    // const [displayName, setDisplayName] = useState(null)
     const [progressWidth, setProgressWidth] = useState(null)
     const [userData, setUserData] = useState({
-        name: user.displayName,
+        displayName: user.displayName,
         email: user.email,
         photoURL: user.photoURL,
         expensesIncomes: user.expensesIncomes
     })
 
-    let { name, email, photoURL } = userData
+    let { displayName, email, photoURL } = userData
 
     // ********* MAIN LOGIC *********//
 
@@ -48,22 +48,22 @@ const ProfileHeader = () => {
         const auth = getAuth()
         //update details in firebase
         try {
-            if (auth.currentUser.displayName !== name || auth.currentUser.photoURL !== photoURL) {
+            if (auth.currentUser.displayName !== displayName || auth.currentUser.photoURL !== photoURL) {
                 setLoading(true)
                 await updateProfile(auth.currentUser, {
-                    displayName: name,
+                    displayName,
                     photoURL
                 })
                 //update details in firestore
                 const userRef = doc(db, 'users', auth.currentUser.uid)
                 await updateDoc(userRef, {
-                    name,
+                    displayName,
                     photoURL
                     // email
                 })
                 //add the storage photo url and display to state
                 setPhoto(photoURL)
-                setDisplayName(name)
+                setDisplayName(displayName)
                 setLoading(false)
                 toast.success('Profile updated')
             }
@@ -83,6 +83,7 @@ const ProfileHeader = () => {
             e.target.value = ''
         }
         storeImage(e.target.files[0])
+
     }
 
     //save edited info in state
@@ -196,15 +197,15 @@ const ProfileHeader = () => {
                 <input
                     type="text"
                     className='profileName'
-                    id='name'
-                    value={name}
+                    id='displayName'
+                    value={displayName}
                     disabled />
                 :
                 <input
                     type="text"
                     className='profileName'
-                    id='name'
-                    value={name}
+                    id='displayName'
+                    value={displayName}
                     onChange={handleEditChange}
                     style={{ border: '1px solid #2a9d8f' }} />}
 
