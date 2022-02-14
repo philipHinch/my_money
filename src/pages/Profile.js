@@ -1,6 +1,7 @@
 //hooks
 import { useEffect, useState, useContext } from 'react';
 import { useDate } from '../hooks/useDate';
+import { useExpensesIncomes } from '../hooks/useExpensesIncomes';
 //components
 import Spinner from '../components/Spinner';
 import ProfileHeader from '../components/profile/ProfileHeader';
@@ -19,8 +20,9 @@ import { useNavigate, useParams } from 'react-router-dom';
 const Profile = ({ loading, setPhoto, setDisplayName }) => {
 
     //other
+    const { getExpensesIncomes } = useExpensesIncomes()
     const params = useParams()
-    const { user, authIsReady } = useContext(UserContext)
+    const { user, authIsReady, data } = useContext(UserContext)
     //const { checkingStatus } = useAuthStatus()
     const navigate = useNavigate()
     const auth = getAuth()
@@ -65,33 +67,35 @@ const Profile = ({ loading, setPhoto, setDisplayName }) => {
 
 
     //on page load: *****
-    useEffect(() => {
-        if (authIsReady) {
-            setUserData({
-                name: user.displayName,
-                email: user.email,
-                photoURL: user.photoURL,
-                expensesIncomes: user.expensesIncomes
-            })
-        }
-        //check if user has photoURL in firestore
-        if (auth.currentUser.photoURL) {
-            photoURL = auth.currentUser.photoURL
-        }
-        //get expenses and incomes from firebase on page load
-        const getFirebaseExpensesIncomes = async () => {
-            const docRef = doc(db, 'users', params.userId)
-            const docSnap = await getDoc(docRef);
-            if (docSnap.exists()) {
-                let firebaseArr = docSnap.data().expensesIncomes
-                setFirebaseExpensesIncomes(firebaseArr)
+    // useEffect(() => {
 
-            } else {
-                console.log("No expenses or incomes in firebase");
-            }
-        }
-        getFirebaseExpensesIncomes()
-    }, [authIsReady])
+    //     if (authIsReady) {
+    //         setUserData({
+    //             name: user.displayName,
+    //             email: user.email,
+    //             photoURL: user.photoURL,
+    //             expensesIncomes: user.expensesIncomes
+    //         })
+    //     }
+    //     //check if user has photoURL in firestore
+    //     if (auth.currentUser.photoURL) {
+    //         photoURL = auth.currentUser.photoURL
+    //     }
+    //     //get expenses and incomes from firebase on page load
+    //     const getFirebaseExpensesIncomes = async () => {
+    //         const docRef = doc(db, 'users', params.userId)
+    //         const docSnap = await getDoc(docRef);
+    //         if (docSnap.exists()) {
+    //             let firebaseArr = docSnap.data().expensesIncomes
+    //             setFirebaseExpensesIncomes(firebaseArr)
+
+    //         } else {
+    //             console.log("No expenses or incomes in firebase");
+    //         }
+    //     }
+    //     getFirebaseExpensesIncomes()
+
+    // }, [authIsReady])
 
     // *****
     // useEffect(() => {

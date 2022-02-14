@@ -12,7 +12,8 @@ export const UserProvider = ({ children }) => {
     //initial user state
     const initialState = {
         user: null,
-        authIsReady: false
+        authIsReady: false,
+        data: null
     }
     const [state, dispatch] = useReducer(UserReducer, initialState)
 
@@ -29,6 +30,7 @@ export const UserProvider = ({ children }) => {
     }, [])
 
     console.log(state);
+
 
     return (
         <UserContext.Provider value={{

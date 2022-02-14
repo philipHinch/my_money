@@ -15,6 +15,11 @@ const UserReducer = (state, action) => {
                 ...state,
                 user: null
             }
+        case 'GET_EXPENSES_INCOMES':
+            return {
+                ...state,
+                data: action.payload
+            }
         case 'AUTH_IS_READY':
             return {
                 ...state,

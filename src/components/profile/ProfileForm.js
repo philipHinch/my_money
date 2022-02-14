@@ -1,6 +1,9 @@
 //hooks
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
 import { useDate } from "../../hooks/useDate";
+import { useExpensesIncomes } from "../../hooks/useExpensesIncomes";
+//context
+import UserContext from "../../context/UserContext";
 //firebase
 import { updateDoc, doc, getDoc, onSnapshot } from 'firebase/firestore';
 import { db } from '../../firebase.config';
@@ -14,8 +17,10 @@ const ProfileForm = () => {
 
     // ******** STATES AND OTHERS ********//
 
+    const { getData } = useExpensesIncomes()
     const date = useDate()
     const params = useParams()
+    const { user } = useContext(UserContext)
     const [expense, setExpense] = useState(true)
     const [income, setIncome] = useState(false)
     const [formData, setFormData] = useState({
@@ -47,7 +52,7 @@ const ProfileForm = () => {
                 expenseIncomeDate: d,
                 expenseIncomeId: uuidv4()
             }, ...oldArr]
-            console.log(newArr);
+            getData()
 
             await updateDoc(docRef, {
                 expensesIncomes: newArr
