@@ -20,6 +20,7 @@ const ProfileList = () => {
     const params = useParams()
     const { getData, loading } = useExpensesIncomes()
     const { user, authIsReady, data } = useContext(UserContext)
+    const [amountArr, setAmountArr] = useState([])
     const [balance, setBalance] = useState(0)
     const [incomes, setIncomes] = useState(0)
     const [expenses, setExpenses] = useState(0)
@@ -46,17 +47,33 @@ const ProfileList = () => {
         // }
         // getFirebaseExpensesIncomes()
 
+        const getAllData = async () => {
+            //get expenses and incomes on page load
+            await getData()
 
-        //get expenses and incomes on page load
-        getData()
+        }
+        getAllData()
+
 
         // get incomes total on page load
 
         // get expenses total on page load
 
-        // get balance on page load
-
     }, [])
+
+    // get balance on page load
+    useEffect(() => {
+        let arr = []
+        data.forEach(item => {
+            arr.push(item.expenseIncomeAmount)
+        })
+        const initialValue = 0;
+        const num = arr.reduce(
+            (previousValue, currentValue) => previousValue + currentValue,
+            initialValue
+        );
+        setBalance(num)
+    }, [data])
 
     //clear all expenses and incomes
     const handleClearAll = () => {

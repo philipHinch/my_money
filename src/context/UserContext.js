@@ -13,7 +13,7 @@ export const UserProvider = ({ children }) => {
     const initialState = {
         user: null,
         authIsReady: false,
-        data: null
+        data: []
     }
     const [state, dispatch] = useReducer(UserReducer, initialState)
 
