@@ -17,6 +17,12 @@
   box-sizing: border-box;
   letter-spacing: 1px;
 }
+h1 {
+  color: var(--blue);
+}
+h2 {
+  color: var(--blue);
+}
 a {
   text-decoration: none;
 }
@@ -66,7 +72,7 @@ input:focus {
 }
 .btn-not-active {
   background-color: var(--mint-white);
-  color: black;
+  color: var(--blue);
   border: 1px solid var(--blue);
   opacity: 0.5;
 }
@@ -165,7 +171,7 @@ input:focus {
   justify-content: center;
   border-radius: 50%;
   overflow: hidden;
-  border: 1px solid black;
+  border: 1px solid var(--blue);
   background: url("./assets/png/blank_profile.png") center no-repeat;
   background-size: cover;
   margin-right: 8px;
@@ -230,6 +236,7 @@ input:focus {
 .homeParagraph {
   margin-top: 50px;
   margin-bottom: 10px;
+  color: var(--blue);
 }
 .mobileIcons {
   display: flex;
@@ -242,7 +249,7 @@ input:focus {
   cursor: pointer;
 }
 .mobileIcon:hover {
-  color: black;
+  color: var(--blue);
 }
 .homeImageContainer {
   width: 50%;
@@ -305,7 +312,7 @@ input:focus {
   margin-bottom: 20px;
   border-radius: 50%;
   overflow: hidden;
-  border: 3px solid black;
+  border: 3px solid var(--blue);
   background: url("./assets/png/blank_profile.png") center no-repeat;
   background-size: cover;
   /* background-color: black; */
@@ -329,7 +336,7 @@ input:focus {
   text-align: center;
   font-size: 1.6rem;
   font-weight: bolder;
-  color: black;
+  color: var(--blue);
   margin-bottom: 20px;
   padding: 5px;
   border: 1px solid transparent;
@@ -339,7 +346,7 @@ input:focus {
   border: none;
   letter-spacing: 2px;
   text-align: center;
-  color: black;
+  color: var(--blue);
   padding: 5px;
   border: 1px solid transparent;
   background-color: transparent;
@@ -485,8 +492,14 @@ input:focus {
   align-items: center;
   margin: 50px 0;
 }
+.totalsContainer h4 {
+  color: var(--blue);
+}
+.totalsContainer h3 {
+  color: var(--blue);
+}
 .balanceAmount {
-  margin-left: 20px;
+  margin-left: 5px;
   font-size: 2rem;
 }
 .expensesList {
@@ -499,7 +512,7 @@ input:focus {
   border: 1px solid var(--blue);
   /* border-radius: 10px; */
   color: var(--blue);
-  padding: 10px;
+  padding: 2px 10px;
   width: 100%;
   margin: 15px 0;
   font-weight: bold;
@@ -539,6 +552,28 @@ input:focus {
   color: var(--orange);
   opacity: 1;
 }
+.expenseItemDate {
+  position: relative;
+}
+.date-as-calendar {
+  display: flex;
+  font-size: 0.7rem;
+  padding: 2px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-left: 6px;
+  opacity: 0.6;
+  transition: opacity 0.1s ease;
+  /* border: 1px solid var(--blue); */
+}
+.expenseItem:hover .date-as-calendar {
+  opacity: 1;
+}
+.day {
+  font-size: 1.2rem;
+}
+
 /* sign-in & sign-out*/
 .signUpContainer {
   border-top: 6px solid var(--yellow);
@@ -743,6 +778,13 @@ input:focus {
   border-bottom: 6px solid var(--yellow);
   min-height: 100vh;
 }
+.notFoundImgContainer {
+  width: 80%;
+  max-width: 800px;
+}
+.notFoundImg {
+  width: 100%;
+}
 .notFoundBox {
   position: relative;
   display: flex;
@@ -762,9 +804,11 @@ input:focus {
 .notFoundTitle {
   font-size: 2rem;
   margin: 30px 0;
+  margin-bottom: 30px;
 }
 .notFoundBtn {
-  margin-top: 50px;
+  margin-top: 60px;
+  margin-bottom: 20px;
 }
 /* spinner */
 .loadingSpinnerContainer {

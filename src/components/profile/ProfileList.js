@@ -156,24 +156,76 @@ const ProfileList = () => {
         setDeleted(true)
     }
 
+    const getMonthString = (num) => {
+        switch (num) {
+            case 1:
+                return 'Jan'
+                break;
+            case 2:
+                return 'Feb'
+                break;
+            case 3:
+                return 'Mar'
+                break;
+            case 4:
+                return 'Apr'
+                break;
+            case 5:
+                return 'May'
+                break;
+            case 6:
+                return 'Jun'
+                break;
+            case 7:
+                return 'Jul'
+                break;
+            case 8:
+                return 'Aug'
+                break;
+            case 9:
+                return 'Sept'
+                break;
+            case 10:
+                return 'Oct'
+                break;
+            case 11:
+                return 'Nov'
+                break;
+            case 12:
+                return 'Dec'
+                break;
+            default:
+                break;
+        }
+    }
 
     return (
         <div className="profileExpenses">
             <Icon icon="mdi:delete-forever" className='clearAllIcon' onClick={handleClearAll} />
             <div className="totalsContainer">
                 {/* dynamic values*/}
-                <h4>Incomes: <span className="incomesAmount positiveColor">{incomes.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '€'}</span></h4>
+                <h4>Incomes: <span className="incomesAmount positiveColor">{incomes > 0 ? '+' : ''}{incomes.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '€'}</span></h4>
                 {/* <h3>Balance: <span className="balanceAmount positiveColor">+1240,00€</span></h3> */}
-                <h3>Balance: <span className={`balanceAmount ${ balance > 0 ? 'positiveColor' : 'negativeColor' }`}>{balance.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '€'}</span></h3>
+                <h3>Balance: <span className={`balanceAmount ${ balance > 0 ? 'positiveColor' : 'negativeColor' }`}>{balance > 0 ? '+' : ''}{balance.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '€'}</span></h3>
                 <h4>Expenses: <span className="expensesAmount negativeColor">{expenses.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '€'}</span></h4>
             </div>
             <ul className="expensesList">
 
                 {data && data.map(item => (
                     <li key={item.expenseIncomeId} id='expenseItem' className='expenseItem' style={{ borderLeft: `6px solid ${ item.expenseIncomeAmount < 0 ? '#e76f51' : '#2a9d8f' }` }}>
-                        <p className="expenseItemDate">{item.expenseIncomeDate.getDate()}-{item.expenseIncomeDate.getMonth()}-{item.expenseIncomeDate.getFullYear()}</p>
+                        {/* <p className="expenseItemDate">{item.expenseIncomeDate.getDate()}-{item.expenseIncomeDate.getMonth()}-{item.expenseIncomeDate.getFullYear()}</p> */}
+                        <p className="expenseItemDate">
+                            <span className="date-as-calendar">
+                                {/* <span className="month">{item.expenseIncomeDate.getMonth()}</span> */}
+                                <span className="month">{getMonthString(item.expenseIncomeDate.getMonth() + 1)}</span>
+                                <span className="day">{
+                                    item.expenseIncomeDate.getDate()
+                                }</span>
+                                <span className="year">{item.expenseIncomeDate.getFullYear()}</span>
+                            </span>
+                        </p>
                         <p className="expenseItemTitle">{item.expenseIncomeTitle}</p>
-                        <p className={`expenseItemAmount ${ item.expenseIncomeAmount < 0 ? 'negativeColor' : 'positiveColor' }`}>{item.expenseIncomeAmount.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                        <p className={`expenseItemAmount ${ item.expenseIncomeAmount < 0 ? 'negativeColor' : 'positiveColor' }`}>{item.expenseIncomeAmount > 0 ? '+' : ''}{item.expenseIncomeAmount.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
                             + '€'}</p>
                         <div className="deleteIconContainer">
                             <Icon icon="mdi:close-thick" className='deleteIcon' id={item.expenseIncomeId} onClick={handleDelete} />

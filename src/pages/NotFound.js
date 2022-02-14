@@ -1,5 +1,8 @@
 //router
 import { useNavigate } from "react-router-dom";
+//images
+//icons
+import { ReactComponent as NotFoundImage } from '../assets/svg/notfound.svg';
 
 
 const NotFound = () => {
@@ -9,7 +12,10 @@ const NotFound = () => {
     return (
         <div className="notFoundContainer">
             <div className="notFoundBox">
-                <h1 className="notFoundTitle">404 Page Not Found</h1>
+                <h1 className="notFoundTitle">Ooops! Page Not Found</h1>
+                <div className="notFoundImgContainer">
+                    <NotFoundImage className='notFoundImg' />
+                </div>
                 <button className="btn btn-primary notFoundBtn" onClick={() => navigate('/')}>Go to home</button>
             </div>
         </div>

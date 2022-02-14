@@ -1,4 +1,4 @@
-//icons
+//icons & images
 import { ReactComponent as HomeImage } from '../assets/svg/home_image.svg';
 import { Icon } from '@iconify/react';
 //router
@@ -9,6 +9,7 @@ const Home = () => {
     const navigate = useNavigate()
 
     return (
+        //CREATE A MAIN CONTENT SLIDESHOW...
         <section className='home'>
             <main className="homeContainer">
                 <div className="homeTextContainer">
