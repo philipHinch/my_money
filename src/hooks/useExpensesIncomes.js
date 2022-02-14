@@ -18,8 +18,6 @@ export const useExpensesIncomes = () => {
     const { dispatch, user, authIsReady, data } = useContext(UserContext)
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(null)
-    const [firebaseExpensesIncomes, setFirebaseExpensesIncomes] = useState(null)
-
 
     const getData = async () => {
 
@@ -27,19 +25,35 @@ export const useExpensesIncomes = () => {
         setError(null)
         setLoading(true)
         try {
+            let arr = []
+            let sortedArr = []
             //get user expenses and incomes from firease
             const docRef = doc(db, 'users', params.userId)
             const docSnap = await getDoc(docRef);
             if (docSnap.exists()) {
                 firebaseArr = await docSnap.data().expensesIncomes
-                //setFirebaseExpensesIncomes(firebaseArr)
+
+                //replace date with date object (in order to sort it in line:49)
+
+                firebaseArr.map(item => {
+                    arr.push({
+                        expenseIncomeTitle: item.expenseIncomeTitle,
+                        expenseIncomeAmount: item.expenseIncomeAmount,
+                        expenseIncomeId: item.expenseIncomeId,
+                        expenseIncomeDate: new Date(item.expenseIncomeDate)
+                    })
+                })
+
+                //sort array by date
+                arr.sort((a, b) => b.expenseIncomeDate - a.expenseIncomeDate)
+
             } else {
                 console.log("No expenses or incomes in firebase");
             }
             //dispatch action
             dispatch({
                 type: 'GET_EXPENSES_INCOMES',
-                payload: firebaseArr
+                payload: arr
             })
 
             if (!isCancelled) {

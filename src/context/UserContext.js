@@ -1,5 +1,5 @@
 //hooks
-import { createContext, useEffect, useReducer, useState } from "react";
+import { createContext, useEffect, useReducer } from "react";
 //firebase
 import { getAuth } from "firebase/auth";
 //reducer
@@ -9,7 +9,7 @@ export const UserContext = createContext()
 
 export const UserProvider = ({ children }) => {
 
-    //initial user state
+    //initial state
     const initialState = {
         user: null,
         authIsReady: false,

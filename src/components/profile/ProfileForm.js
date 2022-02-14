@@ -5,7 +5,7 @@ import { useExpensesIncomes } from "../../hooks/useExpensesIncomes";
 //context
 import UserContext from "../../context/UserContext";
 //firebase
-import { updateDoc, doc, getDoc, onSnapshot } from 'firebase/firestore';
+import { updateDoc, doc, getDoc, onSnapshot, serverTimestamp, Timestamp } from 'firebase/firestore';
 import { db } from '../../firebase.config';
 //router
 import { useParams } from "react-router-dom";
@@ -26,7 +26,8 @@ const ProfileForm = () => {
     const [formData, setFormData] = useState({
         expenseIncomeTitle: '',
         expenseIncomeAmount: '',
-        expenseIncomeDate: ''
+        expenseIncomeDate: '',
+        expenseIncomeId: ''
         //servertimestamp will replace expenseDate
     })
     const { expenseIncomeTitle, expenseIncomeAmount, expenseIncomeDate } = formData
@@ -68,7 +69,8 @@ const ProfileForm = () => {
         setFormData({
             expenseIncomeTitle: '',
             expenseIncomeAmount: '',
-            expenseIncomeDate: ''
+            expenseIncomeDate: '',
+            expenseIncomeId: ''
         })
     }
 

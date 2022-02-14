@@ -8,12 +8,11 @@ import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../context/UserContext';
 //firebase
 import { getAuth, updateProfile, deleteUser, reauthenticateWithCredential, EmailAuthProvider } from 'firebase/auth';
-import { updateDoc, doc, getDoc, onSnapshot } from 'firebase/firestore';
+import { updateDoc, doc, onSnapshot } from 'firebase/firestore';
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { db } from '../../firebase.config';
 //toastify
 import { toast } from 'react-toastify';
-import Spinner from '../Spinner';
 
 
 const ProfileHeader = ({ setDisplayName, setPhoto }) => {
@@ -151,7 +150,8 @@ const ProfileHeader = ({ setDisplayName, setPhoto }) => {
         })
     }
 
-    //delete profile [FIX NAVBAR PHOTO RERENDER]
+    //delete profile [FIX NAVBAR PHOTO RERENDER] 
+    //******** NOT FINISHED *********
     const handleProfileDelete = async () => {
         let email = window.prompt('Enter Email')
         let password = window.prompt('Enter Password')
@@ -175,7 +175,6 @@ const ProfileHeader = ({ setDisplayName, setPhoto }) => {
             navigate('/')
         }
     }
-
 
     return (
         <div className={`profileHeader ${ isEdit && 'editModeActive' }`}>

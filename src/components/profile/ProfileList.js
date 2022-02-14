@@ -47,9 +47,9 @@ const ProfileList = () => {
         // }
         // getFirebaseExpensesIncomes()
 
-        const getAllData = async () => {
+        const getAllData = () => {
             //get expenses and incomes on page load
-            await getData()
+            getData()
 
         }
         getAllData()
@@ -105,7 +105,7 @@ const ProfileList = () => {
         setBalance(num)
     }, [data])
 
-    //clear all items ******* NOT FINISHED *********
+    //clear all items ******* NOT FINISHED, updates only on page refresh  *********
     const handleClearAll = () => {
         if (window.confirm('Are you sure you want to delete all items?') === true) {
             const clearAllItemsInFirebase = async () => {
@@ -168,7 +168,7 @@ const ProfileList = () => {
 
                 {data && data.map(item => (
                     <li key={item.expenseIncomeId} id='expenseItem' className='expenseItem' style={{ borderLeft: `6px solid ${ item.expenseIncomeAmount < 0 ? '#e76f51' : '#2a9d8f' }` }}>
-                        <p className="expenseItemDate">{item.expenseIncomeDate}</p>
+                        <p className="expenseItemDate">{item.expenseIncomeDate.getDate()}-{item.expenseIncomeDate.getMonth()}-{item.expenseIncomeDate.getFullYear()}</p>
                         <p className="expenseItemTitle">{item.expenseIncomeTitle}</p>
                         <p className={`expenseItemAmount ${ item.expenseIncomeAmount < 0 ? 'negativeColor' : 'positiveColor' }`}>{item.expenseIncomeAmount.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
                             + '€'}</p>
