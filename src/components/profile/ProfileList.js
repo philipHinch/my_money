@@ -115,6 +115,8 @@ const ProfileList = () => {
                     await updateDoc(docRef, {
                         expensesIncomes: []
                     })
+                    getData()
+                    toast.success('Cleared all items')
                 } else {
                     console.log("No such document!");
                 }
@@ -122,6 +124,7 @@ const ProfileList = () => {
             clearAllItemsInFirebase()
             setDeleted(true)
         }
+
     }
 
     //handle expense/income delete
