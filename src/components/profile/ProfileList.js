@@ -55,11 +55,41 @@ const ProfileList = () => {
         getAllData()
 
 
-        // get incomes total on page load
 
-        // get expenses total on page load
 
     }, [])
+
+    // get expenses total on page load
+    useEffect(() => {
+        let arr = []
+        data.forEach(item => {
+            arr.push(item.expenseIncomeAmount)
+        })
+        let num
+        const initialValue = 0;
+        num = arr.filter((v) => {
+            return v < 0
+        }).reduce((previousValue, currentValue) => previousValue + currentValue,
+            initialValue)
+        setExpenses(num)
+    }, [data])
+
+
+    // get incomes total on page load
+    useEffect(() => {
+        let arr = []
+        data.forEach(item => {
+            arr.push(item.expenseIncomeAmount)
+        })
+        let num
+        const initialValue = 0;
+        num = arr.filter((v) => {
+            return v > 0
+        }).reduce((previousValue, currentValue) => previousValue + currentValue,
+            initialValue)
+        setIncomes(num)
+    }, [data])
+
 
     // get balance on page load
     useEffect(() => {

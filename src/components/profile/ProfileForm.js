@@ -52,11 +52,13 @@ const ProfileForm = () => {
                 expenseIncomeDate: d,
                 expenseIncomeId: uuidv4()
             }, ...oldArr]
-            getData()
+
 
             await updateDoc(docRef, {
                 expensesIncomes: newArr
             })
+
+            getData()
 
             toast.success('Item Added')
         } else {
