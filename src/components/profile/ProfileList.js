@@ -105,9 +105,23 @@ const ProfileList = () => {
         setBalance(num)
     }, [data])
 
-    //clear all expenses and incomes
+    //clear all items ******* NOT FINISHED *********
     const handleClearAll = () => {
-
+        if (window.confirm('Are you sure you want to delete all items?') === true) {
+            const clearAllItemsInFirebase = async () => {
+                const docRef = doc(db, 'users', params.userId)
+                const docSnap = await getDoc(docRef);
+                if (docSnap.exists()) {
+                    await updateDoc(docRef, {
+                        expensesIncomes: []
+                    })
+                } else {
+                    console.log("No such document!");
+                }
+            }
+            clearAllItemsInFirebase()
+            setDeleted(true)
+        }
     }
 
     //handle expense/income delete

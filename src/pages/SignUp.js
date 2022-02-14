@@ -1,5 +1,5 @@
 //hooks
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { useSignup } from '../hooks/useSignup';
 //router
 import { Link } from 'react-router-dom';
@@ -66,6 +66,13 @@ const SignUp = () => {
             toast.error('Could not sign up')
         }
     }
+
+    useEffect(() => {
+        console.log(auth.currentUser);
+        if (auth.currentUser) {
+            navigate(`/profile/${ auth.currentUser.uid }`)
+        }
+    }, [auth.currentUser])
 
     if (loading) {
         return <Spinner />

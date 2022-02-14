@@ -64,7 +64,16 @@ function App() {
         </Routes>
         {!loading && <Footer />}
       </Router>
-      <ToastContainer position="top-center" />
+      <ToastContainer position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss={false}
+        draggable
+        pauseOnHover={false}
+        theme={'colored'} />
     </UserProvider>
   );
 }
