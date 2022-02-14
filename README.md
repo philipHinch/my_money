@@ -2,7 +2,7 @@
 
 (Work in progress...)
 
-This is a personal **React** Project focused on user authentication and database read/write/update.
+This is a personal **React** Project. This my first project ever in which I use backend technologies. Here I have set up user authentication together with a database and storage for profile images. Each user can sign up and then add/remove their expenses and incomes. They can also update their profile picture and username.
 
 Asyncronus programming. State management with usereducer, use context and usestate. 
 
