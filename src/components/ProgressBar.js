@@ -4,7 +4,9 @@ import { motion } from 'framer-motion'
 
 const ProgressBar = ({ progress }) => {
     return (
-        <motion.div className="progress" initial={{ width: 0 }} animate={{ width: progress + '%' }}></motion.div>
+        <div className="progressContainer">
+            <div className="progress" style={{ width: progress + '%' }}></div>
+        </div>
     );
 }
 

@@ -13,7 +13,8 @@ import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/
 import { db } from '../../firebase.config';
 //toastify
 import { toast } from 'react-toastify';
-
+//components
+import ProgressBar from '../ProgressBar';
 
 const ProfileHeader = ({ setDisplayName, setPhoto }) => {
 
@@ -26,7 +27,7 @@ const ProfileHeader = ({ setDisplayName, setPhoto }) => {
     const [loading, setLoading] = useState(false)
     // const [photo, setPhoto] = useState(null)
     // const [displayName, setDisplayName] = useState(null)
-    const [progressWidth, setProgressWidth] = useState(null)
+    const [progressWidth, setProgressWidth] = useState(0)
     const [userData, setUserData] = useState({
         displayName: '',
         email: '',
@@ -123,7 +124,7 @@ const ProfileHeader = ({ setDisplayName, setPhoto }) => {
                     console.log(progress);
                     setProgressWidth(progress)
                     setTimeout(() => {
-                        setProgressWidth(null)
+                        setProgressWidth(0)
                     }, 2000)
                     switch (snapshot.state) {
                         case 'paused':
@@ -178,6 +179,7 @@ const ProfileHeader = ({ setDisplayName, setPhoto }) => {
 
     return (
         <div className={`profileHeader ${ isEdit && 'editModeActive' }`}>
+            <ProgressBar progress={progressWidth} />
             {!isEdit && <Icon icon="mdi:cog" className='editProfileIcon' onClick={handleCogClick} />}
             {isEdit && <Icon icon="mdi:check-circle" className='editProfileIcon editProfileIconTick' onClick={handleTickClick} />
             }
