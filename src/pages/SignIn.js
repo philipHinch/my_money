@@ -44,7 +44,6 @@ const SignIn = () => {
     }
 
     useEffect(() => {
-        console.log(auth.currentUser);
         if (auth.currentUser) {
             navigate(`/profile/${ auth.currentUser.uid }`)
         }

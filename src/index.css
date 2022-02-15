@@ -333,6 +333,65 @@ input:focus {
 .homeImage {
   width: 100%;
 }
+/* devices */
+.secondaryHomeContainer {
+  padding: 0;
+  overflow: hidden;
+  animation: fadeIn 300ms ease-in;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.secondaryHomeImageContainer {
+  border-left: 5px solid var(--yellow);
+}
+.secondaryHomeMainText {
+  color: var(--mint-white);
+}
+.secondaryHomeParagraph {
+  color: var(--mint-white);
+}
+.piggyImage {
+  padding: 40px;
+}
+.secondaryTextContainer {
+  align-self: stretch;
+  display: flex;
+  justify-content: center;
+  border-right: 5px solid var(--red);
+}
+.darkBack {
+  background-color: var(--blue);
+}
+.devicesContainer {
+  padding: 0;
+  overflow: hidden;
+  margin: 200px auto;
+  /* animation: fadeIn 300ms ease-in; */
+}
+.mobileContainer {
+  overflow: hidden;
+}
+.deviceImg {
+  width: 100%;
+}
+.tabletContainer {
+  border-right: 5px solid var(--yellow);
+}
+.devicesMainText {
+  background-color: var(--blue);
+  color: var(--mint-white);
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  border-left: 5px solid var(--red);
+}
 /* profile */
 .profileContainer {
   border-top: 6px solid var(--yellow);
