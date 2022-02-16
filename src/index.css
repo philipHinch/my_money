@@ -9,9 +9,6 @@
   --orange: #f4a261;
   --red: #e76f51;
 }
-
-/* test */
-
 .Toastify__toast--error {
   border: 1px solid var(--mint-white);
   border-radius: 10px !important;
@@ -402,6 +399,73 @@ input:focus {
 .homeImage {
   width: 100%;
 }
+/* testimonials */
+.testimonialContainer {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  margin-top: 150px;
+}
+.testimonial {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-width: 300px;
+  max-width: 300px;
+  padding: 30px;
+  margin: 10px;
+  /* border: 1px solid var(--green); */
+  background-color: var(--mint-white);
+  color: var(--blue);
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  transition: transform 0.1s ease;
+}
+.testimonial:hover {
+  transform: scale(1.02);
+}
+.testimonialImageContainer {
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+  border: 2px solid var(--red);
+  overflow: hidden;
+}
+.testimonialImageContainer img {
+  width: 100%;
+  object-fit: contain;
+}
+.testimonialName {
+  margin-top: 10px;
+  font-size: 0.8rem;
+}
+.testimonialJob {
+  margin-top: 10px;
+  font-size: 0.8rem;
+  color: var(--yellow);
+  background-color: var(--blue);
+  padding: 5px 8px;
+}
+.testimonialContent {
+  position: relative;
+  margin-top: 40px;
+}
+.quote1 {
+  position: absolute;
+  font-size: 6rem;
+  opacity: 0.2;
+  top: -60px;
+  left: -20px;
+  font-family: "Times New Roman", Times, serif;
+}
+.quote2 {
+  position: absolute;
+  font-size: 6rem;
+  opacity: 0.2;
+  bottom: -80px;
+  left: 220px;
+  font-family: "Times New Roman", Times, serif;
+}
 /* devices */
 .secondaryHomeContainer {
   padding: 0;
@@ -440,7 +504,7 @@ input:focus {
 .devicesContainer {
   padding: 0;
   overflow: hidden;
-  margin: 200px auto;
+  margin: 150px auto;
   animation: fadeIn 300ms ease-in;
 }
 .devicesTextContainer {
@@ -457,6 +521,10 @@ input:focus {
 }
 .deviceImg {
   width: 100%;
+  transition: padding 0.1s ease;
+}
+.deviceImg:hover {
+  padding: 4px;
 }
 .tabletContainer {
   border-right: 5px solid var(--yellow);
@@ -1228,11 +1296,13 @@ input:focus {
 }
 .socialLinksContainer {
   text-align: center;
+  margin-top: 5px;
 }
 .socialLink {
-  font-size: 2.3rem;
+  font-size: 2rem;
   color: var(--green);
   transition: color 0.1s ease;
+  margin: 0 5px;
 }
 .socialLink:hover {
   color: var(--yellow);
@@ -1347,7 +1417,8 @@ input:focus {
   right: 0;
   bottom: 0;
   left: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  /* background-color: rgba(0, 0, 0, 0.5); */
+  background-color: var(--mint-white);
   z-index: 5000;
   display: flex;
   justify-content: center;
@@ -1367,5 +1438,21 @@ input:focus {
   }
   100% {
     transform: rotate(360deg);
+  }
+}
+.borderPulsate {
+  animation: borderPulsate 1s infinite;
+}
+
+@keyframes borderPulsate {
+  0% {
+    border-color: var(--green);
+  }
+  50% {
+    border-color: #70c8be;
+    opacity: 0.7;
+  }
+  100% {
+    border-color: var(--green);
   }
 }

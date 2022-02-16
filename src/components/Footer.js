@@ -1,11 +1,11 @@
 //hooks
-import { useNavigate } from 'react-router-dom';
 import { useAuthStatus } from '../hooks/useAuthStatus';
+//router
+import { useNavigate } from 'react-router-dom';
 //icons
 import { Icon } from '@iconify/react';
 //firebase
 import { getAuth } from 'firebase/auth';
-
 
 const Footer = () => {
 
@@ -30,16 +30,19 @@ const Footer = () => {
     }
 
     return (
+
         <footer className='footerContainer'>
             <div className="footerLogoContainer" onClick={() => navigate('/')}>
                 <img src={require('../assets/png/main-logo-image-footer.png')} alt="" />
                 <div className="socialLinksContainer">
-                    <Icon icon="mdi:facebook" className='socialLink' />
-                    <Icon icon="mdi:instagram" className='socialLink' />
+                    <Icon icon="brandico:facebook-rect"
+                        className='socialLink'
+                    />
+                    <Icon icon="brandico:instagram-filled" className='socialLink' />
+                    <Icon icon="brandico:twitter-bird"
+                        className='socialLink' />
                 </div>
             </div>
-
-
 
             <div className="footerLinksContainer">
                 <ul className="footerPages">
@@ -60,6 +63,9 @@ const Footer = () => {
             <span className="copyrightContainer">&copy; 2022 - <a href="https://github.com/philipHinch" target='_blank'>https://github.com/philipHinch</a>
             </span>
         </footer>
+
+
+
     );
 }
 
