@@ -106,7 +106,7 @@ const ProfileHeader = ({ setDisplayName, setPhoto }) => {
     const handleEditChange = (e) => {
         setUserData((prevState) => ({
             ...prevState,
-            [e.target.id]: e.target.value.trim()
+            [e.target.id]: e.target.value
         }))
     }
 
@@ -155,8 +155,7 @@ const ProfileHeader = ({ setDisplayName, setPhoto }) => {
         })
     }
 
-    //delete profile [FIX NAVBAR PHOTO RERENDER] 
-    //******** NOT FINISHED *********
+    //delete profile
     const handleProfileDelete = async () => {
         if (window.confirm('Are you sure you want to delete your profile?') === true) {
 
@@ -172,7 +171,6 @@ const ProfileHeader = ({ setDisplayName, setPhoto }) => {
                 deleteUser(user).then(() => {
                     getData()
                     logout()
-                    console.log('User deleted');
                 }).catch((error) => {
                     toast.error('Could not delete user profile')
                     console.log(error);
@@ -185,10 +183,15 @@ const ProfileHeader = ({ setDisplayName, setPhoto }) => {
     }
 
     return (
-        <div className={`profileHeader ${ isEdit && 'editModeActive' }`}>
+        <div className='profileHeader'>
             <ProgressBar progress={progressWidth} />
-            {!isEdit && <Icon icon="mdi:cog" className='editProfileIcon' onClick={handleCogClick} />}
-            {isEdit && <Icon icon="mdi:check-circle" className='editProfileIcon editProfileIconTick' onClick={handleTickClick} />
+            {!isEdit && <Icon icon="mdi:cog" className='editProfileIcon'
+                style={{ fontSize: '2rem' }}
+                onClick={handleCogClick} />}
+            {isEdit &&
+                <Icon icon="mdi:check-circle" className='editProfileIcon editProfileIconTick'
+                    style={{ fontSize: '2rem' }}
+                    onClick={handleTickClick} />
             }
 
             {!isEdit ?
@@ -198,11 +201,10 @@ const ProfileHeader = ({ setDisplayName, setPhoto }) => {
                     </label>
                 </div>
                 :
-                <div className="profilePictureContainer" style={{ borderColor: '#2a9d8f' }}>
+                <div className="profilePictureContainer borderPulsate" >
                     <label htmlFor="photoURL">
                         <img src={photoURL ? photoURL : require('../../assets/png/blank_profile.png')} alt="profile picture" style={{ cursor: 'pointer' }} />
                     </label>
-
                     <input
                         id="photoURL"
                         type="file"
@@ -219,16 +221,21 @@ const ProfileHeader = ({ setDisplayName, setPhoto }) => {
                     type="text"
                     className='profileName'
                     id='displayName'
+                    minLength='3'
+                    maxLength='15'
                     value={displayName}
                     disabled />
                 :
                 <input
                     type="text"
-                    className='profileName'
+                    className='profileName borderPulsate'
                     id='displayName'
+                    minLength='3'
+                    maxLength='15'
                     value={displayName}
                     onChange={handleEditChange}
-                    style={{ border: '1px solid #2a9d8f' }} />}
+                    style={{ border: '2px solid #2a9d8f' }}
+                />}
 
             <input
                 type="text"

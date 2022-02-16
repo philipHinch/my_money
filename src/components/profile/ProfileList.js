@@ -201,7 +201,10 @@ const ProfileList = () => {
 
     return (
         <div className="profileExpenses">
-            <Icon icon="mdi:delete-forever" className='clearAllIcon' onClick={handleClearAll} />
+            <Icon icon="mdi:delete-forever" className='clearAllIcon'
+                onClick={handleClearAll}
+                style={{ fontSize: '2rem' }}
+            />
             <div className="totalsContainer">
                 {/* dynamic values*/}
                 <h4>Incomes: <span className="incomesAmount positiveColor">{incomes > 0 ? '+' : ''}{incomes.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '€'}</span></h4>
