@@ -2,6 +2,8 @@
 import { Icon } from '@iconify/react';
 //hooks
 import { useEffect, useState, useContext } from 'react';
+import { useExpensesIncomes } from '../../hooks/useExpensesIncomes';
+import { useLogout } from '../../hooks/useLogout';
 //router
 import { useNavigate } from 'react-router-dom';
 //context
@@ -20,6 +22,8 @@ const ProfileHeader = ({ setDisplayName, setPhoto }) => {
 
     // ******** STATES AND OTHERS ********//
 
+    const { logout } = useLogout()
+    const { getData } = useExpensesIncomes()
     const { user, authIsReady } = useContext(UserContext)
     const auth = getAuth()
     const navigate = useNavigate()
@@ -154,9 +158,10 @@ const ProfileHeader = ({ setDisplayName, setPhoto }) => {
     //delete profile [FIX NAVBAR PHOTO RERENDER] 
     //******** NOT FINISHED *********
     const handleProfileDelete = async () => {
-        let email = window.prompt('Enter Email')
-        let password = window.prompt('Enter Password')
         if (window.confirm('Are you sure you want to delete your profile?') === true) {
+
+            let email = window.prompt('Enter Email')
+            let password = window.prompt('Enter Password')
 
             const auth = getAuth();
             const user = auth.currentUser;
@@ -165,6 +170,8 @@ const ProfileHeader = ({ setDisplayName, setPhoto }) => {
             await reauthenticateWithCredential(user, credential).then(() => {
                 // User re-authenticated.
                 deleteUser(user).then(() => {
+                    getData()
+                    logout()
                     console.log('User deleted');
                 }).catch((error) => {
                     toast.error('Could not delete user profile')
@@ -230,7 +237,7 @@ const ProfileHeader = ({ setDisplayName, setPhoto }) => {
                 value={email}
                 disabled />
 
-            <p className="deleteProfile">Delete Profile</p>
+            <p className="deleteProfile" onClick={handleProfileDelete}>Delete Profile</p>
         </div>
     );
 }

@@ -379,15 +379,22 @@ input:focus {
 .mobileIcons {
   display: flex;
   justify-content: center;
+  align-items: center;
   margin-bottom: 50px;
+  margin-top: 20px;
+}
+.mobileIconsText {
+  color: var(--mint-white);
+  margin-right: 12px;
 }
 .mobileIcon {
-  color: #666;
+  color: var(--green);
   transition: color 0.1s ease;
   cursor: pointer;
+  margin: 0 2px;
 }
 .mobileIcon:hover {
-  color: var(--blue);
+  color: var(--yellow);
 }
 .homeImageContainer {
   width: 50%;
@@ -436,6 +443,15 @@ input:focus {
   margin: 200px auto;
   animation: fadeIn 300ms ease-in;
 }
+.devicesTextContainer {
+  background-color: var(--blue);
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px;
+  border-left: 5px solid var(--red);
+}
 .mobileContainer {
   overflow: hidden;
 }
@@ -451,8 +467,7 @@ input:focus {
   align-self: stretch;
   display: flex;
   align-items: center;
-  padding: 20px;
-  border-left: 5px solid var(--red);
+  /* padding: 20px; */
   font-size: 2.4rem;
 }
 /* profile */
@@ -545,6 +560,7 @@ input:focus {
   padding: 20px 30px;
   margin-top: 30px;
   color: transparent;
+  animation: fadeIn 300ms ease-in;
 }
 .editModeActive {
   background-color: #f6f6f6;
@@ -668,6 +684,7 @@ input:focus {
   max-width: 1400px;
   padding: 20px;
   margin-top: 30px;
+  animation: fadeIn 300ms ease-in;
 }
 .buttonContainer {
   display: flex;
@@ -735,6 +752,7 @@ input:focus {
   margin-top: 30px;
   margin-bottom: 200px;
   position: relative;
+  animation: fadeIn 300ms ease-in;
 }
 .clearAllIcon {
   position: absolute;
@@ -985,6 +1003,7 @@ input:focus {
   margin-top: 50px;
   padding: 50px;
   margin-bottom: 50px;
+  animation: fadeIn 300ms ease-in;
 }
 .signInUpTitle {
   font-size: 2rem;
@@ -1129,6 +1148,7 @@ input:focus {
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   margin-top: 50px;
   padding: 50px;
+  animation: fadeIn 300ms ease-in;
 }
 .forgotPasswordBtn {
   margin-top: 200px;
@@ -1309,6 +1329,7 @@ input:focus {
   padding: 20px 30px;
   margin-top: 30px;
   color: var(--blue);
+  animation: fadeIn 300ms ease-in;
 }
 .notFoundTitle {
   font-size: 2rem;

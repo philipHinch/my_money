@@ -31,9 +31,10 @@ const Home = () => {
 
             <main className="homeContainer secondaryHomeContainer">
                 <div className="homeTextContainer secondaryTextContainer darkBack">
-                    <h1 className='homeMainText secondaryHomeMainText'>Track your expenses</h1>
+                    <h1 className='homeMainText secondaryHomeMainText'>Start tracking your expenses today</h1>
                     <p className='homeParagraph secondaryHomeParagraph'>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsam rem repellat harum officiis molestias soluta veniam! Magnam dicta accusantium architecto.</p>
                     <div className="mobileIcons">
+                        <span className='mobileIconsText'>Download here:</span>
                         <Icon icon="ant-design:apple-filled" className='mobileIcon' fontSize={'40px'} />
                         <Icon icon="ant-design:android-filled" className='mobileIcon' fontSize={'40px'} />
                     </div>
@@ -51,7 +52,15 @@ const Home = () => {
                 <div className="homeImageContainer tabletContainer">
                     <img src={require('../assets/png/tabletmock.png')} alt="tablet" className="homeImage deviceImg" />
                 </div>
-                <h1 className='homeMainText devicesMainText'>Works on Every Device </h1>
+                {/* <div className="homeImageContainer tabletContainer">
+                    <img src={require('../assets/png/desktopmock.png')} alt="tablet" className="homeImage deviceImg" />
+                </div> */}
+                <div className="devicesTextContainer">
+                    <h1 className='homeMainText devicesMainText'>Works on every device</h1>
+                    <p className='homeParagraph secondaryHomeParagraph'>Smartphones, tablets, laptops, desktop computers and more!</p>
+                </div>
+
+
             </div>
 
         </section>
