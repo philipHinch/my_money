@@ -11,6 +11,8 @@ import Spinner from "../components/Spinner";
 
 const ForgotPassword = () => {
 
+    // ****** ADD USER ICON IN THE EMAIL INPUT ********
+
     const [email, setEmail] = useState('')
     const [loading, setLoading] = useState(false)
 
