@@ -22,18 +22,6 @@ import { useState, useEffect, useContext } from 'react';
 //firebase
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
-//toast custom styles
-const contextClass = {
-  success: "#2a9d8f",
-  error: "bg-red-600",
-  info: "bg-gray-600",
-  warning: "bg-orange-400",
-  default: "bg-indigo-600",
-  dark: "bg-white-600 font-gray-300",
-};
-
-
-
 function App() {
 
   const auth = getAuth()

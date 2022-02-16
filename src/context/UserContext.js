@@ -29,8 +29,6 @@ export const UserProvider = ({ children }) => {
         })
     }, [])
 
-    console.log(state);
-
 
     return (
         <UserContext.Provider value={{

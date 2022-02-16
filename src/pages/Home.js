@@ -7,6 +7,59 @@ import { Icon } from '@iconify/react';
 //router
 import { useNavigate } from 'react-router-dom';
 
+const testimonials = [
+    {
+        id: "aeotJH",
+        firstName: "Belle",
+        lastName: "Koss",
+        jobTitle: "UI/UX Designer",
+        avatar: "https://randomuser.me/api/portraits/women/44.jpg",
+        age: 19,
+        country: "Germany",
+        content: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolores, facere'
+    },
+    // {
+    //     id: "JtcAuC",
+    //     firstName: "Lewis",
+    //     lastName: "Blick",
+    //     jobTitle: "Product Division Manager",
+    //     avatar: "https://randomuser.me/api/portraits/men/22.jpg",
+    //     age: 32,
+    //     country: "USA",
+    //     content: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolores, facere'
+    // },
+    // {
+    //     id: "Wij5Uj",
+    //     firstName: "Wendy",
+    //     lastName: "Weimann",
+    //     jobTitle: "HR Specialist",
+    //     avatar: "https://images.generated.photos/G6NK_kvf-9T0IJEOnqmGNFeOYhFiZ4JTVuXP62USCSc/rs:fit:512:512/czM6Ly9pY29uczgu/Z3Bob3Rvcy1wcm9k/LnBob3Rvcy92M18w/Mjk1NjQ3LmpwZw.jpg",
+    //     age: 38,
+    //     country: "Belgium",
+    //     content: 'Lorem ipsum dolor, sit amet consectetur    adipisicing elit. Dolores, facere'
+    // },
+    {
+        id: "DMc1Mo",
+        firstName: "Craig",
+        lastName: "Welch",
+        jobTitle: "Software Developer",
+        avatar: "https://api.uifaces.co/our-content/donated/6MWH9Xi_.jpg",
+        age: 33,
+        country: "UK",
+        content: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolores, facere'
+    },
+    {
+        id: "MQ0uVV",
+        firstName: "Piotr",
+        lastName: "Macejkovic",
+        jobTitle: "Financial Advisor",
+        avatar: "https://api.uifaces.co/our-content/donated/N5PLzyan.jpg",
+        age: 27,
+        country: "Poland",
+        content: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolores, facere'
+    }
+]
+
 const Home = () => {
 
     const navigate = useNavigate()
@@ -32,7 +85,10 @@ const Home = () => {
             <main className="homeContainer secondaryHomeContainer">
                 <div className="homeTextContainer secondaryTextContainer darkBack">
                     <h1 className='homeMainText secondaryHomeMainText'>Start tracking your expenses today</h1>
-                    <p className='homeParagraph secondaryHomeParagraph'>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsam rem repellat harum officiis molestias soluta veniam! Magnam dicta accusantium architecto.</p>
+                    <p className='homeParagraph secondaryHomeParagraph'>
+                        {/* Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsam rem repellat harum officiis molestias soluta veniam! Magnam dicta accusantium architecto. */}
+                        Keep track of your expenses, incomes and balances.  Quickly add expenses on the go. <br /> "A fundamental app to manage your finances"
+                    </p>
                     <div className="mobileIcons">
                         <span className='mobileIconsText'>Download here:</span>
                         <Icon icon="ant-design:apple-filled" className='mobileIcon' fontSize={'40px'} />
@@ -44,6 +100,28 @@ const Home = () => {
                     <PiggyImage className='homeImage piggyImage' />
                 </div>
             </main>
+
+            {/* carousel */}
+
+            <div className='testimonialContainer homeContainer'>
+                {testimonials.map(user => (
+                    <div className="testimonial" key={user.id}>
+                        <div className="testimonialImageContainer">
+                            <img src={user.avatar} alt="" />
+                        </div>
+                        <div className="testimonialName">{user.firstName}</div>
+                        <div className="testimonialJob">{user.jobTitle}</div>
+                        <div className="testimonialContent">
+                            <span className="quote1">“</span>
+                            <p>{user.content}</p>
+                            <span className="quote2">”</span>
+                        </div>
+                    </div>
+                ))}
+            </div>
+
+
+            {/* carousel */}
 
             <div className='devicesContainer homeContainer'>
                 <div className="homeImageContainer mobileContainer">
@@ -59,8 +137,6 @@ const Home = () => {
                     <h1 className='homeMainText devicesMainText'>Works on every device</h1>
                     <p className='homeParagraph secondaryHomeParagraph'>Smartphones, tablets, laptops, desktop computers and more!</p>
                 </div>
-
-
             </div>
 
         </section>
