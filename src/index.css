@@ -405,6 +405,7 @@ input:focus {
   justify-content: space-evenly;
   flex-wrap: wrap;
   margin-top: 150px;
+  animation: fadeIn 300ms ease-in;
 }
 .testimonial {
   display: flex;
