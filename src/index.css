@@ -1156,29 +1156,33 @@ input:focus {
   margin: 30px 0;
   text-align: center;
 }
-.emailDiv {
+/* .emailDiv {
   width: 80%;
+  width: 100%;
 }
 .passwordDiv {
   width: 80%;
+  width: 100%;
 }
 .nameDiv {
   width: 80%;
-}
+  width: 100%;
+} */
 .signInOutEmail {
   background: url("./assets/svg/personIcon.svg") #ffffff 2.5% center no-repeat;
   margin: 10px 0;
-  width: 100%;
+  width: 350px;
 }
 .signInOutPassword {
   background: url("./assets/svg/lockIcon.svg") #ffffff 2.5% center no-repeat;
   margin: 10px 0;
-  width: 100%;
+
+  width: 350px;
 }
 .signInOutName {
   background: url("./assets/svg/badgeIcon.svg") #ffffff 2.5% center no-repeat;
   margin: 10px 0;
-  width: 100%;
+  width: 350px;
 }
 .passwordDiv {
   position: relative;
@@ -1793,5 +1797,12 @@ input:focus {
   }
   .deleteIcon {
     margin-left: 10px;
+  }
+}
+@media (max-width: 400px) {
+  .signInOutEmail,
+  .signInOutPassword,
+  .signInOutName {
+    width: 100%;
   }
 }
