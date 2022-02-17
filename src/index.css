@@ -1470,6 +1470,7 @@ input:focus {
 .notFoundImgContainer {
   width: 80%;
   max-width: 600px;
+  min-width: 300px;
 }
 .notFoundImg {
   width: 100%;
@@ -1740,7 +1741,8 @@ input:focus {
   .profileHeader,
   .profileForm,
   .profileExpenses,
-  .signInForm {
+  .signInForm,
+  .notFoundBox {
     width: 96%;
   }
 }
@@ -1765,6 +1767,9 @@ input:focus {
   }
   input {
     font-size: 0.8rem;
+  }
+  .notFoundBtn {
+    margin-top: 0;
   }
 }
 @media (max-width: 450px) {
