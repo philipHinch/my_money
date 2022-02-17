@@ -132,12 +132,12 @@ const Home = () => {
             </div>
 
             <div className='devicesContainer homeContainer'>
-                <div className="homeImageContainer mobileContainer">
-                    <img src={require('../assets/png/mobilemock.png')} alt="tablet" className="homeImage deviceImg" />
-                </div>
                 <div className="homeImageContainer tabletContainer">
-                    <img src={require('../assets/png/tabletmock.png')} alt="tablet" className="homeImage deviceImg" />
+                    <img src={require('../assets/png/multidevicemock.png')} alt="tablet" className="homeImage deviceImg" />
                 </div>
+                {/* <div className="homeImageContainer tabletContainer">
+                    <img src={require('../assets/png/tabletmock.png')} alt="tablet" className="homeImage deviceImg" />
+                </div> */}
                 {/* <div className="homeImageContainer tabletContainer">
                     <img src={require('../assets/png/desktopmock.png')} alt="tablet" className="homeImage deviceImg" />
                 </div> */}

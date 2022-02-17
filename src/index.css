@@ -583,6 +583,7 @@ input:focus {
   background-color: var(--blue);
   align-self: stretch;
   display: flex;
+  width: 50%;
   flex-direction: column;
   justify-content: center;
   padding: 20px;
@@ -597,10 +598,8 @@ input:focus {
 }
 .deviceImg {
   width: 100%;
+  min-width: 300px;
   transition: padding 0.1s ease;
-}
-.deviceImg:hover {
-  padding: 4px;
 }
 .tabletContainer {
   border-right: 5px solid var(--yellow);
@@ -608,6 +607,7 @@ input:focus {
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 50%;
 }
 .devicesMainText {
   background-color: var(--blue);
@@ -1679,6 +1679,7 @@ input:focus {
     border-bottom: 5px solid var(--yellow);
     border-left: none;
     padding: 50px;
+    width: 100%;
   }
   .devicesTextContainer:before {
     content: " ";
