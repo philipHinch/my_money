@@ -17,7 +17,8 @@ const testimonials = [
         avatar: "https://randomuser.me/api/portraits/women/44.jpg",
         age: 19,
         country: "Germany",
-        content: 'Duis aute irure dolor in reprehenderit in lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolores, facere'
+        content: 'Duis aute irure dolor in reprehenderit in lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolores, facere',
+        rating: 5
     },
     // {
     //     id: "JtcAuC",
@@ -47,7 +48,8 @@ const testimonials = [
         avatar: "https://api.uifaces.co/our-content/donated/6MWH9Xi_.jpg",
         age: 33,
         country: "UK",
-        content: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolores, facere'
+        content: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolores, facere',
+        rating: 5
     },
     {
         id: "MQ0uVV",
@@ -57,7 +59,8 @@ const testimonials = [
         avatar: "https://api.uifaces.co/our-content/donated/N5PLzyan.jpg",
         age: 27,
         country: "Poland",
-        content: 'Voluptate velit esse cillum lorem ipsum dolor, sit ut aliquip ex ea commodo consequat. Duis aute in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur amet consectetur adipisicing elit.'
+        content: 'Voluptate velit esse cillum lorem ipsum, sit ut aliquip ex commodo consequat. Duis aute in voluptate eu fugiat nulla pariatur consectetur',
+        rating: 4.5
     }
 ]
 
@@ -107,8 +110,15 @@ const Home = () => {
             <div className='testimonialContainer homeContainer'>
                 {testimonials.map(user => (
                     <div className="testimonial" key={user.id}>
+                        <div className="ratingContainer">
+                            <Icon icon="mdi:star" className='star' />
+                            <Icon icon="mdi:star" className='star' />
+                            <Icon icon="mdi:star" className='star' />
+                            <Icon icon="mdi:star" className='star' />
+                            <Icon icon="mdi:star" className='star' />
+                        </div>
                         <div className="testimonialImageContainer">
-                            <img src={user.avatar} alt="" />
+                            <img src={user.avatar} alt="user avatar" />
                         </div>
                         <div className="testimonialName">{user.firstName}</div>
                         <div className="testimonialJob">{user.jobTitle}</div>

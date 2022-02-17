@@ -116,6 +116,9 @@ input {
   font-size: 1.1rem;
   transition: border-color 0.1s ease;
 }
+.noScrollY {
+  overflow-y: hidden;
+}
 /* input:hover {
   border-color: var(--green);
 } */
@@ -153,6 +156,17 @@ input:focus {
   background-color: var(--orange);
 }
 /* navbar */
+.hamburger {
+  display: none;
+  cursor: pointer;
+  transition: color 0.1s ease;
+  font-size: 2.6rem;
+  margin-right: 5px;
+  color: var(--mint-white);
+}
+.hamburger:hover {
+  color: var(--orange);
+}
 .navbarContainer {
   display: flex;
   align-items: center;
@@ -469,6 +483,12 @@ input:focus {
 .testimonial:hover {
   transform: scale(1.02);
 }
+.ratingContainer {
+  margin-bottom: 15px;
+  color: var(--yellow);
+  stroke: var(--blue);
+  font-size: 1.2rem;
+}
 .testimonialImageContainer {
   height: 100px;
   width: 100px;
@@ -487,9 +507,10 @@ input:focus {
 .testimonialJob {
   margin-top: 10px;
   font-size: 0.8rem;
-  color: var(--yellow);
+  color: var(--mint-white);
   background-color: var(--blue);
   padding: 5px 15px;
+  letter-spacing: 2px;
 }
 .testimonialContent {
   position: relative;
@@ -501,6 +522,7 @@ input:focus {
   opacity: 0.2;
   top: -50px;
   font-family: "Times New Roman", Times, serif;
+  color: var(--green);
 }
 .quote2 {
   position: absolute;
@@ -509,6 +531,7 @@ input:focus {
   bottom: -80px;
   left: 190px;
   font-family: "Times New Roman", Times, serif;
+  color: var(--green);
 }
 /* devices */
 .secondaryHomeContainer {
@@ -526,6 +549,10 @@ input:focus {
 }
 .secondaryHomeImageContainer {
   border-left: 5px solid var(--yellow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
 }
 .secondaryHomeMainText {
   color: var(--mint-white);
@@ -535,6 +562,7 @@ input:focus {
 }
 .piggyImage {
   padding: 40px;
+  min-width: 400px;
 }
 .secondaryTextContainer {
   align-self: stretch;
@@ -562,6 +590,10 @@ input:focus {
 }
 .mobileContainer {
   overflow: hidden;
+  align-self: stretch;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .deviceImg {
   width: 100%;
@@ -572,6 +604,10 @@ input:focus {
 }
 .tabletContainer {
   border-right: 5px solid var(--yellow);
+  align-self: stretch;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .devicesMainText {
   background-color: var(--blue);
@@ -917,15 +953,11 @@ input:focus {
   /* -----> remove this later <------ */
   border-left: 6px solid var(--red);
 }
-.expenseItem:hover {
-  /* background-color: white; */
-  /* border-color: var(--green); */
-}
+
 .expenseItemTitle {
   margin: auto;
 }
-.expenseItemAmount {
-}
+
 .negativeColor {
   color: var(--red);
 }
@@ -1292,8 +1324,6 @@ input:focus {
     #08161c
   );
 }
-.socialLinksContainer {
-}
 .footerLinksContainer {
   display: flex;
   width: 80%;
@@ -1320,14 +1350,18 @@ input:focus {
 }
 .copyrightContainer {
   position: absolute;
+  width: 100%;
   bottom: 7px;
-  left: 50%;
-  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  /* left: 50%;
+  transform: translateX(-50%); */
   color: var(--mint-white);
 }
 .copyrightContainer a {
   color: var(--mint-white);
   transition: color 0.1s ease;
+  margin-left: 12px;
 }
 .copyrightContainer a:hover {
   color: var(--yellow);
@@ -1454,6 +1488,51 @@ input:focus {
   margin-top: 20px;
   margin-bottom: 20px;
 }
+/* menu */
+.menu {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  background-color: var(--mint-white);
+  border: 1px solid var(--blue);
+  left: 0;
+  transition: left 0.2s ease-in-out;
+  z-index: 999;
+}
+.hideMenu {
+  left: -9999px;
+}
+.closeIcon {
+  font-size: 3.2rem;
+  color: var(--blue);
+  cursor: pointer;
+  position: absolute;
+  right: 0;
+  transition: color 0.1s ease;
+}
+.closeIcon:hover {
+  color: var(--orange);
+}
+.menuList {
+  margin-top: 100px;
+  margin-left: 50px;
+}
+.menuSignInUpLinks {
+  display: flex;
+  margin-bottom: 80px;
+}
+.signInLinkMenu {
+  margin-right: 10px;
+}
+.menuLink {
+  cursor: pointer;
+  margin-top: 40px;
+  font-size: 1.2rem;
+  transition: color 0.1s ease;
+}
+.menuLink:hover {
+  color: var(--orange);
+}
 /* spinner */
 .loadingSpinnerContainer {
   position: fixed;
@@ -1498,5 +1577,114 @@ input:focus {
   }
   100% {
     border-color: var(--green);
+  }
+}
+/* media queries */
+@media (max-width: 1000px) {
+}
+@media (max-width: 900px) {
+  .secondaryHomeContainer {
+    flex-direction: column;
+  }
+  .secondaryTextContainer {
+    flex: 1;
+    width: 100%;
+    height: 300px;
+    border-bottom: 5px solid var(--red);
+    border-right: none;
+  }
+  .secondaryHomeImageContainer {
+    flex: 1;
+    width: 100%;
+    height: 300px;
+    border-top: 5px solid var(--yellow);
+    border-left: none;
+  }
+  .piggyImage {
+    width: 100%;
+  }
+  .devicesContainer {
+    flex-direction: column-reverse;
+  }
+  .devicesTextContainer {
+    position: relative;
+    border-bottom: 5px solid var(--yellow);
+    border-left: none;
+    padding: 50px;
+  }
+  .devicesTextContainer:before {
+    content: " ";
+    position: absolute;
+    top: 5px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    border-bottom: 5px solid var(--red);
+  }
+  .mobileContainer {
+    margin: auto;
+  }
+  .tabletContainer {
+    margin: auto;
+    border-right: none;
+  }
+}
+@media (max-width: 800px) {
+}
+@media (max-width: 700px) {
+  ul.navbarContainer {
+    background-color: var(--blue);
+    background-image: none;
+  }
+  footer.footerContainer {
+    background-color: var(--blue);
+    background-image: none;
+  }
+  .footerLinksContainer {
+    margin-top: 190px;
+  }
+}
+@media (max-width: 600px) {
+  * {
+    letter-spacing: 0;
+  }
+  .signInLink,
+  .signUpLink,
+  .userNameAndPictureLi {
+    display: none;
+  }
+  .hamburger {
+    display: block;
+  }
+  .navbarContainer {
+    padding: 30px 0;
+  }
+  .mainLogoContainer {
+    margin-left: -25px;
+  }
+  .homeContainer {
+    width: 96%;
+  }
+}
+@media (max-width: 500px) {
+  .homeTextContainer {
+    padding: 30px;
+  }
+  .devicesTextContainer {
+    padding: 30px;
+  }
+  .testimonialContainer {
+    padding: 50px 30px;
+  }
+}
+@media (max-width: 450px) {
+  .secondaryHomeMainText {
+    font-size: 2.3rem;
+  }
+  .devicesMainText {
+    font-size: 2rem;
+  }
+  .copyrightContainer {
+    font-size: 0.8rem;
   }
 }

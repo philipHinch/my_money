@@ -60,7 +60,7 @@ const Footer = () => {
                 </ul>
             </div>
 
-            <span className="copyrightContainer">&copy; 2022 - <a href="https://github.com/philipHinch" target='_blank'>https://github.com/philipHinch</a>
+            <span className="copyrightContainer">&copy; 2022 <a href="https://github.com/philipHinch" target='_blank'>https://github.com/philipHinch</a>
             </span>
         </footer>
 

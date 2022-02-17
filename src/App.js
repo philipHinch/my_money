@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 //components
 import Footer from './components/Footer';
 import Navbar from './components/Navbar';
+import Menu from './components/Menu';
 //pages
 import Home from './pages/Home';
 import SignIn from './pages/SignIn';
@@ -32,6 +33,7 @@ function App() {
   const [displayName, setDisplayName] = useState(null)
   const [photo, setPhoto] = useState(null)
   const [loading, setLoading] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
 
   //this is a trick to trigger navbar re-render on signup
   const [test, setTest] = useState(false)
@@ -52,7 +54,8 @@ function App() {
   return (
     <UserProvider>
       <Router>
-        <Navbar displayName={displayName} setDisplayName={setDisplayName} photo={photo} setPhoto={setPhoto} test={test} />
+        <Menu menuOpen={menuOpen} setMenuOpen={setMenuOpen} displayName={displayName} />
+        <Navbar displayName={displayName} setDisplayName={setDisplayName} photo={photo} setPhoto={setPhoto} test={test} menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/sign-in' element={<SignIn loading={loading} setLoading={setLoading} />} />
