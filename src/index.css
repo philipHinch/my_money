@@ -251,8 +251,8 @@ input:focus {
   margin-right: 8px;
 } */
 .profilePictureContainerNavbar {
-  width: 40px;
-  height: 40px;
+  width: 60px;
+  height: 60px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -837,6 +837,7 @@ input:focus {
 .buttonContainer {
   display: flex;
   width: 300px;
+  min-width: 250px;
   justify-content: space-between;
 }
 .buttonContainer div {
@@ -845,22 +846,23 @@ input:focus {
 }
 .profileForm input {
   margin: 10px 0;
-  min-width: 300px;
+  min-width: 250px;
   width: 50%;
 }
 .profileForm input {
   margin: 10px 0;
-  min-width: 300px;
+  width: 100%;
+  min-width: 250px;
   max-width: 600px;
 }
 .expenseTitleDiv {
-  width: 50%;
-  min-width: 300px;
+  width: 100%;
+  min-width: 250px;
   max-width: 600px;
 }
 .expenseIncomeAmountDiv {
-  width: 50%;
-  min-width: 300px;
+  width: 100%;
+  min-width: 250px;
   max-width: 600px;
 }
 #expenseIncomeTitle {
@@ -879,10 +881,9 @@ input:focus {
   cursor: pointer;
 }
 .addBtn {
-  width: 300px;
   margin: 10px 0;
-  width: 50%;
-  min-width: 300px;
+  width: 100%;
+  min-width: 250px;
   max-width: 600px;
 }
 .profileExpenses {
@@ -1145,7 +1146,8 @@ input:focus {
   margin: auto;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   margin-top: 50px;
-  padding: 50px;
+  padding: 20px;
+  padding-top: 50px;
   margin-bottom: 50px;
   animation: fadeIn 300ms ease-in;
 }
@@ -1154,20 +1156,29 @@ input:focus {
   margin: 30px 0;
   text-align: center;
 }
+.emailDiv {
+  width: 80%;
+}
+.passwordDiv {
+  width: 80%;
+}
+.nameDiv {
+  width: 80%;
+}
 .signInOutEmail {
   background: url("./assets/svg/personIcon.svg") #ffffff 2.5% center no-repeat;
   margin: 10px 0;
-  width: 350px;
+  width: 100%;
 }
 .signInOutPassword {
   background: url("./assets/svg/lockIcon.svg") #ffffff 2.5% center no-repeat;
   margin: 10px 0;
-  width: 350px;
+  width: 100%;
 }
 .signInOutName {
   background: url("./assets/svg/badgeIcon.svg") #ffffff 2.5% center no-repeat;
   margin: 10px 0;
-  width: 350px;
+  width: 100%;
 }
 .passwordDiv {
   position: relative;
@@ -1186,7 +1197,8 @@ input:focus {
 }
 .signInUpBtn {
   margin-top: 200px;
-  width: 350px;
+  max-width: 350px;
+  width: 100%;
 }
 .forgotPassword {
   color: var(--green);
@@ -1493,8 +1505,9 @@ input:focus {
   position: fixed;
   height: 100%;
   width: 100%;
-  background-color: var(--mint-white);
+  background-color: #fff;
   border: 1px solid var(--blue);
+  border-left: none;
   left: 0;
   transition: left 0.2s ease-in-out;
   z-index: 999;
@@ -1508,14 +1521,20 @@ input:focus {
   cursor: pointer;
   position: absolute;
   right: 0;
+  top: 0;
   transition: color 0.1s ease;
 }
 .closeIcon:hover {
   color: var(--orange);
 }
 .menuList {
-  margin-top: 100px;
+  margin-top: 50px;
   margin-left: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.menuList li {
 }
 .menuSignInUpLinks {
   display: flex;
@@ -1532,6 +1551,50 @@ input:focus {
 }
 .menuLink:hover {
   color: var(--orange);
+}
+.menuUserNameAndPictureLi {
+  display: flex;
+  align-items: center;
+}
+.menuDisplayNameContainer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.1s ease;
+}
+.menuDisplayNameContainer:hover {
+  color: var(--orange);
+}
+.menuDisplayNameContainer:hover .profilePictureContainerMenu {
+  border-color: var(--orange);
+}
+.profilePictureContainerMenu {
+  width: 100px;
+  height: 100px;
+  border: 2px solid var(--blue);
+  overflow: hidden;
+  border-radius: 50%;
+  transition: all 0.1s ease;
+}
+.profilePictureContainerMenu img {
+  width: 100%;
+}
+.menuDisplayName {
+  font-size: 1.2rem;
+  margin-left: 10px;
+}
+.menuLogoutBtn {
+  cursor: pointer;
+  margin-top: 20px;
+}
+.menuLogoutIcon {
+  font-size: 2rem;
+  color: var(--orange);
+  transition: color 0.1s ease;
+}
+.menuLogoutIcon:hover {
+  color: var(--blue);
 }
 /* spinner */
 .loadingSpinnerContainer {
@@ -1628,6 +1691,14 @@ input:focus {
     margin: auto;
     border-right: none;
   }
+  .totalsContainer {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 20px;
+  }
+  .totalsContainer h3 {
+    margin: 30px 0;
+  }
 }
 @media (max-width: 800px) {
 }
@@ -1650,7 +1721,8 @@ input:focus {
   }
   .signInLink,
   .signUpLink,
-  .userNameAndPictureLi {
+  .userNameAndPictureLi,
+  .logoutBtn {
     display: none;
   }
   .hamburger {
@@ -1665,6 +1737,12 @@ input:focus {
   .homeContainer {
     width: 96%;
   }
+  .profileHeader,
+  .profileForm,
+  .profileExpenses,
+  .signInForm {
+    width: 96%;
+  }
 }
 @media (max-width: 500px) {
   .homeTextContainer {
@@ -1676,6 +1754,18 @@ input:focus {
   .testimonialContainer {
     padding: 50px 30px;
   }
+  .totalsContainer h3 {
+    font-size: 1.2rem;
+  }
+  .totalsContainer h4 {
+    font-size: 1rem;
+  }
+  .balanceAmount {
+    font-size: 1.2rem;
+  }
+  input {
+    font-size: 0.8rem;
+  }
 }
 @media (max-width: 450px) {
   .secondaryHomeMainText {
@@ -1686,5 +1776,17 @@ input:focus {
   }
   .copyrightContainer {
     font-size: 0.8rem;
+  }
+  .buttonContainer {
+    justify-content: center;
+  }
+  .buttonContainer .btn-secondary {
+    margin-right: 5px;
+  }
+  .expenseItem {
+    font-size: 0.9rem;
+  }
+  .deleteIcon {
+    margin-left: 10px;
   }
 }

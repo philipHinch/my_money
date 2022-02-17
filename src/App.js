@@ -54,7 +54,7 @@ function App() {
   return (
     <UserProvider>
       <Router>
-        <Menu menuOpen={menuOpen} setMenuOpen={setMenuOpen} displayName={displayName} />
+        <Menu menuOpen={menuOpen} setMenuOpen={setMenuOpen} displayName={displayName} setDisplayName={setDisplayName} photo={photo} setPhoto={setPhoto} test={test} />
         <Navbar displayName={displayName} setDisplayName={setDisplayName} photo={photo} setPhoto={setPhoto} test={test} menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
         <Routes>
           <Route path='/' element={<Home />} />
