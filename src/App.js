@@ -21,6 +21,9 @@ import UserContext from './context/UserContext';
 import { useState, useEffect, useContext } from 'react';
 //firebase
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+//splide
+import '@splidejs/splide/dist/css/splide.min.css';
+
 
 function App() {
 

@@ -6,6 +6,7 @@ import { ReactComponent as PiggyImage } from '../assets/svg/savings.svg';
 import { Icon } from '@iconify/react';
 //router
 import { useNavigate } from 'react-router-dom';
+import Slider from '../components/Slider';
 
 const testimonials = [
     {
@@ -16,7 +17,7 @@ const testimonials = [
         avatar: "https://randomuser.me/api/portraits/women/44.jpg",
         age: 19,
         country: "Germany",
-        content: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolores, facere'
+        content: 'Duis aute irure dolor in reprehenderit in lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolores, facere'
     },
     // {
     //     id: "JtcAuC",
@@ -56,7 +57,7 @@ const testimonials = [
         avatar: "https://api.uifaces.co/our-content/donated/N5PLzyan.jpg",
         age: 27,
         country: "Poland",
-        content: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolores, facere'
+        content: 'Voluptate velit esse cillum lorem ipsum dolor, sit ut aliquip ex ea commodo consequat. Duis aute in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur amet consectetur adipisicing elit.'
     }
 ]
 
@@ -90,7 +91,7 @@ const Home = () => {
                         Keep track of your expenses, incomes and balances.  Quickly add expenses on the go. <br /> "A fundamental app to manage your finances"
                     </p>
                     <div className="mobileIcons">
-                        <span className='mobileIconsText'>Download here:</span>
+                        <small className='mobileIconsText'>Download here:</small>
                         <Icon icon="ant-design:apple-filled" className='mobileIcon' fontSize={'40px'} />
                         <Icon icon="ant-design:android-filled" className='mobileIcon' fontSize={'40px'} />
                     </div>
@@ -101,7 +102,7 @@ const Home = () => {
                 </div>
             </main>
 
-            {/* carousel */}
+            {/* <Slider /> */}
 
             <div className='testimonialContainer homeContainer'>
                 {testimonials.map(user => (
@@ -120,9 +121,6 @@ const Home = () => {
                 ))}
             </div>
 
-
-            {/* carousel */}
-
             <div className='devicesContainer homeContainer'>
                 <div className="homeImageContainer mobileContainer">
                     <img src={require('../assets/png/mobilemock.png')} alt="tablet" className="homeImage deviceImg" />
@@ -138,7 +136,6 @@ const Home = () => {
                     <p className='homeParagraph secondaryHomeParagraph'>Smartphones, tablets, laptops, desktop computers and more!</p>
                 </div>
             </div>
-
         </section>
     );
 }
