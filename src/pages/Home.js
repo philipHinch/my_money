@@ -91,7 +91,7 @@ const Home = () => {
                     <h1 className='homeMainText secondaryHomeMainText'>Start tracking your expenses today</h1>
                     <p className='homeParagraph secondaryHomeParagraph'>
                         {/* Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsam rem repellat harum officiis molestias soluta veniam! Magnam dicta accusantium architecto. */}
-                        Keep track of your expenses, incomes and balances.  Quickly add expenses on the go. <br /> "A fundamental app to manage your finances"
+                        Keep track of your own personal expenses, incomes and balances.  Quickly add expenses on the go. <br /> "A fundamental app to manage your finances"
                     </p>
                     <div className="mobileIcons">
                         <small className='mobileIconsText'>Download here:</small>
@@ -132,15 +132,9 @@ const Home = () => {
             </div>
 
             <div className='devicesContainer homeContainer'>
-                <div className="homeImageContainer tabletContainer">
+                <div className="homeImageContainer multiDeviceContainer">
                     <img src={require('../assets/png/multidevicemock.png')} alt="tablet" className="homeImage deviceImg" />
                 </div>
-                {/* <div className="homeImageContainer tabletContainer">
-                    <img src={require('../assets/png/tabletmock.png')} alt="tablet" className="homeImage deviceImg" />
-                </div> */}
-                {/* <div className="homeImageContainer tabletContainer">
-                    <img src={require('../assets/png/desktopmock.png')} alt="tablet" className="homeImage deviceImg" />
-                </div> */}
                 <div className="devicesTextContainer">
                     <h1 className='homeMainText devicesMainText'>Works on every device</h1>
                     <p className='homeParagraph secondaryHomeParagraph'>Smartphones, tablets, laptops, desktop computers and more!</p>
