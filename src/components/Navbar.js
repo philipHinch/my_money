@@ -14,7 +14,7 @@ import { UserContext } from '../context/UserContext'
 //components
 import Spinner from "./Spinner";
 
-const Navbar = ({ displayName, setDisplayName, photo, setPhoto, test }) => {
+const Navbar = ({ displayName, setDisplayName, photo, setPhoto, test, menuOpen, setMenuOpen }) => {
 
     const { checkingStatus, loggedIn } = useAuthStatus()
     const auth = getAuth()
@@ -22,18 +22,11 @@ const Navbar = ({ displayName, setDisplayName, photo, setPhoto, test }) => {
     const { user } = useContext(UserContext)
     const { logout, error, loading } = useLogout()
 
-
     //takes care of setting displayname & photo on initial page load and after editing
     useEffect(() => {
         const setUserDetails = async () => {
 
             if (user) {
-                // setDisplayName(user.displayName)
-                // setPhoto(user.photoURL)
-
-                //FIXED???: Uncaught (in promise) TypeError: Cannot read properties of null (reading 'displayName') at setUserDetails (Navbar.js:35:1)
-                //this happens after logging out
-
                 await setDisplayName(user.displayName)
                 await setPhoto(user.photoURL)
             } else {
@@ -41,24 +34,17 @@ const Navbar = ({ displayName, setDisplayName, photo, setPhoto, test }) => {
             }
         }
         setUserDetails()
-
-        // if (user) {
-        //     setDisplayName(user.displayName)
-        //     setPhoto(user.photoURL)
-        //     console.log('photo changed');
-        // } else {
-        //     setDisplayName(null)
-        // }
-
     }, [checkingStatus, user, test])
-
-    //auth.currentUser was a useEffect dependancy, it has been removed and the Uncaught (in promise) TypeError: Cannot read properties of null (reading 'displayName') at setUserDetails (Navbar.js:35:1) has been resolved
 
     const signOut = async () => {
         logout()
         await setDisplayName(null)
         await setPhoto(null)
         navigate('/')
+    }
+
+    const handleHamburgerClick = () => {
+        setMenuOpen(true)
     }
 
     if (checkingStatus) {
@@ -88,8 +74,10 @@ const Navbar = ({ displayName, setDisplayName, photo, setPhoto, test }) => {
                 <>
                     <li className="signInLink"><button onClick={() => navigate('/sign-in')} className="btn btn-green">Sign In</button></li>
                     <li className="signUpLink"><button onClick={() => navigate('/sign-up')} className="btn">Sign Up</button></li>
+
                 </>
             )}
+            <Icon icon="charm:menu-hamburger" className="hamburger" onClick={handleHamburgerClick} />
             {displayName && (
                 <div className="logoutBtn" title='Logout' onClick={signOut}>
                     <Icon icon="mdi:logout-variant" className="logoutIcon" />
