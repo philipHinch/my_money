@@ -1753,9 +1753,11 @@ input:focus {
 @media (max-width: 500px) {
   .homeTextContainer {
     padding: 30px;
+    border-bottom: none;
   }
   .secondaryHomeImageContainer {
     min-width: 200px;
+    display: none;
   }
   .piggyImage {
   }
