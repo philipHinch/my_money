@@ -35,8 +35,6 @@ Back-End:
 
 ![This is an image](https://raw.githubusercontent.com/philipHinch/my_money/main/src/assets/png/multidevicemock.png)
 
----
-
 [View Project](https://mymoneytracker.vercel.app/)
 
 
