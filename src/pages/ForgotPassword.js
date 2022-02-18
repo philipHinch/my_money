@@ -43,15 +43,18 @@ const ForgotPassword = () => {
         <main className="forgotPasswordContainer">
             <h2 className="forgotPasswordTitle">Forgot Password</h2>
             <form className="forgotPasswordForm" onSubmit={handleSubmit}>
-                <input
-                    type="email"
-                    required
-                    autoFocus
-                    name="email"
-                    id="email"
-                    placeholder='Email'
-                    value={email}
-                    onChange={(e) => handleChange(e)} />
+                <div className="emailDiv">
+                    <input
+                        type="email"
+                        required
+                        autoFocus
+                        name="email"
+                        id="email"
+                        className="forgotPasswordInput"
+                        placeholder='Email'
+                        value={email}
+                        onChange={(e) => handleChange(e)} />
+                </div>
                 <Link to='/sign-in' className='forgotPassword'>Go to Sign In</Link>
                 <button type="submit" className='btn forgotPasswordBtn'>Reset Password</button>
             </form>

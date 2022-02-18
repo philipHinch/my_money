@@ -1205,6 +1205,9 @@ input:focus {
 .forgotPassword:hover {
   color: var(--blue);
 }
+.forgotPasswordInput {
+  background: url("./assets/svg/personIcon.svg") #ffffff 2.5% center no-repeat;
+}
 .signInUpInstead {
   color: var(--green);
   transition: color 0.1s ease;
@@ -1305,7 +1308,8 @@ input:focus {
 }
 .forgotPasswordBtn {
   margin-top: 200px;
-  width: 350px;
+  max-width: 350px;
+  width: 100%;
 }
 /* footer */
 .footerContainer {
@@ -1544,11 +1548,16 @@ input:focus {
 .menuLink {
   cursor: pointer;
   margin-top: 40px;
+  padding-bottom: 10px;
+  padding-right: 50px;
+
   font-size: 1.2rem;
   transition: color 0.1s ease;
+  border-bottom: 2px solid transparent;
 }
 .menuLink:hover {
   color: var(--orange);
+  border-bottom: 2px solid var(--orange);
 }
 .menuUserNameAndPictureLi {
   display: flex;
@@ -1745,6 +1754,14 @@ input:focus {
   .homeTextContainer {
     padding: 30px;
   }
+  .secondaryHomeImageContainer {
+    min-width: 200px;
+  }
+  .piggyImage {
+  }
+  .signInUpBtn {
+    margin-top: 80px;
+  }
   .devicesTextContainer {
     padding: 30px;
   }
@@ -1765,6 +1782,16 @@ input:focus {
   }
   .notFoundBtn {
     margin-top: 0;
+  }
+  .forgotPasswordBtn {
+    margin-top: 50px;
+    font-size: 0.9rem;
+  }
+  .footerLinksContainer ul li {
+    font-size: 1rem;
+  }
+  .footerPages {
+    margin-right: 50px;
   }
 }
 @media (max-width: 450px) {
