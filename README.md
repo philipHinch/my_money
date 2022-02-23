@@ -10,6 +10,10 @@ This project made me sweat at the beginning, it was my first project using backe
 
 Had some confusion with git branches, some commits are messy.
 
+[View Project](https://mymoneytracker.vercel.app/)
+
+![This is an image](https://raw.githubusercontent.com/philipHinch/underline/main/underline.png)
+
 ### Install Dependencies
 
 ```
@@ -21,8 +25,6 @@ npm install
 ```
 npm start
 ```
-
-[View Project](https://mymoneytracker.vercel.app/)
 
 ![This is an image](https://raw.githubusercontent.com/philipHinch/underline/main/underline.png)
 
