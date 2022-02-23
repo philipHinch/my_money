@@ -28,9 +28,9 @@ npm start
 
 ![This is an image](https://raw.githubusercontent.com/philipHinch/underline/main/underline.png)
 
-# Technologies used:
+## Technologies used:
 
-## Front-End:
+### Front-End:
 
 - REACT.JS
 - REACT FUNCTIONAL COMPONENTS
@@ -42,7 +42,7 @@ npm start
 - ROUTE GUARDING
 - CSS ANIMATIONS
 
-## Back-End:
+### Back-End:
 
 - FIREBASE USER AUTHENTICATION 
 - FIREBASE DATABASE
