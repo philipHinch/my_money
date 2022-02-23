@@ -117,7 +117,7 @@ input {
   transition: border-color 0.1s ease;
 }
 .noScrollY {
-  overflow-y: hidden;
+  overflow-y: hidden !important;
 }
 /* input:hover {
   border-color: var(--green);
@@ -128,6 +128,9 @@ input:focus {
 }
 ::placeholder {
   font-family: "Poppins", sans-serif;
+}
+.backgroundMint {
+  background-color: var(--mint-white);
 }
 /* buttons */
 .btn {
@@ -540,14 +543,6 @@ input:focus {
   overflow: hidden;
   animation: fadeIn 300ms ease-in;
 }
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
 .secondaryHomeImageContainer {
   border-left: 5px solid var(--yellow);
   display: flex;
@@ -621,6 +616,7 @@ input:focus {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+  position: relative;
 }
 .profileContainer::after {
   content: "";
@@ -711,8 +707,14 @@ input:focus {
 .progressContainer {
   height: 5px;
   width: 100%;
-  margin-bottom: 20px;
+  /* margin-bottom: 20px; */
   border-radius: 50px;
+}
+.progressContainer p {
+  width: 100%;
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--blue);
 }
 .progress {
   height: 100%;
@@ -740,6 +742,7 @@ input:focus {
   background-size: cover;
   /* background-color: black; */
   position: relative;
+  transition: border-color 0.1s ease;
 }
 .profilePictureContainer img {
   position: absolute;
@@ -813,6 +816,128 @@ input:focus {
 .editProfileIcon:hover {
   color: var(--orange);
 }
+/* edit modal */
+.editModalContainer {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  animation: fadeIn 300ms ease-in;
+}
+.editModal {
+  background-color: #fff;
+  position: fixed;
+  padding: 50px;
+  /* margin-top: 20px; */
+  border-radius: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 80%;
+  height: 80%;
+  max-width: 1400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  animation: moveUp 300ms ease-in;
+}
+.editModal label {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+.editModal label h5 {
+  margin-bottom: 10px;
+  color: var(--green);
+}
+.plusIconContainer {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  z-index: 30;
+  bottom: 20px;
+  right: 0px;
+  background-color: var(--green);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.profilePictureContainer:hover {
+  border-color: var(--green);
+}
+.plusIcon {
+  font-size: 2rem;
+  color: var(--blue);
+  cursor: pointer;
+  transition: color 0.1s ease;
+}
+.plusIconContainer:hover .plusIcon {
+  color: var(--mint-white);
+}
+.profilePictureWrapper {
+  position: relative;
+}
+.editNameContainer {
+  position: relative;
+  display: flex;
+  height: 70px;
+  justify-content: center;
+  align-items: center;
+}
+.editNameContainer input {
+  margin: 0;
+  border: 1px solid transparent;
+  background-color: #fff;
+  /* border: 1px solid var(--blue); */
+}
+.editNameContainer input:hover {
+  border-color: var(--green);
+}
+.pencilIconContainer {
+  position: absolute;
+  bottom: 3px;
+  right: 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--green);
+  height: 36px;
+  width: 36px;
+  border-radius: 50%;
+  margin-left: 10px;
+}
+.pencilIcon {
+  font-size: 1.5rem;
+  color: var(--blue);
+  cursor: pointer;
+  transition: color 0.1s ease;
+}
+.pencilIconContainer:hover .pencilIcon {
+  color: var(--mint-white);
+}
+.deleteProfile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.deleteAccountIcon {
+  font-size: 1.2rem;
+  margin-right: 5px;
+}
+.editModal .buttonContainer {
+  justify-content: center;
+}
+.editModal .btn-secondary {
+  margin-left: 10px;
+}
+/* profile form */
 .profileForm {
   display: flex;
   flex-direction: column;
@@ -1637,7 +1762,14 @@ input:focus {
 .borderPulsate {
   animation: borderPulsate 1s infinite;
 }
-
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 @keyframes borderPulsate {
   0% {
     border-color: var(--green);
@@ -1648,6 +1780,14 @@ input:focus {
   }
   100% {
     border-color: var(--green);
+  }
+}
+@keyframes moveUp {
+  from {
+    transform: translateY(2000px);
+  }
+  to {
+    transform: translateY(0px);
   }
 }
 /* media queries */
@@ -1795,6 +1935,9 @@ input:focus {
   }
   .footerPages {
     margin-right: 50px;
+  }
+  .editModal {
+    padding: 10px;
   }
 }
 @media (max-width: 450px) {
