@@ -838,6 +838,7 @@ input:focus {
   transform: translateY(-50%);
   width: 80%;
   height: 80%;
+  min-height: 500px;
   max-width: 1400px;
   display: flex;
   flex-direction: column;
@@ -1940,6 +1941,9 @@ input:focus {
     width: 95%;
     height: 80%;
     padding: 10px;
+  }
+  .editModal h1 {
+    font-size: 1.7rem;
   }
 }
 @media (max-width: 450px) {
