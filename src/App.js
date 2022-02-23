@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Footer from './components/Footer';
 import Navbar from './components/Navbar';
 import Menu from './components/Menu';
+import EditModal from './components/EditModal';
 //pages
 import Home from './pages/Home';
 import SignIn from './pages/SignIn';
@@ -34,6 +35,8 @@ function App() {
   const [photo, setPhoto] = useState(null)
   const [loading, setLoading] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const [isEdit, setIsEdit] = useState(false)
+
 
   //this is a trick to trigger navbar re-render on signup
   const [test, setTest] = useState(false)
@@ -54,6 +57,9 @@ function App() {
   return (
     <UserProvider>
       <Router>
+        {isEdit &&
+          <EditModal setIsEdit={setIsEdit} setPhoto={setPhoto} setDisplayName={setDisplayName} />
+        }
         <Menu menuOpen={menuOpen} setMenuOpen={setMenuOpen} displayName={displayName} setDisplayName={setDisplayName} photo={photo} setPhoto={setPhoto} test={test} />
         <Navbar displayName={displayName} setDisplayName={setDisplayName} photo={photo} setPhoto={setPhoto} test={test} menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
         <Routes>
@@ -61,7 +67,7 @@ function App() {
           <Route path='/sign-in' element={<SignIn loading={loading} setLoading={setLoading} />} />
           <Route path='/sign-up' element={<SignUp />} />
           <Route path='/profile/:userId' element={<PrivateRoute />} >
-            <Route path='/profile/:userId' element={<Profile displayName={displayName} setDisplayName={setDisplayName} photo={photo} setPhoto={setPhoto} loading={loading} setLoading={setLoading} />} />
+            <Route path='/profile/:userId' element={<Profile displayName={displayName} setDisplayName={setDisplayName} photo={photo} setPhoto={setPhoto} loading={loading} setLoading={setLoading} isEdit={isEdit} setIsEdit={setIsEdit} />} />
           </Route>
           <Route path='/forgot-password' element={<ForgotPassword />} />
           <Route path='/*' element={<NotFound />} />

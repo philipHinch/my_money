@@ -47,12 +47,16 @@ const Navbar = ({ displayName, setDisplayName, photo, setPhoto, test, menuOpen, 
         setMenuOpen(true)
     }
 
+    const handleNavbarClick = () => {
+        document.body.style.overflow = 'visible'
+    }
+
     if (checkingStatus) {
         return <Spinner />
     }
 
     return (
-        <ul className="navbarContainer">
+        <ul className="navbarContainer" >
             <li className="mainLogoContainer" onClick={() => navigate('/')}>
                 {/* <span>my</span> <Icon icon="mdi:alpha-m-box" className="mainLogoIcon" />
                 <span>oney</span> */}
