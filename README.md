@@ -1,7 +1,5 @@
 # myMoney - Expenses Tracking App 
 
-![This is an image](https://raw.githubusercontent.com/philipHinch/underline/main/underline.png)
-
 This is a personal **React** Project. This my first project ever in which I use backend technologies. Here I have set up user authentication together with a database and storage for profile images. Each user can sign up and then add/remove their expenses and incomes. They can also update their profile picture and username.
 
 There is a lot of asyncronus programming. I managed state with useReducer, useContext and useState. 
