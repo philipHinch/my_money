@@ -10,7 +10,7 @@ This project made me sweat at the beginning, it was my first project using backe
 
 Had some confusion with git branches, some commits are messy.
 
-# Install Dependencies
+### Install Dependencies
 
 ```
 npm install
