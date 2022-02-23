@@ -227,6 +227,7 @@ input:focus {
   transition: color 0.1s ease;
   display: flex;
   align-items: center;
+  transition: color 0.1s ease;
 }
 .navbarDisplayName:hover {
   color: var(--orange);
@@ -266,6 +267,7 @@ input:focus {
   background-size: cover;
   margin-right: 8px;
   position: relative;
+  transition: border-color 0.1s ease;
 }
 .profilePictureContainerNavbar img {
   position: absolute;
@@ -744,7 +746,29 @@ input:focus {
   position: relative;
   transition: border-color 0.1s ease;
 }
+.profilePictureContainerHeader {
+  width: 100px;
+  height: 100px;
+  margin-bottom: 20px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid var(--blue);
+  background: url("./assets/png/blank_profile.png") center no-repeat;
+  background-size: cover;
+  /* background-color: black; */
+  position: relative;
+  transition: border-color 0.1s ease;
+}
 .profilePictureContainer img {
+  position: absolute;
+  margin: auto;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+}
+.profilePictureContainerHeader img {
   position: absolute;
   margin: auto;
   top: 0;

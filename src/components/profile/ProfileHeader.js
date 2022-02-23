@@ -50,7 +50,7 @@ const ProfileHeader = ({ displayName, setIsEdit, photo }) => {
                 style={{ fontSize: '2rem' }}
                 onClick={handleCogClick} />
 
-            <div className="profilePictureContainer">
+            <div className="profilePictureContainerHeader">
                 <label htmlFor="photoURL">
                     <img src={photo ? photo : require('../../assets/png/blank_profile.png')} alt="profile picture" />
                 </label>
