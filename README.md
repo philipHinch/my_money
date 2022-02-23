@@ -1,5 +1,20 @@
 # myMoney - Expenses Tracking App 
 
+### Install Dependencies
+
+```
+npm install
+```
+
+### Run
+
+```
+npm start
+```
+
+![This is an image](https://raw.githubusercontent.com/philipHinch/underline/main/underline.png)
+
+
 This is a personal **React** Project. This my first project ever in which I use backend technologies. Here I have set up user authentication together with a database and storage for profile images. Each user can sign up and then add/remove their expenses and incomes. They can also update their profile picture and username.
 
 There is a lot of asyncronus programming. I managed state with useReducer, useContext and useState. 
@@ -16,7 +31,7 @@ Had some confusion with git branches, some commits are messy.
 
 Technologies used:
 
-Front-End:
+**Front-End**:
 
 - REACT.JS
 - REACT FUNCTIONAL COMPONENTS
@@ -28,7 +43,7 @@ Front-End:
 - ROUTE GUARDING
 - CSS ANIMATIONS
 
-Back-End:
+**Back-End**:
 
 - FIREBASE USER AUTHENTICATION 
 - FIREBASE DATABASE
