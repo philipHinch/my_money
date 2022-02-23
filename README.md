@@ -28,7 +28,7 @@ npm start
 
 Technologies used:
 
-##Front-End:
+## Front-End:
 
 - REACT.JS
 - REACT FUNCTIONAL COMPONENTS
@@ -40,7 +40,7 @@ Technologies used:
 - ROUTE GUARDING
 - CSS ANIMATIONS
 
-##Back-End:
+## Back-End:
 
 - FIREBASE USER AUTHENTICATION 
 - FIREBASE DATABASE
