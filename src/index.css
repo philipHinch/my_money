@@ -1937,6 +1937,8 @@ input:focus {
     margin-right: 50px;
   }
   .editModal {
+    width: 95%;
+    height: 80%;
     padding: 10px;
   }
 }
