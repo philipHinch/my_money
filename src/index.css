@@ -1005,6 +1005,25 @@ input:focus {
   min-width: 250px;
   max-width: 600px;
 }
+#selectInput {
+  margin: 10px 0;
+  width: 100%;
+  min-width: 250px;
+  max-width: 600px;
+  padding: 15px;
+  outline: none;
+  border: 1px solid var(--blue);
+  background-color: white;
+  padding-left: 45px;
+  font-size: 1.1rem;
+  transition: border-color 0.1s ease;
+  cursor: pointer;
+}
+#selectInput option {
+  font-size: 1.1rem;
+  padding: 15px;
+  cursor: pointer;
+}
 .expenseTitleDiv {
   width: 100%;
   min-width: 250px;
@@ -1151,7 +1170,14 @@ input:focus {
 .day {
   font-size: 1.2rem;
 }
-
+.expenseItemCategory {
+  width: 40px;
+  height: 40px;
+  margin-left: 10px;
+}
+.expenseItemCategory img {
+  width: 100%;
+}
 /* sign-in & sign-out*/
 .signUpContainer {
   border-top: 6px solid var(--yellow);

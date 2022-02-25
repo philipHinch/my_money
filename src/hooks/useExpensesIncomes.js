@@ -40,7 +40,8 @@ export const useExpensesIncomes = () => {
                         expenseIncomeTitle: item.expenseIncomeTitle,
                         expenseIncomeAmount: item.expenseIncomeAmount,
                         expenseIncomeId: item.expenseIncomeId,
-                        expenseIncomeDate: new Date(item.expenseIncomeDate)
+                        expenseIncomeDate: new Date(item.expenseIncomeDate),
+                        expenseIncomeCategory: item.expenseIncomeCategory
                     })
                 })
 

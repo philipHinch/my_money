@@ -216,7 +216,7 @@ const ProfileList = () => {
 
                 {data && data.map(item => (
                     <li key={item.expenseIncomeId} id='expenseItem' className='expenseItem' style={{ borderLeft: `6px solid ${ item.expenseIncomeAmount < 0 ? '#e76f51' : '#2a9d8f' }` }}>
-                        {/* <p className="expenseItemDate">{item.expenseIncomeDate.getDate()}-{item.expenseIncomeDate.getMonth()}-{item.expenseIncomeDate.getFullYear()}</p> */}
+
                         <p className="expenseItemDate">
                             <span className="date-as-calendar">
                                 {/* <span className="month">{item.expenseIncomeDate.getMonth()}</span> */}
@@ -227,9 +227,21 @@ const ProfileList = () => {
                                 <span className="year">{item.expenseIncomeDate.getFullYear()}</span>
                             </span>
                         </p>
-                        <p className="expenseItemTitle">{item.expenseIncomeTitle}</p>
-                        <p className={`expenseItemAmount ${ item.expenseIncomeAmount < 0 ? 'negativeColor' : 'positiveColor' }`}>{item.expenseIncomeAmount > 0 ? '+' : ''}{item.expenseIncomeAmount.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-                            + '€'}</p>
+
+                        <p className="expenseItemCategory">
+                            <img src={require(`../../assets/category_icons/${ item.expenseIncomeCategory }.png`)} alt="" />
+                        </p>
+
+                        <p className="expenseItemTitle">
+                            {item.expenseIncomeTitle}
+                        </p>
+
+
+                        <p className={`expenseItemAmount ${ item.expenseIncomeAmount < 0 ? 'negativeColor' : 'positiveColor' }`}>
+                            {item.expenseIncomeAmount > 0 ? '+' : ''}{item.expenseIncomeAmount.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                                + '€'}
+                        </p>
+
                         <div className="deleteIconContainer">
                             <Icon icon="mdi:close-thick" className='deleteIcon' id={item.expenseIncomeId} onClick={handleDelete} />
                         </div>

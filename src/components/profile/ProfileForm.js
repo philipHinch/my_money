@@ -13,6 +13,10 @@ import { useParams } from "react-router-dom";
 import { v4 as uuidv4 } from 'uuid';
 import { toast } from "react-toastify";
 
+const expensesCategoriesArr = ['other', 'car', 'entertainment', 'food', 'grocery', 'health', 'house', 'insurance', 'miscellaneous', 'petrol', 'phone', 'restaurant', 'sport', 'transport', 'travel', 'taxes', 'utility']
+
+const incomesCategoriesArr = ['other', 'business', 'gift', 'house', 'insurance', 'interest', 'miscellaneous', 'pension', 'salary',]
+
 const ProfileForm = () => {
 
     // ******** STATES AND OTHERS ********//
@@ -21,18 +25,30 @@ const ProfileForm = () => {
     const date = useDate()
     const params = useParams()
     const { user } = useContext(UserContext)
+    const [selectValue, setSelectValue] = useState('other')
     const [expense, setExpense] = useState(true)
     const [income, setIncome] = useState(false)
     const [formData, setFormData] = useState({
         expenseIncomeTitle: '',
         expenseIncomeAmount: '',
         expenseIncomeDate: '',
-        expenseIncomeId: ''
+        expenseIncomeId: '',
+        expenseIncomeCategory: selectValue
         //servertimestamp will replace expenseDate
     })
-    const { expenseIncomeTitle, expenseIncomeAmount, expenseIncomeDate } = formData
+    const { expenseIncomeTitle, expenseIncomeAmount, expenseIncomeDate, expenseIncomeCategory } = formData
 
     // ********* MAIN LOGIC *********//
+
+    const capitalize = (s) => {
+        if (typeof s !== 'string') return ''
+        return s.charAt(0).toUpperCase() + s.slice(1)
+    }
+
+    //handle select values
+    const handleSelectChange = (e) => {
+        setSelectValue(e.target.value)
+    }
 
     //submit expense/income form data
     const handleSubmit = async (e) => {
@@ -51,7 +67,8 @@ const ProfileForm = () => {
                 expenseIncomeTitle,
                 expenseIncomeAmount: num,
                 expenseIncomeDate: d,
-                expenseIncomeId: uuidv4()
+                expenseIncomeId: uuidv4(),
+                expenseIncomeCategory: selectValue
             }, ...oldArr]
 
 
@@ -71,6 +88,7 @@ const ProfileForm = () => {
             expenseIncomeAmount: '',
             expenseIncomeDate: '',
             expenseIncomeId: ''
+
         })
     }
 
@@ -134,6 +152,18 @@ const ProfileForm = () => {
                 onChange={(e) => handleChange(e)}
                 required
             />
+            {expense && <select name='categories' id="selectInput" onChange={handleSelectChange}>
+                {expensesCategoriesArr.map(cat => (
+                    <option value={cat} key={cat}>{capitalize(cat)}</option>
+                ))}
+            </select>}
+
+            {income && <select name='categories' id="selectInput" onChange={handleSelectChange}>
+                {incomesCategoriesArr.map(cat => (
+                    <option value={cat} key={cat}>{capitalize(cat)}</option>
+                ))}
+            </select>}
+
             <button type='submit' className="btn addBtn">Add</button>
         </form>
     );

@@ -17,6 +17,7 @@ export const UserProvider = ({ children }) => {
     }
     const [state, dispatch] = useReducer(UserReducer, initialState)
 
+
     //check if user
     useEffect(() => {
         const auth = getAuth()
