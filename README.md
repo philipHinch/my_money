@@ -10,15 +10,31 @@ This project made me sweat at the beginning, it was my first project using backe
 
 Had some confusion with git branches, some commits are messy.
 
+[View Project](https://mymoneytracker.vercel.app/)
+
 ![This is an image](https://raw.githubusercontent.com/philipHinch/underline/main/underline.png)
 
-Technologies used:
+### Install Dependencies
 
-Front-End:
+```
+npm install
+```
+
+### Run
+
+```
+npm start
+```
+
+![This is an image](https://raw.githubusercontent.com/philipHinch/underline/main/underline.png)
+
+## Technologies used:
+
+### Front-End:
 
 - REACT.JS
 - REACT FUNCTIONAL COMPONENTS
-- REACT HOOKS
+- REACT HOOKS + CUSTOM HOOKS
 - STATE MANAGEMENT WITH USEREDUCER & USECONTEXT
 - CONTROLLED INPUTS
 - ASYNC/AWAIT
@@ -26,7 +42,7 @@ Front-End:
 - ROUTE GUARDING
 - CSS ANIMATIONS
 
-Back-End:
+### Back-End:
 
 - FIREBASE USER AUTHENTICATION 
 - FIREBASE DATABASE
