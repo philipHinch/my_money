@@ -94,6 +94,7 @@ const SignUp = () => {
                         maxLength='15'
                         value={name}
                         onChange={handleChange} />
+                    <small className='hiddenNameInfo'>(Min 3 - Max 15)</small>
                 </div>
                 <div className="emailDiv">
                     <input
@@ -105,6 +106,7 @@ const SignUp = () => {
                         placeholder='Email'
                         value={email}
                         onChange={handleChange} />
+                    <small className='hiddenEmailInfo'>(Must contain @)</small>
                 </div>
                 {/* add photo? */}
                 <div className="passwordDiv">
@@ -119,7 +121,9 @@ const SignUp = () => {
                         value={password}
                         onChange={handleChange} />
                     <img src={visibilityIcon} alt="show password" className='showPassword' title='Show Password' onClick={() => setShowPassword(!showPassword)} />
+                    <small className='hiddenPasswordInfo'>(Min 6 Characters)</small>
                 </div>
+
                 <button type="submit" className='btn signInUpBtn'>Sign Up</button>
                 <Link to='/sign-in' className='signInUpInstead'>Sign In Instead</Link>
             </form>

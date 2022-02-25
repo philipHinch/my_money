@@ -68,6 +68,7 @@ const SignIn = () => {
                         placeholder='Email'
                         value={email}
                         onChange={handleChange} />
+                    <small className='hiddenEmailInfo'>(Min 3 - Max 15)</small>
                 </div>
                 <div className="passwordDiv">
                     <input
@@ -81,6 +82,7 @@ const SignIn = () => {
                         value={password}
                         onChange={handleChange} />
                     <img src={visibilityIcon} alt="show password" className='showPassword' title='Show Password' onClick={() => setShowPassword(!showPassword)} />
+                    <small className='hiddenPasswordInfo'>(Min 6 Characters)</small>
                 </div>
                 <Link to='/forgot-password' className='forgotPassword'>Forgot Password?</Link>
                 <button type="submit" className='btn signInUpBtn'>Sign In</button>

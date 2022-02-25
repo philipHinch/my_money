@@ -784,17 +784,23 @@ input:focus {
   width: 100%;
   border: none;
   text-align: center;
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   font-weight: bolder;
+  color: var(--green);
   color: var(--blue);
   margin-bottom: 20px;
   padding: 5px;
   border: 1px solid transparent;
 }
+.profileName small {
+  font-size: 1.1rem;
+  color: var(--blue);
+}
 .profileEmail {
   width: 100%;
   border: none;
   letter-spacing: 2px;
+  font-size: 1rem;
   text-align: center;
   color: var(--blue);
   padding: 5px;
@@ -1335,6 +1341,29 @@ input:focus {
 .emailDiv,
 .nameDiv {
   margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.hiddenNameInfo,
+.hiddenEmailInfo,
+.hiddenPasswordInfo {
+  color: var(--red);
+  font-weight: bold;
+  font-size: 0.7rem;
+  opacity: 0;
+}
+.nameDiv:hover .hiddenNameInfo {
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+.emailDiv:hover .hiddenEmailInfo {
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+.passwordDiv:hover .hiddenPasswordInfo {
+  opacity: 1;
+  transition: opacity 0.5s ease;
 }
 .showPassword {
   cursor: pointer;

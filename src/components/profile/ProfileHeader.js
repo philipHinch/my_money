@@ -56,23 +56,15 @@ const ProfileHeader = ({ displayName, setIsEdit, photo }) => {
                 </label>
             </div>
 
-
-            <input
-                type="text"
+            <p
                 className='profileName'
                 id='displayName'
-                minLength='3'
-                maxLength='15'
-                value={displayName}
-                disabled />
+            ><small>Hello,</small> {displayName}</p>
 
-
-            <input
-                type="text"
+            {/* <p
                 className='profileEmail'
                 id='email'
-                value={email}
-                disabled />
+            >{email}</p> */}
 
         </div>
     );

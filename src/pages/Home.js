@@ -6,7 +6,11 @@ import { ReactComponent as PiggyImage } from '../assets/svg/savings.svg';
 import { Icon } from '@iconify/react';
 //router
 import { useNavigate } from 'react-router-dom';
-import Slider from '../components/Slider';
+//context
+import UserContext from '../context/UserContext';
+//hooks
+import { useContext } from 'react';
+
 
 const testimonials = [
     {
@@ -66,26 +70,12 @@ const testimonials = [
 
 const Home = () => {
 
+    const { user } = useContext(UserContext)
     const navigate = useNavigate()
 
     return (
-        //CREATE A MAIN CONTENT SLIDESHOW...
+        //CREATE A MAIN CONTENT SLIDESHOW???...
         <section className='home'>
-            {/* <main className="homeContainer">
-                <div className="homeTextContainer">
-                    <h1 className='homeMainText'>Track your expenses</h1>
-                    <p className='homeParagraph'>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsam rem repellat harum officiis molestias soluta veniam! Magnam dicta accusantium architecto.</p>
-                    <div className="mobileIcons">
-                        <Icon icon="ant-design:apple-filled" className='mobileIcon' fontSize={'40px'} />
-                        <Icon icon="ant-design:android-filled" className='mobileIcon' fontSize={'40px'} />
-                    </div>
-                    <button className="btn" onClick={() => navigate('/sign-up')}>Sign Up</button>
-                </div>
-                <div className="homeImageContainer">
-                    <HomeImage className='homeImage' />
-                </div>
-            </main> */}
-
             <main className="homeContainer secondaryHomeContainer">
                 <div className="homeTextContainer secondaryTextContainer darkBack">
                     <h1 className='homeMainText secondaryHomeMainText'>Start tracking your expenses today</h1>
@@ -98,14 +88,12 @@ const Home = () => {
                         <Icon icon="ant-design:apple-filled" className='mobileIcon' fontSize={'40px'} />
                         <Icon icon="ant-design:android-filled" className='mobileIcon' fontSize={'40px'} />
                     </div>
-                    <button className="btn" onClick={() => navigate('/sign-up')}>Sign Up</button>
+                    <button className="btn" onClick={() => navigate('/sign-up')}>{user ? 'My Profile' : 'Sign Up'}</button>
                 </div>
                 <div className="homeImageContainer secondaryHomeImageContainer">
                     <PiggyImage className='homeImage piggyImage' />
                 </div>
             </main>
-
-            {/* <Slider /> */}
 
             <div className='testimonialContainer homeContainer'>
                 {testimonials.map(user => (

@@ -41,7 +41,6 @@ function App() {
   //this is a trick to trigger navbar re-render on signup
   const [test, setTest] = useState(false)
 
-
   //takes care of photo update on initial load and after editing picture
   useEffect(() => {
     const getUserDetails = () => {
@@ -53,6 +52,14 @@ function App() {
     }
     getUserDetails()
   }, [])
+
+  if (isEdit) {
+    document.body.style.overflow = 'hidden'
+  }
+
+  if (!isEdit) {
+    document.body.style.overflow = 'visible'
+  }
 
   return (
     <UserProvider>

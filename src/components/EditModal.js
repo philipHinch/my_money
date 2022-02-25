@@ -88,8 +88,10 @@ const EditModal = ({ setIsEdit, setPhoto, setDisplayName }) => {
             await reauthenticateWithCredential(user, credential).then(() => {
                 // User re-authenticated.
                 deleteUser(user).then(() => {
-                    getData()
+                    //getData()
                     logout()
+                    setIsEdit(false)
+                    toast.success('Account deleted succesfully')
                 }).catch((error) => {
                     toast.error('Could not delete user profile')
                     console.log(error);
