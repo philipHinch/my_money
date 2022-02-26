@@ -233,9 +233,13 @@ const ProfileList = () => {
                             </span>
                         </p>
 
-                        <p className="expenseItemCategory" title={capitalize(item.expenseIncomeCategory)}>
+                        {item.expenseIncomeCategory && <p className="expenseItemCategory" title={capitalize(item.expenseIncomeCategory)}>
                             <img src={require(`../../assets/category_icons/${ item.expenseIncomeCategory }.png`)} alt="" />
-                        </p>
+                        </p>}
+
+                        {!item.expenseIncomeCategory && <p className="expenseItemCategory" title='other'>
+                            <img src={require(`../../assets/category_icons/other.png`)} alt="" />
+                        </p>}
 
                         <p className="expenseItemTitle">
                             {item.expenseIncomeTitle}
