@@ -1383,7 +1383,7 @@ input:focus {
   font-size: 0.7rem;
   opacity: 0;
 }
-.nameDiv:hover .hiddenNameInfo {
+/* .nameDiv:hover .hiddenNameInfo {
   opacity: 1;
   transition: opacity 0.5s ease;
 }
@@ -1394,7 +1394,7 @@ input:focus {
 .passwordDiv:hover .hiddenPasswordInfo {
   opacity: 1;
   transition: opacity 0.5s ease;
-}
+} */
 .showPassword {
   cursor: pointer;
   position: absolute;
@@ -2019,6 +2019,12 @@ input:focus {
   }
   input {
     font-size: 0.8rem;
+  }
+  option {
+    font-size: 0.8rem !important;
+  }
+  select {
+    font-size: 0.8rem !important;
   }
   .notFoundBtn {
     margin-top: 0;

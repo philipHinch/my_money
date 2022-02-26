@@ -49,7 +49,7 @@ export const useExpensesIncomes = () => {
                 arr.sort((a, b) => b.expenseIncomeDate - a.expenseIncomeDate)
 
             } else {
-                console.log("No expenses or incomes in firebase");
+
             }
             //dispatch action
             dispatch({
