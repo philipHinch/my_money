@@ -127,7 +127,7 @@ const ProfileForm = () => {
                     id="expenseIncomeTitle"
                     placeholder={expense ? 'Expense Title' : 'Income Title'} required
                     minLength='3'
-                    maxLength='15'
+                    maxLength='12'
                     value={expenseIncomeTitle}
                     onChange={(e) => handleChange(e)}
                 />

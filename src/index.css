@@ -1171,8 +1171,11 @@ input:focus {
   font-size: 1.2rem;
 }
 .expenseItemCategory {
-  width: 40px;
-  height: 40px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 36px;
+  height: 36px;
   margin-left: 10px;
 }
 .expenseItemCategory img {
@@ -1980,8 +1983,6 @@ input:focus {
     min-width: 200px;
     display: none;
   }
-  .piggyImage {
-  }
   .signInUpBtn {
     margin-top: 80px;
   }
@@ -1999,6 +2000,21 @@ input:focus {
   }
   .balanceAmount {
     font-size: 1.2rem;
+  }
+  .expenseItem {
+    padding: 2px;
+    flex-wrap: wrap;
+  }
+  .expenseItemTitle,
+  .expenseItemAmount {
+    font-size: 0.9rem;
+  }
+  .date-as-calendar {
+    margin: 0;
+  }
+  .expenseItemCategory,
+  .deleteIcon {
+    margin-left: 2px;
   }
   input {
     font-size: 0.8rem;
@@ -2053,5 +2069,9 @@ input:focus {
   .signInOutPassword,
   .signInOutName {
     width: 100%;
+  }
+  .expenseItemCategory {
+    width: 20px;
+    height: 20px;
   }
 }
