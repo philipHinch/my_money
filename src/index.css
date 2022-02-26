@@ -1164,9 +1164,9 @@ input:focus {
   transition: opacity 0.1s ease;
   /* border: 1px solid var(--blue); */
 }
-.expenseItem:hover .date-as-calendar {
+/* .expenseItem:hover .date-as-calendar {
   opacity: 1;
-}
+} */
 .day {
   font-size: 1.2rem;
 }
@@ -1176,10 +1176,11 @@ input:focus {
   align-items: center;
   width: 36px;
   height: 36px;
-  margin-left: 10px;
+  margin-left: 20px;
 }
 .expenseItemCategory img {
   width: 100%;
+  opacity: 0.8;
 }
 /* sign-in & sign-out*/
 .signUpContainer {

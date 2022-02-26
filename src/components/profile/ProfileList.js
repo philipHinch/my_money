@@ -199,6 +199,11 @@ const ProfileList = () => {
         }
     }
 
+    const capitalize = (s) => {
+        if (typeof s !== 'string') return ''
+        return s.charAt(0).toUpperCase() + s.slice(1)
+    }
+
     return (
         <div className="profileExpenses">
             <Icon icon="mdi:delete-forever" className='clearAllIcon'
@@ -228,7 +233,7 @@ const ProfileList = () => {
                             </span>
                         </p>
 
-                        <p className="expenseItemCategory">
+                        <p className="expenseItemCategory" title={capitalize(item.expenseIncomeCategory)}>
                             <img src={require(`../../assets/category_icons/${ item.expenseIncomeCategory }.png`)} alt="" />
                         </p>
 

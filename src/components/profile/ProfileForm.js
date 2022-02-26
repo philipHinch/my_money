@@ -25,15 +25,14 @@ const ProfileForm = () => {
     const date = useDate()
     const params = useParams()
     const { user } = useContext(UserContext)
-    const [selectValue, setSelectValue] = useState('other')
+    const [selectValue, setSelectValue] = useState('')
     const [expense, setExpense] = useState(true)
     const [income, setIncome] = useState(false)
     const [formData, setFormData] = useState({
         expenseIncomeTitle: '',
         expenseIncomeAmount: '',
         expenseIncomeDate: '',
-        expenseIncomeId: '',
-        expenseIncomeCategory: selectValue
+        expenseIncomeId: ''
         //servertimestamp will replace expenseDate
     })
     const { expenseIncomeTitle, expenseIncomeAmount, expenseIncomeDate, expenseIncomeCategory } = formData
@@ -53,6 +52,7 @@ const ProfileForm = () => {
     //submit expense/income form data
     const handleSubmit = async (e) => {
         e.preventDefault()
+        let cat = selectValue ? selectValue.toLowerCase() : 'other'
         let num = expenseIncomeAmount
         //set number either to negative or positive
         expense ? (num = Math.abs(num) * -1) : num = Math.abs(num)
@@ -68,26 +68,27 @@ const ProfileForm = () => {
                 expenseIncomeAmount: num,
                 expenseIncomeDate: d,
                 expenseIncomeId: uuidv4(),
-                expenseIncomeCategory: selectValue
+                expenseIncomeCategory: cat
             }, ...oldArr]
 
 
             await updateDoc(docRef, {
                 expensesIncomes: newArr
             })
-
             getData()
-
             toast.success('Item Added')
         } else {
             console.log("No such document!");
         }
         //reset form
+        setSelectValue('')
         setFormData({
             expenseIncomeTitle: '',
             expenseIncomeAmount: '',
             expenseIncomeDate: '',
-            expenseIncomeId: ''
+            expenseIncomeId: '',
+            //reset category..
+
 
         })
     }
@@ -112,8 +113,6 @@ const ProfileForm = () => {
         setIncome(true)
         setExpense(false)
     }
-
-
 
     return (
         <form className="profileForm" onSubmit={handleSubmit}>
@@ -152,15 +151,15 @@ const ProfileForm = () => {
                 onChange={(e) => handleChange(e)}
                 required
             />
-            {expense && <select name='categories' id="selectInput" onChange={handleSelectChange}>
+            {expense && <select name='categories' id="selectInput" value={selectValue} onChange={handleSelectChange}>
                 {expensesCategoriesArr.map(cat => (
-                    <option value={cat} key={cat}>{capitalize(cat)}</option>
+                    <option key={cat}>{capitalize(cat)}</option>
                 ))}
             </select>}
 
-            {income && <select name='categories' id="selectInput" onChange={handleSelectChange}>
+            {income && <select name='categories' id="selectInput" value={selectValue} onChange={handleSelectChange}>
                 {incomesCategoriesArr.map(cat => (
-                    <option value={cat} key={cat}>{capitalize(cat)}</option>
+                    <option key={cat}>{capitalize(cat)}</option>
                 ))}
             </select>}
 
